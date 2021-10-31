@@ -14,7 +14,7 @@ const CardItem = (props) => {
         />
         <Button
           buttonStyle={{
-            borderRadius: 0,
+            borderRadius: 3,
             marginLeft: 0,
             marginRight: 0,
             marginBottom: 0,
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   card: {
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: "#f6911b",
   },
   img: {
