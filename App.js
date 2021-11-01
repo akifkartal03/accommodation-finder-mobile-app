@@ -1,11 +1,12 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import PrivateDormList from "./src/screens/list_screens/PrivateDorms.jsx";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { theme } from "./src/components/login/theme";
 import { Provider } from "react-native-paper";
+import { LogBox } from "react-native";
 import {
   StartScreen,
   LoginScreen,
@@ -13,9 +14,10 @@ import {
   ResetPasswordScreen,
 } from "./src/screens/login";
 import Dashboard from "./src/screens/list_screens/PrivateDorms";
-
+LogBox.ignoreAllLogs();
 export default function App() {
   const Stack = createNativeStackNavigator();
+
   return (
     <Provider theme={theme}>
       <NavigationContainer>

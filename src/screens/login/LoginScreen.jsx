@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TouchableOpacity, StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 import Background from "../../components/login/Background";
@@ -10,10 +10,26 @@ import BackButton from "../../components/login/BackButton";
 import { theme } from "../../components/login/theme";
 import { emailValidator } from "../../utils/validators/emailValidator";
 import { passwordValidator } from "../../utils/validators/passwordValidator";
+import Firebase from "../../database/firebase_config";
+import { addDorm } from "../../database/services/dormitory_service";
+import data from "../../database/dorms";
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
+
+  useEffect(() => {
+    const unsubscribe = Firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        navigation.reset({
+          index: 0,
+          routes: [{ name: "Dashboard" }],
+        });
+      }
+    });
+
+    return unsubscribe;
+  }, []);
 
   const onLoginPressed = () => {
     const emailError = emailValidator(email.value);
@@ -23,10 +39,20 @@ export default function LoginScreen({ navigation }) {
       setPassword({ ...password, error: passwordError });
       return;
     }
-    navigation.reset({
-      index: 0,
-      routes: [{ name: "Dashboard" }],
+    Firebase.auth()
+      .signInWithEmailAndPassword(email.value, password.value)
+      .then((userCredentials) => {
+        const user = userCredentials.user;
+        console.log("Logged in with:", user.email);
+      })
+      .catch((error) => alert(error.message));
+  };
+
+  const addData = () => {
+    data.map((element) => {
+      addDorm(element);
     });
+    navigation.navigate("ResetPasswordScreen");
   };
 
   return (
@@ -56,9 +82,7 @@ export default function LoginScreen({ navigation }) {
         secureTextEntry
       />
       <View style={styles.forgotPassword}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate("ResetPasswordScreen")}
-        >
+        <TouchableOpacity onPress={addData}>
           <Text style={styles.forgot}>Şifrenimi unuttun?</Text>
         </TouchableOpacity>
       </View>

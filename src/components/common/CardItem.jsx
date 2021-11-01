@@ -8,10 +8,7 @@ const CardItem = (props) => {
       <Card containerStyle={styles.card}>
         <Card.Title>{props.title}</Card.Title>
         <Card.Divider />
-        <Image
-          style={styles.img}
-          source={require("../../../assets/images/hudayi.jpg")}
-        />
+        <Image style={styles.img} source={{ uri: props.img }} />
         <Button
           buttonStyle={{
             borderRadius: 3,
@@ -48,7 +45,7 @@ const styles = StyleSheet.create({
     borderColor: "#f6911b",
   },
   img: {
-    width: 345,
+    width: 330,
     height: 200,
   },
 });

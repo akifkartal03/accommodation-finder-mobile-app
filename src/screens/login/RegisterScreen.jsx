@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { Text } from "react-native-paper";
 import Background from "../../components/login/Background";
@@ -11,11 +11,25 @@ import { theme } from "../../components/login/theme";
 import { emailValidator } from "../../utils/validators/emailValidator";
 import { passwordValidator } from "../../utils/validators/passwordValidator";
 import { nameValidator } from "../../utils/validators/nameValidator";
+import Firebase from "../../database/firebase_config";
 
 export default function RegisterScreen({ navigation }) {
   const [name, setName] = useState({ value: "", error: "" });
   const [email, setEmail] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
+
+  useEffect(() => {
+    const unsubscribe = Firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        navigation.reset({
+          index: 0,
+          routes: [{ name: "Dashboard" }],
+        });
+      }
+    });
+
+    return unsubscribe;
+  }, []);
 
   const onSignUpPressed = () => {
     const nameError = nameValidator(name.value);
@@ -27,6 +41,18 @@ export default function RegisterScreen({ navigation }) {
       setPassword({ ...password, error: passwordError });
       return;
     }
+    const nameVal = name.value;
+    const emailVal = email.value;
+    Firebase.auth()
+      .createUserWithEmailAndPassword(email.value, password.value)
+      .then((userCredentials) => {
+        const user = userCredentials.user;
+        Firebase.firestore().collection("users").doc(user.uid).set({
+          nameVal,
+          emailVal,
+        });
+      })
+      .catch((error) => console.log(error.message));
     navigation.reset({
       index: 0,
       routes: [{ name: "Dashboard" }],
