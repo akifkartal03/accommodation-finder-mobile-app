@@ -3,21 +3,10 @@ import { StyleSheet, Text, View, FlatList } from "react-native";
 import Header from "../../components/common/Header.jsx";
 import CardItem from "../../components/common/CardItem.jsx";
 import Firebase from "../../database/firebase_config.js";
-import { getAll } from "../../database/services/dormitory_service.js";
+import { useStore } from "../../redux/store/Provider";
 
 const PrivateDormsList = ({ navigation }) => {
-  const [items, setItems] = useState([]);
-  const onDataChange = (elements) => {
-    let dorms = [];
-    elements.docs.forEach((item) => {
-      dorms.push(item.data());
-    });
-    setItems(dorms);
-  };
-  useEffect(() => {
-    const unsubscribe = getAll().onSnapshot(onDataChange);
-    return () => unsubscribe();
-  }, []);
+  const [{ user }, dispatch] = useStore("");
   const exitPressed = () => {
     Firebase.auth()
       .signOut()
@@ -33,7 +22,7 @@ const PrivateDormsList = ({ navigation }) => {
     <View style={styles.container}>
       <Header title="Özel Yurtlar" exit={exitPressed} />
       <FlatList
-        data={items}
+        data={user.dorms}
         renderItem={({ item }) => (
           <CardItem title={item.Name} img={item.Images[0]} />
         )}

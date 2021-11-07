@@ -8,6 +8,9 @@ export async function getUsers() {
 export function addUser(tmpUser) {
   return db.add(tmpUser);
 }
+export function getUserByID(id) {
+  return db.doc(id).get();
+}
 export function updateUser(id, value) {
   return db.doc(id).update(value);
 }

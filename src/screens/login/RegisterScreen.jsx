@@ -12,15 +12,19 @@ import { emailValidator } from "../../utils/validators/emailValidator";
 import { passwordValidator } from "../../utils/validators/passwordValidator";
 import { nameValidator } from "../../utils/validators/nameValidator";
 import Firebase from "../../database/firebase_config";
+import { getUserByID } from "../../database/services/user_service";
+import { useStore } from "../../redux/store/Provider";
+import { setUSer } from "../../redux/actions/LoginAction";
 
 export default function RegisterScreen({ navigation }) {
   const [name, setName] = useState({ value: "", error: "" });
   const [email, setEmail] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
+  const [{ user }, dispatch] = useStore();
 
   useEffect(() => {
-    const unsubscribe = Firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
+    const unsubscribe = Firebase.auth().onAuthStateChanged((user2) => {
+      if (user2) {
         navigation.reset({
           index: 0,
           routes: [{ name: "Dashboard" }],
@@ -46,11 +50,19 @@ export default function RegisterScreen({ navigation }) {
     Firebase.auth()
       .createUserWithEmailAndPassword(email.value, password.value)
       .then((userCredentials) => {
-        const user = userCredentials.user;
-        Firebase.firestore().collection("users").doc(user.uid).set({
+        const user3 = userCredentials.user;
+        Firebase.firestore().collection("users").doc(user3.uid).set({
           nameVal,
           emailVal,
         });
+        getUserByID(user3.uid)
+          .then((docRef) => {
+            user.info = docRef.data();
+            dispatch(setUSer(user));
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       })
       .catch((error) => console.log(error.message));
     navigation.reset({

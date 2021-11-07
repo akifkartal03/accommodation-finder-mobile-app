@@ -145,7 +145,6 @@ let data = [
     ],
   },
   {
-    _id: "617957959f64aef905a65d93",
     Name: "HÜDAYİ GEBZE YÜKSEKÖĞRENİM ERKEK ÖĞRENCİ YURDU",
     Type: 2,
     MonthlyPrice: [

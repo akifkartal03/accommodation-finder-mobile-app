@@ -11,19 +11,21 @@ import { theme } from "../../components/login/theme";
 import { emailValidator } from "../../utils/validators/emailValidator";
 import { passwordValidator } from "../../utils/validators/passwordValidator";
 import Firebase from "../../database/firebase_config";
-import { addDorm } from "../../database/services/dormitory_service";
-import data from "../../database/dorms";
+import { getUserByID } from "../../database/services/user_service";
+import { useStore } from "../../redux/store/Provider";
+import { setUSer } from "../../redux/actions/LoginAction";
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
+  const [{ user }, dispatch] = useStore();
 
   useEffect(() => {
     const unsubscribe = Firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         navigation.reset({
           index: 0,
-          routes: [{ name: "Dashboard" }],
+          routes: [{ name: "DormData" }],
         });
       }
     });
@@ -42,16 +44,20 @@ export default function LoginScreen({ navigation }) {
     Firebase.auth()
       .signInWithEmailAndPassword(email.value, password.value)
       .then((userCredentials) => {
-        const user = userCredentials.user;
-        console.log("Logged in with:", user.email);
+        const user2 = userCredentials.user;
+        getUserByID(user2.uid)
+          .then((docRef) => {
+            user.info = docRef.data();
+            dispatch(setUSer(user));
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       })
       .catch((error) => alert(error.message));
   };
 
   const addData = () => {
-    data.map((element) => {
-      addDorm(element);
-    });
     navigation.navigate("ResetPasswordScreen");
   };
 
