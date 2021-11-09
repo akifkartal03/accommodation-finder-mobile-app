@@ -9,16 +9,21 @@ const Header = (props) => {
     <View style={styles.header}>
       <View style={{ flexDirection: "row" }}>
         <View style={{ flex: 1 }}>
-          <Text style={styles.text}>{props.title}</Text>
+          <Text style={styles.text}>{props.headTitle}</Text>
         </View>
         <View style={{ flex: 1, paddingTop: 10, marginRight: -40 }}>
           <Button
             style={styles.text2}
-            icon={<Icon name="sign-out" size={20} color="white" />}
-            title="Çıkış Yap"
+            icon={<Icon name={props.iconName} size={22} color="white" />}
+            title={props.buttonTitle}
             type="clear"
-            titleStyle={{ color: "white", marginLeft: 5 }}
-            onPress={props.exit}
+            titleStyle={{
+              color: "white",
+              marginLeft: 7,
+              fontSize: 18,
+              marginTop: -2,
+            }}
+            onPress={props.pressHandle}
           />
         </View>
       </View>
@@ -56,6 +61,7 @@ const styles = StyleSheet.create({
   },
   text2: {
     justifyContent: "flex-end",
+    fontSize: 20,
   },
   container: {
     flex: 1,

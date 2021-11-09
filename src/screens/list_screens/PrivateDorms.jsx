@@ -20,7 +20,12 @@ const PrivateDormsList = ({ navigation }) => {
   };
   return (
     <View style={styles.container}>
-      <Header title="Özel Yurtlar" exit={exitPressed} />
+      <Header
+        headTitle="Özel Yurtlar"
+        pressHandle={exitPressed}
+        iconName="sign-out"
+        buttonTitle="Çıkış Yap"
+      />
       <FlatList
         data={user.dorms}
         renderItem={({ item }) => <CardItem dorm={item} nav={navigation} />}
