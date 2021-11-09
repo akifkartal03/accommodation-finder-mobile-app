@@ -23,9 +23,7 @@ const PrivateDormsList = ({ navigation }) => {
       <Header title="Özel Yurtlar" exit={exitPressed} />
       <FlatList
         data={user.dorms}
-        renderItem={({ item }) => (
-          <CardItem title={item.Name} img={item.Images[0]} />
-        )}
+        renderItem={({ item }) => <CardItem dorm={item} nav={navigation} />}
       />
     </View>
   );

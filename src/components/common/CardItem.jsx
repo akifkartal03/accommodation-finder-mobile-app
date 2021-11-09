@@ -3,12 +3,15 @@ import { StyleSheet, Text, View, Image } from "react-native";
 import { Card, Button, Icon } from "react-native-elements";
 
 const CardItem = (props) => {
+  const onDetailPress = () => {
+    props.nav.navigate("DormDetails", props.dorm);
+  };
   return (
     <View style={styles.container}>
       <Card containerStyle={styles.card}>
-        <Card.Title>{props.title}</Card.Title>
+        <Card.Title>{props.dorm.Name}</Card.Title>
         <Card.Divider />
-        <Image style={styles.img} source={{ uri: props.img }} />
+        <Image style={styles.img} source={{ uri: props.dorm.Images[0] }} />
         <Button
           buttonStyle={{
             borderRadius: 3,
@@ -18,6 +21,7 @@ const CardItem = (props) => {
             marginTop: 15,
             backgroundColor: "#c9153c",
           }}
+          onPress={onDetailPress}
           title="Detaylar"
         />
       </Card>

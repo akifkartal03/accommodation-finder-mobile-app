@@ -11,10 +11,7 @@ export function getAll() {
 export function addDorm(tmpDorm) {
   return db.add(tmpDorm);
 }
-export function getDormByID(id) {
-  //fill here
-  //return db.add(tmpDorm);
-}
+
 export function updateDorm(id, value) {
   return db.doc(id).update(value);
 }

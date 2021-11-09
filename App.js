@@ -1,7 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import PrivateDormList from "./src/screens/list_screens/PrivateDorms.jsx";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { theme } from "./src/components/login/theme";
@@ -18,6 +17,7 @@ import {
 } from "./src/screens/login";
 import DormList from "./src/screens/list_screens/PrivateDorms";
 import DormData from "./src/screens/data_get/GetPrivateDorms";
+import DormDetails from "./src/screens/details/DormDetail";
 export default function App() {
   const Stack = createNativeStackNavigator();
   return (
@@ -35,6 +35,7 @@ export default function App() {
             <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
             <Stack.Screen name="Dashboard" component={DormList} />
             <Stack.Screen name="DormData" component={DormData} />
+            <Stack.Screen name="DormDetails" component={DormDetails} />
             <Stack.Screen
               name="ResetPasswordScreen"
               component={ResetPasswordScreen}
