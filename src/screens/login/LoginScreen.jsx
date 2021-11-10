@@ -6,6 +6,7 @@ import Logo from "../../components/login/Logo";
 import Header from "../../components/login/Header";
 import Button from "../../components/login/Button";
 import TextInput from "../../components/login/TextInput";
+import TextInput2 from "../../components/login/PassText";
 import BackButton from "../../components/login/BackButton";
 import { theme } from "../../components/login/theme";
 import { emailValidator } from "../../utils/validators/emailValidator";
@@ -18,6 +19,7 @@ import { setUSer } from "../../redux/actions/LoginAction";
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
+  const [load, setLoad] = useState(false);
   const [{ user }, dispatch] = useStore();
 
   useEffect(() => {
@@ -34,16 +36,21 @@ export default function LoginScreen({ navigation }) {
   }, []);
 
   const onLoginPressed = () => {
+    setLoad(true);
     const emailError = emailValidator(email.value);
     const passwordError = passwordValidator(password.value);
     if (emailError || passwordError) {
       setEmail({ ...email, error: emailError });
       setPassword({ ...password, error: passwordError });
+      setLoad(false);
       return;
     }
+    var t0 = performance.now();
     Firebase.auth()
       .signInWithEmailAndPassword(email.value, password.value)
       .then((userCredentials) => {
+        var t1 = performance.now();
+        console.log("Login time " + (t1 - t0) + " milliseconds.");
         const user2 = userCredentials.user;
         getUserByID(user2.uid)
           .then((docRef) => {
@@ -54,7 +61,10 @@ export default function LoginScreen({ navigation }) {
             console.log(error);
           });
       })
-      .catch((error) => alert(error.message));
+      .catch((error) => {
+        setLoad(false);
+        alert(error.message);
+      });
   };
 
   const addData = () => {
@@ -78,21 +88,21 @@ export default function LoginScreen({ navigation }) {
         textContentType="emailAddress"
         keyboardType="email-address"
       />
-      <TextInput
+      <TextInput2
         label="Password"
         returnKeyType="done"
         value={password.value}
         onChangeText={(text) => setPassword({ value: text, error: "" })}
         error={!!password.error}
         errorText={password.error}
-        secureTextEntry
       />
+
       <View style={styles.forgotPassword}>
         <TouchableOpacity onPress={addData}>
           <Text style={styles.forgot}>Şifrenimi unuttun?</Text>
         </TouchableOpacity>
       </View>
-      <Button mode="contained" onPress={onLoginPressed}>
+      <Button mode="contained" onPress={onLoginPressed} loading={load}>
         Giriş Yap
       </Button>
       <View style={styles.row}>
@@ -127,5 +137,8 @@ const styles = StyleSheet.create({
     marginTop: 0,
     alignItems: "flex-start",
     justifyContent: "flex-start",
+  },
+  goz: {
+    marginTop: 100,
   },
 });

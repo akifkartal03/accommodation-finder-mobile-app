@@ -17,6 +17,7 @@
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.2",
+    "react-native-animated-loader": "^0.0.9",
     "react-native-elements": "^3.4.2",
     "react-native-flatlist-slider": "^1.0.6",
     "react-native-hook-image-slider": "^1.2.1",

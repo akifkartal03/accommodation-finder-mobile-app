@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Alert } from "react-native";
 import Background from "../../components/login/Background";
 import BackButton from "../../components/login/BackButton";
 import Logo from "../../components/login/Logo";
@@ -6,6 +7,7 @@ import Header from "../../components/login/Header";
 import TextInput from "../../components/login/TextInput";
 import Button from "../../components/login/Button";
 import { emailValidator } from "../../utils/validators/emailValidator";
+import Firebase from "../../database/firebase_config";
 
 export default function ResetPasswordScreen({ navigation }) {
   const [email, setEmail] = useState({ value: "", error: "" });
@@ -16,7 +18,19 @@ export default function ResetPasswordScreen({ navigation }) {
       setEmail({ ...email, error: emailError });
       return;
     }
-    navigation.navigate("LoginScreen");
+    console.log(email.value);
+    Firebase.auth()
+      .sendPasswordResetEmail(email.value)
+      .then(() => {
+        Alert.alert(
+          "Gönderildi",
+          "Şifre yenileme bağlantın e-mail adresine gönderildi.",
+          [{ text: "OK", onPress: () => navigation.navigate("LoginScreen") }]
+        );
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
   };
 
   return (

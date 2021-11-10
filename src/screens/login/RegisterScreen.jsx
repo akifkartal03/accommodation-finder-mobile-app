@@ -6,6 +6,7 @@ import Logo from "../../components/login/Logo";
 import Header from "../../components/login/Header";
 import Button from "../../components/login/Button";
 import TextInput from "../../components/login/TextInput";
+import TextInput2 from "../../components/login/PassText";
 import BackButton from "../../components/login/BackButton";
 import { theme } from "../../components/login/theme";
 import { emailValidator } from "../../utils/validators/emailValidator";
@@ -51,10 +52,13 @@ export default function RegisterScreen({ navigation }) {
       .createUserWithEmailAndPassword(email.value, password.value)
       .then((userCredentials) => {
         const user3 = userCredentials.user;
-        Firebase.firestore().collection("users").doc(user3.uid).set({
-          nameVal,
-          emailVal,
-        });
+        Firebase.firestore()
+          .collection("users")
+          .doc(user3.uid)
+          .set({
+            nameVal,
+            emailVal,
+          });
         getUserByID(user3.uid)
           .then((docRef) => {
             user.info = docRef.data();
@@ -96,7 +100,7 @@ export default function RegisterScreen({ navigation }) {
         textContentType="emailAddress"
         keyboardType="email-address"
       />
-      <TextInput
+      <TextInput2
         label="Password"
         returnKeyType="done"
         value={password.value}
