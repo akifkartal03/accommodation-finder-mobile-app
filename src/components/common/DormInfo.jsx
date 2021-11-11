@@ -11,6 +11,7 @@ const DormInfo = (props) => {
       <Text style={styles.text}>Bilgiler</Text>
       <FlatList
         data={[
+          { icon: "question-circle-o", key: "Yer varmı?" },
           { icon: "info", key: "Tipi" },
           { icon: "try", key: "Fiyat Bilgisi(Aylık)" },
           { icon: "cutlery", key: "Yemek Bilgisi" },

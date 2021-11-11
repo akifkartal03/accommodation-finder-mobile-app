@@ -101,7 +101,7 @@ export default function RegisterScreen({ navigation }) {
         keyboardType="email-address"
       />
       <TextInput2
-        label="Password"
+        label="Şifre"
         returnKeyType="done"
         value={password.value}
         onChangeText={(text) => setPassword({ value: text, error: "" })}

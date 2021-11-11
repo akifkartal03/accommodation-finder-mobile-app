@@ -19,6 +19,7 @@ const DormDetails = ({ route, navigation }) => {
         pressHandle={backPressed}
         iconName="arrow-circle-left"
         buttonTitle="Geri dön"
+        nav={navigation}
       />
       <Text style={styles.text}>{dorm.Name}</Text>
       <View style={styles.container2}>

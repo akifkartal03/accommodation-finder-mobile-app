@@ -4,7 +4,7 @@ import Header from "../../components/common/Header.jsx";
 import CardItem from "../../components/common/CardItem.jsx";
 import Firebase from "../../database/firebase_config.js";
 import { useStore } from "../../redux/store/Provider";
-
+import { createDrawerNavigator } from "@react-navigation/drawer";
 const PrivateDormsList = ({ navigation }) => {
   const [{ user }, dispatch] = useStore("");
   const exitPressed = () => {
@@ -25,6 +25,7 @@ const PrivateDormsList = ({ navigation }) => {
         pressHandle={exitPressed}
         iconName="sign-out"
         buttonTitle="Çıkış Yap"
+        nav={navigation}
       />
       <FlatList
         data={user.dorms}

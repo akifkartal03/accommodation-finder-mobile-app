@@ -29,7 +29,9 @@ export default function ResetPasswordScreen({ navigation }) {
         );
       })
       .catch((error) => {
-        alert(error.message);
+        Alert.alert("Hata", "Bir hata oluştu tekrar dene!", [
+          { text: "OK", onPress: () => {} },
+        ]);
       });
   };
 
@@ -39,7 +41,7 @@ export default function ResetPasswordScreen({ navigation }) {
       <Logo />
       <Header>Şifreni Yenile</Header>
       <TextInput
-        label="E-mail address"
+        label="E-mail adresi"
         returnKeyType="done"
         value={email.value}
         onChangeText={(text) => setEmail({ value: text, error: "" })}

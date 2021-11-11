@@ -89,7 +89,7 @@ export default function LoginScreen({ navigation }) {
         keyboardType="email-address"
       />
       <TextInput2
-        label="Password"
+        label="Şifre"
         returnKeyType="done"
         value={password.value}
         onChangeText={(text) => setPassword({ value: text, error: "" })}

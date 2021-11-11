@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 import { theme } from "./src/components/login/theme";
 import { Provider as PaperProvider } from "react-native-paper";
 import { LogBox } from "react-native";
@@ -18,36 +19,51 @@ import {
 import DormList from "./src/screens/list_screens/PrivateDorms";
 import DormData from "./src/screens/data_get/GetPrivateDorms";
 import DormDetails from "./src/screens/details/DormDetail";
+import MContext from "./src/components/common/MenuContext";
+const Drawer = createDrawerNavigator();
+const Stack = createNativeStackNavigator();
+function MyHome() {
+  return (
+    <Stack.Navigator
+      initialRouteName="StartScreen"
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name="StartScreen" component={StartScreen} />
+      <Stack.Screen name="LoginScreen" component={LoginScreen} />
+      <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
+      <Stack.Screen name="Dashboard" component={DormList} />
+      <Stack.Screen name="DormData" component={DormData} />
+      <Stack.Screen name="DormDetails" component={DormDetails} />
+      <Stack.Screen name="Menu" component={MyHome} />
+      <Stack.Screen
+        name="ResetPasswordScreen"
+        component={ResetPasswordScreen}
+      />
+    </Stack.Navigator>
+  );
+}
 export default function App() {
-  const Stack = createNativeStackNavigator();
   return (
     <StateProvider reducer={reducer} initialValue={initialState}>
       <PaperProvider theme={theme}>
         <NavigationContainer>
-          <Stack.Navigator
-            initialRouteName="StartScreen"
-            screenOptions={{
-              headerShown: false,
-            }}
-          >
-            <Stack.Screen name="StartScreen" component={StartScreen} />
-            <Stack.Screen name="LoginScreen" component={LoginScreen} />
-            <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
-            <Stack.Screen name="Dashboard" component={DormList} />
-            <Stack.Screen name="DormData" component={DormData} />
-            <Stack.Screen name="DormDetails" component={DormDetails} />
-            <Stack.Screen
-              name="ResetPasswordScreen"
-              component={ResetPasswordScreen}
+          <Drawer.Navigator drawerContent={(props) => <MContext {...props} />}>
+            <Drawer.Screen
+              name="Home"
+              component={MyHome}
+              options={{ headerShown: false }}
             />
-          </Stack.Navigator>
+            <Drawer.Screen
+              name="Dashboard"
+              component={DormList}
+              options={{ headerShown: false }}
+            />
+          </Drawer.Navigator>
         </NavigationContainer>
       </PaperProvider>
     </StateProvider>
-    /*<View style={styles.container}>
-      <PrivateDormList />
-      <StatusBar style="auto" />
-    </View>*/
   );
 }
 
@@ -55,5 +71,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 40,
+  },
+  header: {
+    marginTop: 40,
   },
 });

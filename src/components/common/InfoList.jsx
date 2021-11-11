@@ -5,6 +5,16 @@ import Icon from "react-native-vector-icons/FontAwesome";
 const InfoList = (props) => {
   function renderElement() {
     if (props.ind == 0) {
+      let answer = "";
+      if (props.dorm.Available == 0) {
+        answer = "Hayır";
+      } else if (props.dorm.Available == 1) {
+        answer = "Evet";
+      } else {
+        answer = "Bilinmiyor";
+      }
+      return <Text style={styles.text}>{answer}</Text>;
+    } else if (props.ind == 1) {
       let gender = "";
       if (props.dorm.GenderType == 1) {
         gender = "Erkek";
@@ -14,11 +24,11 @@ const InfoList = (props) => {
         gender = "Kız, Erkek";
       }
       return <Text style={styles.text}>{gender}</Text>;
-    } else if (props.ind == 2) {
+    } else if (props.ind == 3) {
       return <Text style={styles.text}>{props.dorm.FoodStates}</Text>;
-    } else if (props.ind == 4) {
-      return <Text style={styles.text}>{props.dorm.Address}</Text>;
     } else if (props.ind == 5) {
+      return <Text style={styles.text}>{props.dorm.Address}</Text>;
+    } else if (props.ind == 6) {
       return <Text style={styles.text}>{props.dorm.OtherInfo}</Text>;
     } else {
       return;
@@ -35,7 +45,7 @@ const InfoList = (props) => {
         />
         <Text style={styles.item}>{props.itm.key}</Text>
       </View>
-      {props.ind == 1
+      {props.ind == 2
         ? props.dorm.MonthlyPrice.map((element) => {
             return (
               <View style={styles.container}>
@@ -44,7 +54,7 @@ const InfoList = (props) => {
               </View>
             );
           })
-        : props.ind == 3
+        : props.ind == 4
         ? props.dorm.TelephoneNumbers.map((element) => {
             return (
               <View style={styles.container}>

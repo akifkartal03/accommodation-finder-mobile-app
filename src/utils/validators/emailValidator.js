@@ -1,6 +1,6 @@
 export function emailValidator(email) {
   const re = /\S+@\S+\.\S+/;
-  if (!email) return "Email can't be empty.";
-  if (!re.test(email)) return "We need a valid email address.";
+  if (!email) return "Email boş olamaz!";
+  if (!re.test(email)) return "Geçerli bir mail adresi giriniz!";
   return "";
 }
