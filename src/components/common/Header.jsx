@@ -1,49 +1,44 @@
 import React from "react";
-import { StyleSheet, Text, View, TextInput } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { getStatusBarHeight } from "react-native-status-bar-height";
 import { Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
+import { DrawerActions } from "@react-navigation/native";
 
 const Header = (props) => {
   return (
     <View style={styles.header}>
-      <View style={{ flexDirection: "row" }}>
-        <View style={{ flex: 1 }}>
-          <Text style={styles.text}>{props.headTitle}</Text>
+      <View style={styles.parent2}>
+        <View style={styles.icon}>
+          <TouchableOpacity
+            onPress={() => props.nav.dispatch(DrawerActions.openDrawer())}
+          >
+            <Icon name="bars" size={30} color="white" />
+          </TouchableOpacity>
         </View>
-        <View style={{ flex: 1, paddingTop: 10, marginRight: -40 }}>
-          <Button
-            style={styles.text2}
-            icon={<Icon name={props.iconName} size={22} color="white" />}
-            title={props.buttonTitle}
-            type="clear"
-            titleStyle={{
-              color: "white",
-              marginLeft: 7,
-              fontSize: 18,
-              marginTop: -2,
-            }}
-            onPress={props.pressHandle}
-          />
-        </View>
+        <Text style={styles.text}>{props.headTitle}</Text>
+        <Button
+          style={styles.text2}
+          icon={
+            <Icon
+              style={{ marginTop: 11 }}
+              name={props.iconName}
+              size={22}
+              color="white"
+            />
+          }
+          title={props.buttonTitle}
+          type="clear"
+          titleStyle={{
+            color: "white",
+            marginLeft: 7,
+            fontSize: 18,
+            marginTop: 9,
+          }}
+          onPress={props.pressHandle}
+        />
       </View>
     </View>
-    /*<View style={styles.container}>
-      <Text style={styles.text}>{props.title}</Text>
-      <Button
-        style={styles.text2}
-        icon={<Icon name="sign-out" size={20} color="white" />}
-        title="Çıkış Yap"
-        type="clear"
-        titleStyle={{ color: "white", marginLeft: 5 }}
-        onPress={() =>
-          navigation.reset({
-            index: 0,
-            routes: [{ name: "StartScreen" }],
-          })
-        }
-      />
-    </View>*/
   );
 };
 
@@ -56,12 +51,14 @@ const styles = StyleSheet.create({
   text: {
     color: "#fff",
     fontSize: 23,
-    justifyContent: "flex-start",
-    padding: 12,
+    padding: 10,
+    marginTop: 5,
+    marginLeft: 30,
   },
   text2: {
     justifyContent: "flex-end",
     fontSize: 20,
+    marginTop: 8,
   },
   container: {
     flex: 1,
@@ -78,6 +75,18 @@ const styles = StyleSheet.create({
     backgroundColor: "#01367a",
     marginTop: 10 + getStatusBarHeight(),
     marginBottom: 20,
+  },
+  parent2: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
+  icon: {
+    position: "absolute",
+    top: 15,
+    left: 15,
+    bottom: 0,
+    right: 10,
   },
 });
 
