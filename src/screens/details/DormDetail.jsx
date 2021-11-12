@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, FlatList } from "react-native";
-import Header from "../../components/common/Header.jsx";
+import MainPageHeader from "../../components/header/mainPageHeader.jsx";
 import ImageSlider from "react-native-image-slider";
 import DormInfo from "../../components/dormInfo/DormInfo.jsx";
 import Slider from "react-native-hook-image-slider";
@@ -11,16 +11,10 @@ const DormDetails = ({ route, navigation }) => {
   const backPressed = () => {
     navigation.goBack();
   };
-
+  //console.log(user.nav.canGoBack());
   return (
     <View style={styles.container}>
-      <Header
-        headTitle="Detaylar"
-        pressHandle={backPressed}
-        iconName="arrow-circle-left"
-        buttonTitle="Geri dön"
-        nav={navigation}
-      />
+      <MainPageHeader headTitle="Detaylar" nav={navigation} />
       <Text style={styles.text}>{dorm.Name}</Text>
       <View style={styles.container2}>
         <SliderBox

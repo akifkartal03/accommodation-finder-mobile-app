@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, FlatList } from "react-native";
 import { getAll } from "../../database/services/dormitory_service.js";
 import { useStore } from "../../redux/store/Provider";
 import { setUSer } from "../../redux/actions/LoginAction";
-import PrivateDormsList from "../list_screens/AllDorms.jsx";
+import AllDormsList from "../list_screens/AllDorms.jsx";
 import Spinner from "react-native-loading-spinner-overlay";
 
 const GetPrivateDorms = ({ navigation }) => {
@@ -22,6 +22,7 @@ const GetPrivateDorms = ({ navigation }) => {
     console.log("Call to doSomething took " + (t1 - t0) + " milliseconds.");
     const timeTaken = new Date().getTime() - t;
     //console.log("time: " + timeTaken);
+    user.nav = navigation;
     user.dorms = dorms;
     dispatch(setUSer(user));
   };
@@ -30,8 +31,8 @@ const GetPrivateDorms = ({ navigation }) => {
     return () => unsubscribe();
   }, []);
 
-  return user.dorms ? (
-    <PrivateDormsList navigation={navigation} />
+  return user.dorms.length ? (
+    <AllDormsList navigation={navigation} />
   ) : (
     <View style={styles.container}>
       <Spinner

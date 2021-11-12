@@ -5,13 +5,14 @@ import { getStatusBarHeight } from "react-native-status-bar-height";
 import { useStore } from "../../redux/store/Provider";
 import Firebase from "../../database/firebase_config";
 import { DrawerActions } from "@react-navigation/native";
+
 import {
   DrawerContentScrollView,
   DrawerItemList,
   DrawerItem,
 } from "@react-navigation/drawer";
 import ProfileComponent from "./Profile";
-const MContext = (props) => {
+const MContext = ({ navigation }) => {
   const [{ user }, dispatch] = useStore();
   const userData = {
     profileUrl:
@@ -24,8 +25,8 @@ const MContext = (props) => {
     Firebase.auth()
       .signOut()
       .then(() => {
-        user.nav.dispatch(DrawerActions.closeDrawer());
-        user.nav.reset({
+        navigation.dispatch(DrawerActions.closeDrawer());
+        navigation.reset({
           index: 0,
           routes: [{ name: "StartScreen" }],
         });
@@ -36,38 +37,47 @@ const MContext = (props) => {
     {
       icon: "home",
       name: "Tüm Yurtlar",
-      screenName: "PiedPiper",
+      screenName: "1",
       key: 1,
       handle: () => {
-        user.nav.dispatch(DrawerActions.closeDrawer());
-        user.nav.navigate("Dashboard");
+        navigation.dispatch(DrawerActions.closeDrawer());
+        navigation.navigate("Dashboard");
       },
     },
     {
       icon: "house-user",
       name: "Devlet Yurtları",
-      screenName: "PiedPiper",
+      screenName: "2",
       key: 2,
-      handle: () => {},
+      handle: () => {
+        navigation.dispatch(DrawerActions.closeDrawer());
+        navigation.navigate("PublicDorms");
+      },
     },
     {
       icon: "hotel",
       name: "Özel Yurtlar",
-      screenName: "Hooli",
+      screenName: "3",
       key: 4,
-      handle: () => {},
+      handle: () => {
+        navigation.dispatch(DrawerActions.closeDrawer());
+        navigation.navigate("PrivateDorms");
+      },
     },
     {
-      icon: "cog",
-      name: "Settings",
-      screenName: "Hooli",
+      icon: "arrow-circle-left",
+      name: "Geri Dön",
+      screenName: "4",
       key: 7,
-      handle: () => {},
+      handle: () => {
+        navigation.dispatch(DrawerActions.closeDrawer());
+        navigation.goBack();
+      },
     },
     {
       icon: "sign-out-alt",
       name: "Çıkış yap",
-      screenName: "Hooli",
+      screenName: "5",
       key: 8,
       handle: exitPressed,
     },
