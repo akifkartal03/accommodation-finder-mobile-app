@@ -46,7 +46,7 @@ const GetPrivateDorms = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   spinnerTextStyle: {
-    color: "#FFF",
+    color: "black",
   },
   container: {
     flex: 1,

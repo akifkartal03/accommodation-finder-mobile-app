@@ -66,7 +66,7 @@ const MContext = ({ navigation }) => {
     },
     {
       icon: "arrow-circle-left",
-      name: "Geri Dön",
+      name: "Geri dön",
       screenName: "4",
       key: 7,
       handle: () => {

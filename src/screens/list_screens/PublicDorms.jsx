@@ -3,17 +3,40 @@ import { StyleSheet, Text, View, FlatList } from "react-native";
 import MainPageHeader from "../../components/header/mainPageHeader.jsx";
 import CardItem from "../../components/common/CardItem.jsx";
 import { useStore } from "../../redux/store/Provider";
+import Firebase from "../../database/firebase_config.js";
+import Warn from "../../components/warning/Warning.jsx";
 const PublicDormsList = ({ navigation }) => {
   const [{ user }, dispatch] = useStore("");
+  const exitPressed = () => {
+    Firebase.auth()
+      .signOut()
+      .then(() => {
+        navigation.reset({
+          index: 0,
+          routes: [{ name: "LoginScreen" }],
+        });
+      })
+      .catch((error) => alert(error.message));
+  };
   return (
     <View style={styles.container}>
-      <MainPageHeader headTitle="Devlet Yurtları" nav={navigation} />
-      <FlatList
-        data={user.dorms}
-        renderItem={({ item }) =>
-          item.Type === 1 ? <CardItem dorm={item} nav={navigation} /> : <></>
-        }
-      />
+      {user.dorms.length ? (
+        <View style={styles.container}>
+          <MainPageHeader headTitle="Devlet Yurtları" nav={navigation} />
+          <FlatList
+            data={user.dorms}
+            renderItem={({ item }) =>
+              item.Type === 1 ? (
+                <CardItem dorm={item} nav={navigation} />
+              ) : (
+                <></>
+              )
+            }
+          />
+        </View>
+      ) : (
+        <Warn handle={exitPressed} />
+      )}
     </View>
   );
 };
@@ -21,6 +44,12 @@ const PublicDormsList = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  container2: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#F5FCFF",
   },
   header: {
     height: 70,
