@@ -1,6 +1,6 @@
 import * as actionTypes from "../actions/LoginActionTypes";
 export const initialState = {
-  user: { info: {} },
+  user: { info: {}, dorms: [], nav: null },
   isLogged: false,
 };
 export function reducer(state = initialState, action) {

@@ -55,6 +55,7 @@ export default function LoginScreen({ navigation }) {
         getUserByID(user2.uid)
           .then((docRef) => {
             user.info = docRef.data();
+            user.nav = navigation;
             dispatch(setUSer(user));
           })
           .catch((error) => {

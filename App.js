@@ -16,10 +16,10 @@ import {
   RegisterScreen,
   ResetPasswordScreen,
 } from "./src/screens/login";
-import DormList from "./src/screens/list_screens/PrivateDorms";
+import DormList from "./src/screens/list_screens/AllDorms";
 import DormData from "./src/screens/data_get/GetPrivateDorms";
 import DormDetails from "./src/screens/details/DormDetail";
-import MContext from "./src/components/common/MenuContext";
+import MContext from "./src/components/sideMenu/MenuContext";
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
 function MyHome() {
@@ -53,11 +53,6 @@ export default function App() {
             <Drawer.Screen
               name="Home"
               component={MyHome}
-              options={{ headerShown: false }}
-            />
-            <Drawer.Screen
-              name="Dashboard"
-              component={DormList}
               options={{ headerShown: false }}
             />
           </Drawer.Navigator>

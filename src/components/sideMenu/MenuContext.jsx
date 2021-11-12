@@ -1,8 +1,10 @@
 import React from "react";
 import { StyleSheet, Text, View, FlatList } from "react-native";
-import Icon from "react-native-vector-icons/Ionicons";
+import Icon from "react-native-vector-icons/FontAwesome5";
 import { getStatusBarHeight } from "react-native-status-bar-height";
 import { useStore } from "../../redux/store/Provider";
+import Firebase from "../../database/firebase_config";
+import { DrawerActions } from "@react-navigation/native";
 import {
   DrawerContentScrollView,
   DrawerItemList,
@@ -11,40 +13,65 @@ import {
 import ProfileComponent from "./Profile";
 const MContext = (props) => {
   const [{ user }, dispatch] = useStore();
-  const menuData = [
-    { icon: "ios-search", name: "Search", screenName: "PiedPiper", key: 1 },
-    { icon: "ios-home-outline", name: "Home", screenName: "PiedPiper", key: 2 },
-    {
-      icon: "ios-navigate-outline",
-      name: "Trips",
-      screenName: "Hooli",
-      key: 4,
-    },
-    {
-      icon: "ios-heart-outline",
-      name: "Wish List",
-      screenName: "Hooli",
-      key: 5,
-    },
-    {
-      icon: "ios-person-outline",
-      name: "Profile",
-      screenName: "Hooli",
-      key: 6,
-    },
-    {
-      icon: "ios-settings-outline",
-      name: "Settings",
-      screenName: "Hooli",
-      key: 7,
-    },
-  ];
   const userData = {
     profileUrl:
       "https://mir-s3-cdn-cf.behance.net/project_modules/fs/5e227329363657.55ef8df90a1ca.png",
     username: user.info.nameVal,
     email: user.info.emailVal,
   };
+
+  const exitPressed = () => {
+    Firebase.auth()
+      .signOut()
+      .then(() => {
+        user.nav.dispatch(DrawerActions.closeDrawer());
+        user.nav.reset({
+          index: 0,
+          routes: [{ name: "StartScreen" }],
+        });
+      })
+      .catch((error) => alert(error.message));
+  };
+  const menuData = [
+    {
+      icon: "home",
+      name: "Tüm Yurtlar",
+      screenName: "PiedPiper",
+      key: 1,
+      handle: () => {
+        user.nav.dispatch(DrawerActions.closeDrawer());
+        user.nav.navigate("Dashboard");
+      },
+    },
+    {
+      icon: "house-user",
+      name: "Devlet Yurtları",
+      screenName: "PiedPiper",
+      key: 2,
+      handle: () => {},
+    },
+    {
+      icon: "hotel",
+      name: "Özel Yurtlar",
+      screenName: "Hooli",
+      key: 4,
+      handle: () => {},
+    },
+    {
+      icon: "cog",
+      name: "Settings",
+      screenName: "Hooli",
+      key: 7,
+      handle: () => {},
+    },
+    {
+      icon: "sign-out-alt",
+      name: "Çıkış yap",
+      screenName: "Hooli",
+      key: 8,
+      handle: exitPressed,
+    },
+  ];
   return (
     <View style={styles.container}>
       <ProfileComponent
@@ -60,6 +87,7 @@ const MContext = (props) => {
             icon={() => (
               <Icon size={20} name={item.icon} style={{ marginRight: -15 }} />
             )}
+            onPress={item.handle}
           />
         )}
       />

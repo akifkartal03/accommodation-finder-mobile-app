@@ -1,32 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, FlatList } from "react-native";
-import Header from "../../components/common/Header.jsx";
+import MainPageHeader from "../../components/header/mainPageHeader.jsx";
 import CardItem from "../../components/common/CardItem.jsx";
 import Firebase from "../../database/firebase_config.js";
 import { useStore } from "../../redux/store/Provider";
-import { createDrawerNavigator } from "@react-navigation/drawer";
 const PrivateDormsList = ({ navigation }) => {
   const [{ user }, dispatch] = useStore("");
-  const exitPressed = () => {
-    Firebase.auth()
-      .signOut()
-      .then(() => {
-        navigation.reset({
-          index: 0,
-          routes: [{ name: "StartScreen" }],
-        });
-      })
-      .catch((error) => alert(error.message));
-  };
   return (
     <View style={styles.container}>
-      <Header
-        headTitle="Özel Yurtlar"
-        pressHandle={exitPressed}
-        iconName="sign-out"
-        buttonTitle="Çıkış Yap"
-        nav={navigation}
-      />
+      <MainPageHeader headTitle="Tüm Yurtlar" nav={navigation} />
       <FlatList
         data={user.dorms}
         renderItem={({ item }) => <CardItem dorm={item} nav={navigation} />}
