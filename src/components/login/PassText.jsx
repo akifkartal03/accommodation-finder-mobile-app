@@ -15,6 +15,7 @@ export default function TextInput2({ errorText, description, ...props }) {
         mode="outlined"
         right={
           <Input.Icon
+            style={{ marginTop: 13 }}
             name={() => (
               <Icon
                 name={hidePass ? "eye-slash" : "eye"}

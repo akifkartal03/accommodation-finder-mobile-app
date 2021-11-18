@@ -22,7 +22,7 @@ const AllDormsList = ({ navigation }) => {
     <View style={styles.container}>
       {user.dorms.length ? (
         <View style={styles.container}>
-          <MainPageHeader headTitle="Tüm Yurtlar" nav={navigation} />
+          <MainPageHeader headTitle="Tüm Yurtlar" nav={navigation} size={23} />
           <FlatList
             data={user.dorms}
             renderItem={({ item }) => <CardItem dorm={item} nav={navigation} />}

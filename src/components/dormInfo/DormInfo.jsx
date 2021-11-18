@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, FlatList } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import InfoList from "./InfoList";
+import Comments from "./Comments";
+import { Link } from "@react-navigation/native";
+import Btn from "./Btn";
 
 const DormInfo = (props) => {
   const backPressed = () => {};
@@ -23,6 +26,7 @@ const DormInfo = (props) => {
           <InfoList itm={item} dorm={props.dr} ind={index} />
         )}
       />
+      <Btn dorm={props.dr} />
     </View>
   );
 };
@@ -30,6 +34,7 @@ const DormInfo = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "white",
   },
   text: {
     fontSize: 18,

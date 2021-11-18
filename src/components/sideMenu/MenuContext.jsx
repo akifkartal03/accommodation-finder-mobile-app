@@ -15,8 +15,7 @@ import ProfileComponent from "./Profile";
 const MContext = ({ navigation }) => {
   const [{ user }, dispatch] = useStore();
   const userData = {
-    profileUrl:
-      "https://mir-s3-cdn-cf.behance.net/project_modules/fs/5e227329363657.55ef8df90a1ca.png",
+    profileUrl: "https://bootdey.com/img/Content/avatar/avatar7.png",
     username: user.info.nameVal,
     email: user.info.emailVal,
   };

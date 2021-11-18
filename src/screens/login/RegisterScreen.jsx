@@ -62,6 +62,7 @@ export default function RegisterScreen({ navigation }) {
         getUserByID(user3.uid)
           .then((docRef) => {
             user.info = docRef.data();
+            user.info.id = user3.uid;
             dispatch(setUSer(user));
           })
           .catch((error) => {

@@ -25,12 +25,12 @@ export default function ResetPasswordScreen({ navigation }) {
         Alert.alert(
           "Gönderildi",
           "Şifre yenileme bağlantın e-mail adresine gönderildi.",
-          [{ text: "OK", onPress: () => navigation.navigate("LoginScreen") }]
+          [{ text: "Tamam", onPress: () => navigation.navigate("LoginScreen") }]
         );
       })
       .catch((error) => {
         Alert.alert("Hata", "Bir hata oluştu tekrar dene!", [
-          { text: "OK", onPress: () => {} },
+          { text: "Tamam", onPress: () => {} },
         ]);
       });
   };
