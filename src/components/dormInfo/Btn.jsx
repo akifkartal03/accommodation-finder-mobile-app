@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, FlatList } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import Icon2 from "react-native-vector-icons/FontAwesome5";
 import { Link } from "@react-navigation/native";
-
+import { Button } from "react-native-paper";
 const Btn = (props) => {
   const backPressed = () => {};
 
@@ -29,7 +30,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 18,
-    color: "#205296",
+    color: "#01367a",
     fontWeight: "bold",
   },
   item: {

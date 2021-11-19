@@ -9,15 +9,15 @@ const CardItem = (props) => {
   return (
     <View style={styles.container}>
       <Card containerStyle={styles.card}>
-        <Card.Title>{props.dorm.Name}</Card.Title>
+        <Card.Title style={{ color: "black" }}>{props.dorm.Name}</Card.Title>
         <Card.Divider />
         <Image style={styles.img} source={{ uri: props.dorm.Images[0] }} />
         <Button
           buttonStyle={{
-            borderRadius: 3,
+            borderRadius: 0,
             marginLeft: 0,
             marginRight: 0,
-            marginBottom: 0,
+            marginBottom: 2,
             marginTop: 15,
             backgroundColor: "#c9153c",
           }}
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   },
   card: {
     borderWidth: 2,
-    borderColor: "#f6911b",
+    borderColor: "#01367a",
   },
   img: {
     width: 330,

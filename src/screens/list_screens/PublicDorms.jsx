@@ -48,6 +48,7 @@ const PublicDormsList = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "white",
   },
   container2: {
     flex: 1,

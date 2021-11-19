@@ -23,6 +23,7 @@ import MContext from "./src/components/sideMenu/MenuContext";
 import PublicDormsList from "./src/screens/list_screens/PublicDorms";
 import PrivateDormsList from "./src/screens/list_screens/PrivateDorms";
 import Comments from "./src/components/dormInfo/Comments";
+import Profile from "./src/screens/details/Profile";
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
 function MyHome() {
@@ -44,6 +45,7 @@ function MyHome() {
       <Stack.Screen name="PublicDorms" component={PublicDormsList} />
       <Stack.Screen name="PrivateDorms" component={PrivateDormsList} />
       <Stack.Screen name="Comments" component={Comments} />
+      <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen
         name="ResetPasswordScreen"
         component={ResetPasswordScreen}

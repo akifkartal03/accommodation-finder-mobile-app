@@ -5,13 +5,36 @@ import InfoList from "./InfoList";
 import Comments from "./Comments";
 import { Link } from "@react-navigation/native";
 import Btn from "./Btn";
+import { Button } from "react-native-paper";
 
 const DormInfo = (props) => {
   const backPressed = () => {};
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Bilgiler</Text>
+      <View style={styles.container3}>
+        <Text style={styles.text}>Bilgiler</Text>
+        <View style={styles.btn3}>
+          <Button
+            style={styles.btn2}
+            icon={{
+              uri: "https://cdn-icons-png.flaticon.com/128/159/159469.png",
+            }}
+            mode="contained"
+            color="#c9153c"
+            labelStyle={{
+              fontSize: 14,
+              marginTop: 6,
+              fontWeight: "bold",
+              marginLeft: 12,
+            }}
+            uppercase={false}
+            onPress={() => console.log("Pressed")}
+          >
+            Hata Bildir
+          </Button>
+        </View>
+      </View>
       <FlatList
         data={[
           { icon: "question-circle-o", key: "Yer varmı?" },
@@ -48,6 +71,21 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     fontSize: 18,
     height: 44,
+  },
+  container3: {
+    flexDirection: "row",
+  },
+  btn2: {
+    borderRadius: 20,
+    height: 32,
+  },
+  btn3: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    alignItems: "center",
+    marginRight: 10,
+    marginTop: 5,
   },
 });
 

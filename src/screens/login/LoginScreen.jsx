@@ -78,7 +78,7 @@ export default function LoginScreen({ navigation }) {
       <Logo />
       <Header>Tekrar Hoşgeldin.</Header>
       <TextInput
-        label="Email"
+        label="Mail Adresi"
         returnKeyType="next"
         value={email.value}
         onChangeText={(text) => setEmail({ value: text, error: "" })}

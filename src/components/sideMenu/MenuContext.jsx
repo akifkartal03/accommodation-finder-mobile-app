@@ -64,6 +64,16 @@ const MContext = ({ navigation }) => {
       },
     },
     {
+      icon: "user-alt",
+      name: "Profil",
+      screenName: "6",
+      key: 5,
+      handle: () => {
+        navigation.dispatch(DrawerActions.closeDrawer());
+        navigation.navigate("Profile");
+      },
+    },
+    {
       icon: "arrow-circle-left",
       name: "Geri dön",
       screenName: "4",

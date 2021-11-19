@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import { Text } from "react-native-paper";
 import Background from "../../components/login/Background";
 import Logo from "../../components/login/Logo";
@@ -28,7 +28,7 @@ export default function RegisterScreen({ navigation }) {
       if (user2) {
         navigation.reset({
           index: 0,
-          routes: [{ name: "Dashboard" }],
+          routes: [{ name: "DormData" }],
         });
       }
     });
@@ -46,18 +46,28 @@ export default function RegisterScreen({ navigation }) {
       setPassword({ ...password, error: passwordError });
       return;
     }
+    if (selectedItem == "") {
+      Alert.alert("Uyarı", "Lütfen cinsiyet seçiniz.", [
+        { text: "Tamam", onPress: () => {} },
+      ]);
+      return;
+    }
     const nameVal = name.value;
     const emailVal = email.value;
     Firebase.auth()
       .createUserWithEmailAndPassword(email.value, password.value)
       .then((userCredentials) => {
         const user3 = userCredentials.user;
+        const id = user3.uid;
+        const likedComments = [];
         Firebase.firestore()
           .collection("users")
           .doc(user3.uid)
           .set({
             nameVal,
             emailVal,
+            id,
+            likedComments,
           });
         getUserByID(user3.uid)
           .then((docRef) => {
@@ -70,10 +80,6 @@ export default function RegisterScreen({ navigation }) {
           });
       })
       .catch((error) => console.log(error.message));
-    navigation.reset({
-      index: 0,
-      routes: [{ name: "Dashboard" }],
-    });
   };
 
   return (
@@ -82,7 +88,7 @@ export default function RegisterScreen({ navigation }) {
       <Logo />
       <Header>Hesap Oluştur</Header>
       <TextInput
-        label="Name"
+        label="Ad Soyad"
         returnKeyType="next"
         value={name.value}
         onChangeText={(text) => setName({ value: text, error: "" })}
@@ -90,7 +96,7 @@ export default function RegisterScreen({ navigation }) {
         errorText={name.error}
       />
       <TextInput
-        label="Email"
+        label="Mail Adresi"
         returnKeyType="next"
         value={email.value}
         onChangeText={(text) => setEmail({ value: text, error: "" })}
@@ -101,6 +107,7 @@ export default function RegisterScreen({ navigation }) {
         textContentType="emailAddress"
         keyboardType="email-address"
       />
+
       <TextInput2
         label="Şifre"
         returnKeyType="done"
