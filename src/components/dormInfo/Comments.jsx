@@ -28,7 +28,6 @@ const Comments = ({ navigation, route }) => {
   const [like, setLike] = useState(false);
   const dr = route.params.id;
   const image = "https://bootdey.com/img/Content/avatar/avatar7.png";
-  console.log(user.info);
 
   const sendPressed = () => {
     dr.Comments.unshift({
@@ -176,7 +175,14 @@ const Comments = ({ navigation, route }) => {
           return (
             <View style={styles.container}>
               <TouchableOpacity onPress={() => {}}>
-                <Image style={styles.image} source={{ uri: image }} />
+                <Image
+                  style={styles.image}
+                  source={{
+                    uri: Notification.userInfo.avatar
+                      ? Notification.userInfo.avatar
+                      : image,
+                  }}
+                />
               </TouchableOpacity>
               <View style={styles.content}>
                 <View style={styles.contentHeader}>

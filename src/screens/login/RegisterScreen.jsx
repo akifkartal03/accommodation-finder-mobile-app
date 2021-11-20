@@ -21,6 +21,7 @@ export default function RegisterScreen({ navigation }) {
   const [name, setName] = useState({ value: "", error: "" });
   const [email, setEmail] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
+  const [load, setLoad] = useState(false);
   const [{ user }, dispatch] = useStore();
 
   useEffect(() => {
@@ -37,6 +38,7 @@ export default function RegisterScreen({ navigation }) {
   }, []);
 
   const onSignUpPressed = () => {
+    setLoad(true);
     const nameError = nameValidator(name.value);
     const emailError = emailValidator(email.value);
     const passwordError = passwordValidator(password.value);
@@ -44,22 +46,25 @@ export default function RegisterScreen({ navigation }) {
       setName({ ...name, error: nameError });
       setEmail({ ...email, error: emailError });
       setPassword({ ...password, error: passwordError });
+      setLoad(false);
       return;
     }
-    if (selectedItem == "") {
-      Alert.alert("Uyarı", "Lütfen cinsiyet seçiniz.", [
-        { text: "Tamam", onPress: () => {} },
-      ]);
-      return;
-    }
-    const nameVal = name.value;
-    const emailVal = email.value;
+
     Firebase.auth()
       .createUserWithEmailAndPassword(email.value, password.value)
       .then((userCredentials) => {
         const user3 = userCredentials.user;
+        const nameVal = name.value;
+        const emailVal = email.value;
         const id = user3.uid;
         const likedComments = [];
+        const age = 0;
+        const department = "Belirtilmemiş";
+        const grade = "Belirtilmemiş";
+        const gender = "Seçiniz";
+        const stayedDorms = [];
+        const avatar =
+          "https://cdn-icons-png.flaticon.com/128/1177/1177568.png";
         Firebase.firestore()
           .collection("users")
           .doc(user3.uid)
@@ -68,18 +73,28 @@ export default function RegisterScreen({ navigation }) {
             emailVal,
             id,
             likedComments,
+            age,
+            department,
+            grade,
+            gender,
+            stayedDorms,
+            avatar,
           });
         getUserByID(user3.uid)
           .then((docRef) => {
             user.info = docRef.data();
-            user.info.id = user3.uid;
             dispatch(setUSer(user));
+            setLoad(false);
           })
           .catch((error) => {
             console.log(error);
+            setLoad(false);
           });
       })
-      .catch((error) => console.log(error.message));
+      .catch((error) => {
+        console.log(error.message);
+        setLoad(false);
+      });
   };
 
   return (
@@ -121,6 +136,7 @@ export default function RegisterScreen({ navigation }) {
         mode="contained"
         onPress={onSignUpPressed}
         style={{ marginTop: 20 }}
+        loading={load}
       >
         Kayıt Ol
       </Button>

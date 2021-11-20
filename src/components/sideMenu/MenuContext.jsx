@@ -15,7 +15,7 @@ import ProfileComponent from "./Profile";
 const MContext = ({ navigation }) => {
   const [{ user }, dispatch] = useStore();
   const userData = {
-    profileUrl: "https://bootdey.com/img/Content/avatar/avatar7.png",
+    profileUrl: user.info.avatar,
     username: user.info.nameVal,
     email: user.info.emailVal,
   };

@@ -19,7 +19,7 @@ const GetPrivateDorms = ({ navigation }) => {
       dorms.push({ id, ...data });
     });
     var t1 = performance.now();
-    console.log("Call to doSomething took " + (t1 - t0) + " milliseconds.");
+    console.log("Database getting dorms took " + (t1 - t0) + " milliseconds.");
     const timeTaken = new Date().getTime() - t;
     //console.log("time: " + timeTaken);
     user.nav = navigation;

@@ -18,7 +18,7 @@ export default function ResetPasswordScreen({ navigation }) {
       setEmail({ ...email, error: emailError });
       return;
     }
-    console.log(email.value);
+    //console.log(email.value);
     Firebase.auth()
       .sendPasswordResetEmail(email.value)
       .then(() => {

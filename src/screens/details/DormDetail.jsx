@@ -32,7 +32,7 @@ const DormDetails = ({ route, navigation }) => {
           }}
         />
       </View>
-      <DormInfo dr={dorm} />
+      <DormInfo dr={dorm} nav={navigation} />
     </View>
   );
 };
@@ -40,6 +40,7 @@ const DormDetails = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "white",
   },
   container2: {
     marginTop: 10,

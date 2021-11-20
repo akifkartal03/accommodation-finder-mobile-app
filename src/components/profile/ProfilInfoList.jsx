@@ -8,38 +8,48 @@ import {
   Image,
 } from "react-native";
 import OtherInfo from "./OtherInfo";
+import { useStore } from "../../redux/store/Provider";
+import { setUSer } from "../../redux/actions/LoginAction";
 
 const ProfilInfoList = (props) => {
-  //const [comment, setComment] = useState("");
+  const [{ user }, dispatch] = useStore();
   return (
     <View style={styles.container}>
       {props.index == 1 ? (
         <OtherInfo
-          setComment={props.setComment}
+          setComment={props.arr[0].func}
           icon="user-edit"
           id="Ad Soyad"
-          holder="Ad Soyad"
+          holder={props.arr[0].value}
+          left={2}
+          type="default"
         />
       ) : props.index == 2 ? (
         <OtherInfo
-          setComment={props.setComment}
+          setComment={props.arr[1].func}
           icon="birthday-cake"
           id="Yaş"
-          holder="0"
+          holder={String(props.arr[1].value)}
+          left={60}
+          type="numeric"
         />
       ) : props.index == 3 ? (
         <OtherInfo
-          setComment={props.setComment}
+          setComment={props.arr[2].func}
           icon="user-graduate"
           id="Bölüm"
-          holder="Bilinmiyor"
+          holder={props.arr[2].value}
+          left={40}
+          type="default"
         />
       ) : props.index == 4 ? (
         <OtherInfo
-          setComment={props.setComment}
+          setComment={props.arr[3].func}
           icon="road"
           id="Sınıf"
-          holder="0"
+          holder={props.arr[3].value}
+          left={50}
+          type="default"
         />
       ) : (
         <></>

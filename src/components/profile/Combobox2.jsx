@@ -9,39 +9,47 @@ import {
   Picker,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import PickerCheckbox from "./PickerCheckbox";
+import { CheckBox } from "react-native-elements";
 import { useStore } from "../../redux/store/Provider";
 import { setUSer } from "../../redux/actions/LoginAction";
 
-const Combobox1 = (props) => {
+const Combobox2 = (props) => {
   const [{ user }, dispatch] = useStore();
-  const [items, setItems] = useState([
-    { id: 0, label: "Kadın", val: 0 },
-    { id: 1, label: "Erkek", val: 1 },
-  ]);
+
+  function handleConfirm(pItems) {
+    //console.log(pItems);
+    props.data.func(pItems);
+  }
+
   return (
     <View style={styles.container3}>
       <Icon
-        name={"user-check"}
+        name={"building"}
         size={25}
         color="#01367a"
         style={{ padding: 10, paddingRight: 5, marginLeft: 5 }}
       />
-      <Text style={styles.item}>Cinsiyet :</Text>
-      <Picker
-        style={styles.pick}
-        selectedValue={props.data.value}
-        onValueChange={(itemValue, itemIndex) => {
-          if (!itemValue) {
-            return;
-          }
-          props.data.func(itemValue);
-        }}
-      >
-        <Picker.Item label="Seçiniz" value="Seçiniz" color="grey" />
-        {items.sort().map((item) => (
-          <Picker.Item key={item.id} label={item.label} value={item.label} />
-        ))}
-      </Picker>
+      <Text style={styles.item}>{"Kaldığınız" + "\n" + "  Yurtlar "}</Text>
+      <Text style={styles.item2}>:</Text>
+      <PickerCheckbox
+        data={user.dorms}
+        headerComponent={<Text style={{ fontSize: 25 }}>Yurtlar</Text>}
+        selectedDorms={user.info.stayedDorms}
+        OnConfirm={(pItems) => handleConfirm(pItems)}
+        ConfirmButtonTitle="Tamam"
+        DescriptionField="Name"
+        KeyField="id"
+        placeholder={
+          user.info.stayedDorms.length > 0
+            ? String(user.info.stayedDorms.length) + " Yurt"
+            : "Seçiniz"
+        }
+        arrowColor="grey"
+        arrowSize={20}
+        containerStyle={{ width: 235, marginTop: 5 }}
+        placeholderSelectedItems="$count Yurt"
+      />
     </View>
   );
 };
@@ -83,11 +91,20 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   item: {
-    paddingTop: 15,
+    paddingTop: 1,
     padding: 10,
     paddingLeft: 5,
+    paddingRight: 3,
     fontSize: 18,
     color: "#203979",
+  },
+  item2: {
+    paddingTop: 15,
+    padding: 10,
+    paddingLeft: 0,
+    fontSize: 18,
+    color: "#203979",
+    paddingRight: 12,
   },
   image: {
     width: 35,
@@ -102,11 +119,10 @@ const styles = StyleSheet.create({
     marginTop: 3,
     borderWidth: 5,
     height: 50,
-    width: 240,
+    width: 250,
     borderColor: "black",
     marginRight: 10,
-    marginLeft: 10,
   },
 });
 
-export default Combobox1;
+export default Combobox2;

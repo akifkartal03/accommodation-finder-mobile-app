@@ -8,6 +8,8 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@expo/vector-icons": "^12.0.5",
+    "@react-native-picker/picker": "2.1.0",
     "@react-navigation/drawer": "^6.1.8",
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/native-stack": "^6.2.5",
@@ -29,6 +31,7 @@
     "react-native-loading-spinner-overlay": "^2.0.0",
     "react-native-modals": "^0.22.3",
     "react-native-paper": "^4.9.2",
+    "react-native-picker-checkbox": "^2.0.2",
     "react-native-popup-dialog": "^0.18.3",
     "react-native-progress": "^5.0.0",
     "react-native-safe-area-context": "3.3.2",
@@ -42,8 +45,7 @@
     "react-native-writebox": "^1.0.9",
     "react-redux": "^7.2.6",
     "redux": "^4.1.2",
-    "redux-thunk": "^2.4.0",
-    "@react-native-picker/picker": "2.1.0"
+    "redux-thunk": "^2.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

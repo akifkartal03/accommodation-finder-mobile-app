@@ -29,7 +29,7 @@ const DormInfo = (props) => {
               marginLeft: 12,
             }}
             uppercase={false}
-            onPress={() => console.log("Pressed")}
+            onPress={() => props.nav.navigate("Report", props.dr)}
           >
             Hata Bildir
           </Button>

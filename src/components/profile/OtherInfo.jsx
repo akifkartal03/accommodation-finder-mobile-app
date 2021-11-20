@@ -22,10 +22,11 @@ const OtherInfo = (props) => {
       <Text style={styles.item}>{props.id + " :"}</Text>
       <TextInput
         onChangeText={(text) => props.setComment(text)}
-        style={styles.textInput}
+        style={{ marginLeft: props.left ? props.left : 2, ...styles.textInput }}
         value={props.holder}
         placeholderTextColor="#66737C"
         maxHeight={35}
+        keyboardType={props.type ? props.type : "default"}
       />
     </View>
   );
@@ -51,7 +52,6 @@ const styles = StyleSheet.create({
   },
   textInput: {
     marginTop: 5,
-    marginLeft: 2,
     marginBottom: 3,
     marginRight: 20,
     fontSize: 17,
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     padding: 10,
     paddingLeft: 5,
     fontSize: 18,
-    color: "#cd123a",
+    color: "#203979",
   },
   image: {
     width: 35,
