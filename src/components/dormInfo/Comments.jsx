@@ -173,6 +173,9 @@ const Comments = ({ navigation, route }) => {
   const getUser = (userid) => {
     return tmp.find(({ id }) => id == userid);
   };
+  const isStayed = (information) => {
+    return information.stayedDorms.find((element) => element == dr.id);
+  };
   /*async function getUser(id) {
     console.log(id);
     await getUserByID(id)
@@ -236,19 +239,44 @@ const Comments = ({ navigation, route }) => {
                   </Text>
                 </View>
                 <Text rkType="primary3 mediumLine">{Notification.comment}</Text>
-
-                <TouchableOpacity
-                  style={styles.like}
-                  onPress={() => likePressed(item.index)}
-                >
-                  <Icon
+                {isStayed(info) ? (
+                  <View style={styles.contentHeader}>
+                    <View style={styles.commentz}>
+                      <Icon
+                        style={styles.star2}
+                        name="star"
+                        size={15}
+                        color="orange"
+                      />
+                      <Text style={styles.star}>Bu yurtta kalmış öğrenci</Text>
+                    </View>
+                    <TouchableOpacity
+                      style={styles.like}
+                      onPress={() => likePressed(item.index)}
+                    >
+                      <Icon
+                        style={styles.like}
+                        name={likePicker(item.index) ? "heart" : "heart-o"}
+                        size={15}
+                        color="red"
+                      />
+                      <Text style={styles.tx}>{Notification.likeNumber}</Text>
+                    </TouchableOpacity>
+                  </View>
+                ) : (
+                  <TouchableOpacity
                     style={styles.like}
-                    name={likePicker(item.index) ? "heart" : "heart-o"}
-                    size={15}
-                    color="red"
-                  />
-                  <Text style={styles.tx}>{Notification.likeNumber}</Text>
-                </TouchableOpacity>
+                    onPress={() => likePressed(item.index)}
+                  >
+                    <Icon
+                      style={styles.like}
+                      name={likePicker(item.index) ? "heart" : "heart-o"}
+                      size={15}
+                      color="red"
+                    />
+                    <Text style={styles.tx}>{Notification.likeNumber}</Text>
+                  </TouchableOpacity>
+                )}
               </View>
             </View>
           );
@@ -311,7 +339,7 @@ const styles = StyleSheet.create({
   contentHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 6,
+    marginBottom: 5,
   },
   separator: {
     height: 1,
@@ -355,11 +383,28 @@ const styles = StyleSheet.create({
   commentx: {
     flexDirection: "row",
   },
+  commenty: {
+    flex: 1,
+    flexDirection: "row",
+  },
   like: {
     flexDirection: "row",
     alignSelf: "flex-end",
     margin: 5,
     marginBottom: 0,
+  },
+  star: {
+    alignSelf: "flex-start",
+    marginBottom: 0,
+    marginTop: 20,
+    fontSize: 13,
+    color: "#808080",
+  },
+  star2: {
+    alignSelf: "flex-start",
+    marginBottom: 0,
+    marginTop: 21,
+    marginRight: 8,
   },
   tx: {
     marginTop: 4,
@@ -369,6 +414,10 @@ const styles = StyleSheet.create({
   },
   spinnerTextStyle: {
     color: "#FFF",
+  },
+  commentz: {
+    flexDirection: "row",
+    alignSelf: "flex-start",
   },
 });
 export default Comments;
