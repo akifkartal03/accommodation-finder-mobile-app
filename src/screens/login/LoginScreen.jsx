@@ -22,7 +22,7 @@ export default function LoginScreen({ navigation }) {
   const [load, setLoad] = useState(false);
   const [{ user }, dispatch] = useStore();
 
-  useEffect(() => {
+  /*useEffect(() => {
     const unsubscribe = Firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         navigation.reset({
@@ -33,7 +33,7 @@ export default function LoginScreen({ navigation }) {
     });
 
     return unsubscribe;
-  }, []);
+  }, []);*/
 
   const onLoginPressed = () => {
     setLoad(true);
@@ -57,6 +57,10 @@ export default function LoginScreen({ navigation }) {
             user.info = docRef.data();
             dispatch(setUSer(user));
             setLoad(false);
+            navigation.reset({
+              index: 0,
+              routes: [{ name: "DormData" }],
+            });
           })
           .catch((error) => {
             console.log(error);

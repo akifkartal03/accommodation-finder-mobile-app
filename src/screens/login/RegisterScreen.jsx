@@ -24,7 +24,7 @@ export default function RegisterScreen({ navigation }) {
   const [load, setLoad] = useState(false);
   const [{ user }, dispatch] = useStore();
 
-  useEffect(() => {
+  /*useEffect(() => {
     const unsubscribe = Firebase.auth().onAuthStateChanged((user2) => {
       if (user2) {
         navigation.reset({
@@ -35,7 +35,7 @@ export default function RegisterScreen({ navigation }) {
     });
 
     return unsubscribe;
-  }, []);
+  }, []);*/
 
   const onSignUpPressed = () => {
     setLoad(true);
@@ -85,6 +85,10 @@ export default function RegisterScreen({ navigation }) {
             user.info = docRef.data();
             dispatch(setUSer(user));
             setLoad(false);
+            navigation.reset({
+              index: 0,
+              routes: [{ name: "DormData" }],
+            });
           })
           .catch((error) => {
             console.log(error);

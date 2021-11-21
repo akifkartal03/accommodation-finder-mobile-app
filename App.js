@@ -25,6 +25,7 @@ import PrivateDormsList from "./src/screens/list_screens/PrivateDorms";
 import Comments from "./src/components/dormInfo/Comments";
 import Profile from "./src/screens/details/Profile";
 import DormReport from "./src/screens/report/DormReport";
+import StaticProfile from "./src/screens/details/StaticProfile";
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
 function MyHome() {
@@ -48,6 +49,7 @@ function MyHome() {
       <Stack.Screen name="Comments" component={Comments} />
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="Report" component={DormReport} />
+      <Stack.Screen name="StaticProfile" component={StaticProfile} />
       <Stack.Screen
         name="ResetPasswordScreen"
         component={ResetPasswordScreen}

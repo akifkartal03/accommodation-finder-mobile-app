@@ -17,9 +17,7 @@ const DormInfo = (props) => {
         <View style={styles.btn3}>
           <Button
             style={styles.btn2}
-            icon={{
-              uri: "https://cdn-icons-png.flaticon.com/128/159/159469.png",
-            }}
+            icon={require("../../../assets/images/warning.png")}
             mode="contained"
             color="#c9153c"
             labelStyle={{

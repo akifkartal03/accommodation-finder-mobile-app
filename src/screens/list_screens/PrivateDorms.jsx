@@ -22,11 +22,7 @@ const PrivateDormsList = ({ navigation }) => {
     <View style={styles.container}>
       {user.dorms.length ? (
         <View style={styles.container}>
-          <MainPageHeader
-            headTitle="Devlet Yurtları"
-            nav={navigation}
-            size={23}
-          />
+          <MainPageHeader headTitle="Özel Yurtlar" nav={navigation} size={23} />
           <FlatList
             data={user.dorms}
             renderItem={({ item }) =>

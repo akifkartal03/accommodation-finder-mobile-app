@@ -6,6 +6,7 @@ import {
   FlatList,
   TextInput,
   Alert,
+  Image,
 } from "react-native";
 import MainPageHeader from "../../components/header/mainPageHeader.jsx";
 import { Button } from "react-native-paper";
@@ -57,10 +58,12 @@ const DormReport = ({ route, navigation }) => {
       />
       <View style={styles.btn3}>
         <Button
-          icon={{
-            uri:
-              "https://cdn-icons.flaticon.com/png/128/2989/premium/2989993.png?token=exp=1637436124~hmac=452b5deb4064f90c4aaccdbea97d1a24",
-          }}
+          icon={() => (
+            <Image
+              source={require("../../../assets/images/save5.png")}
+              style={{ width: 25, height: 25, tintColor: "white" }}
+            />
+          )}
           mode="contained"
           color="green"
           labelStyle={{

@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -19,19 +19,40 @@ import { updateDorm } from "../../database/services/dormitory_service";
 import { updateUser } from "../../database/services/user_service";
 import uuid from "react-native-uuid";
 import { setUSer } from "../../redux/actions/LoginAction";
+import { getUserByID } from "../../database/services/user_service";
+import { getUsers } from "../../database/services/user_service";
+import Spinner from "react-native-loading-spinner-overlay";
 
 const Comments = ({ navigation, route }) => {
   const [{ user }, dispatch] = useStore();
   const [comment, setComment] = useState("");
   const [data, setData] = useState(route.params.id.Comments);
   const [spinner, setSpinner] = useState(false);
-  const [like, setLike] = useState(false);
+  const [tmp, setTmp] = useState([]);
   const dr = route.params.id;
   const image = "https://bootdey.com/img/Content/avatar/avatar7.png";
 
+  useEffect(() => {
+    getUsers()
+      .then((docRef) => {
+        //console.log(docRef);
+        setData(
+          data
+            .sort(function(a, b) {
+              return a.likeNumber - b.likeNumber;
+            })
+            .reverse()
+        );
+        setTmp(docRef);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }, []);
+
   const sendPressed = () => {
     dr.Comments.unshift({
-      userInfo: user.info,
+      userInfo: user.info.id,
       comment: comment,
       date: new Date().toString(),
       likeNumber: 0,
@@ -149,10 +170,24 @@ const Comments = ({ navigation, route }) => {
     const year = dateObj.getFullYear();
     return day + " " + month + " " + year;
   };
+  const getUser = (userid) => {
+    return tmp.find(({ id }) => id == userid);
+  };
+  /*async function getUser(id) {
+    console.log(id);
+    await getUserByID(id)
+      .then((docRef) => {
+        setTmp(docRef.data());
+      })
+      .catch((error) => {
+        alert(error);
+      });
+    //return user.info;
+  }*/
   const likePicker = (ind) => {
     return user.info.likedComments.includes(dr.Comments[ind]._id);
   };
-  return (
+  return tmp.length ? (
     <View style={styles.common}>
       <MainPageHeader headTitle={"Yorumlar"} nav={navigation} size={10} />
       <Text style={styles.text}>{dr.Name}</Text>
@@ -172,23 +207,30 @@ const Comments = ({ navigation, route }) => {
         }}
         renderItem={(item) => {
           const Notification = item.item;
+          const info = getUser(Notification.userInfo);
           return (
             <View style={styles.container}>
-              <TouchableOpacity onPress={() => {}}>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("StaticProfile", info);
+                }}
+              >
                 <Image
                   style={styles.image}
                   source={{
-                    uri: Notification.userInfo.avatar
-                      ? Notification.userInfo.avatar
-                      : image,
+                    uri: info.avatar ? info.avatar : image,
                   }}
                 />
               </TouchableOpacity>
               <View style={styles.content}>
                 <View style={styles.contentHeader}>
-                  <Text style={styles.name}>
-                    {Notification.userInfo.nameVal}
-                  </Text>
+                  <TouchableOpacity
+                    onPress={() => {
+                      navigation.navigate("StaticProfile", info);
+                    }}
+                  >
+                    <Text style={styles.name}>{info.nameVal}</Text>
+                  </TouchableOpacity>
                   <Text style={styles.time}>
                     {datePicker(new Date(Notification.date))}
                   </Text>
@@ -232,6 +274,14 @@ const Comments = ({ navigation, route }) => {
         </TouchableOpacity>
       </View>
     </View>
+  ) : (
+    <View style={styles.spin}>
+      <Spinner
+        visible={true}
+        textContent={"Yükleniyor..."}
+        textStyle={styles.spinnerTextStyle}
+      />
+    </View>
   );
 };
 
@@ -270,7 +320,7 @@ const styles = StyleSheet.create({
   image: {
     width: 45,
     height: 45,
-    borderRadius: 20,
+    borderRadius: 30,
     marginLeft: 2,
   },
   time: {

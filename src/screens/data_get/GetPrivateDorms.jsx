@@ -37,7 +37,7 @@ const GetPrivateDorms = ({ navigation }) => {
     <View style={styles.container}>
       <Spinner
         visible={true}
-        textContent={"Loading..."}
+        textContent={"Yükleniyor..."}
         textStyle={styles.spinnerTextStyle}
       />
     </View>

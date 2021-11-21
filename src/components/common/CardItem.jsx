@@ -1,8 +1,10 @@
 import React from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
 import { Card, Button, Icon } from "react-native-elements";
-
+import { updateDorm } from "../../database/services/dormitory_service";
+import { useStore } from "../../redux/store/Provider";
 const CardItem = (props) => {
+  const [{ user }, dispatch] = useStore();
   const onDetailPress = () => {
     props.nav.navigate("DormDetails", props.dorm);
   };
