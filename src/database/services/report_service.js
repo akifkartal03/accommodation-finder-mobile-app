@@ -17,3 +17,7 @@ export function updateReport(id, value) {
 export function deleteReport(id) {
   return db.doc(id).delete();
 }
+export async function getUserReports(id) {
+  const snapshot = await db.where("userId", "==", id).get();
+  return snapshot.docs.map((doc) => doc.data());
+}

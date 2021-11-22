@@ -84,6 +84,16 @@ const MContext = ({ navigation }) => {
       },
     },
     {
+      icon: "exclamation-circle",
+      name: "Hata Bildirimlerim",
+      screenName: "6",
+      key: 9,
+      handle: () => {
+        navigation.dispatch(DrawerActions.closeDrawer());
+        navigation.navigate("ReportStatus");
+      },
+    },
+    {
       icon: "arrow-circle-left",
       name: "Geri dön",
       screenName: "4",

@@ -8,6 +8,7 @@ import Spinner from "react-native-loading-spinner-overlay";
 
 const GetPrivateDorms = ({ navigation }) => {
   const [{ user }, dispatch] = useStore("");
+  const [load, setLoad] = useState(false);
   /*const onDataChange = (elements) => {
     let dorms = [];
     const start = new Date();
@@ -36,12 +37,13 @@ const GetPrivateDorms = ({ navigation }) => {
         user.nav = navigation;
         user.dorms = docRef;
         dispatch(setUSer(user));
+        setLoad(true);
       })
       .catch((error) => {
         alert(error);
       });
   }, []);
-  return user.dorms.length ? (
+  return user.dorms.length && load ? (
     <AllDormsList navigation={navigation} />
   ) : (
     <View style={styles.container}>

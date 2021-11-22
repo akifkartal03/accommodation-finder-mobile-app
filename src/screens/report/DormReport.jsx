@@ -24,6 +24,8 @@ const DormReport = ({ route, navigation }) => {
       message: comment,
       date: new Date().toString(),
       resolved: 0,
+      dormName: dorm.Name,
+      dormId: dorm.id,
     };
     addReport(data)
       .then((docRef) => {
@@ -37,6 +39,7 @@ const DormReport = ({ route, navigation }) => {
         text: "Tamam",
         onPress: () => {
           setLoad(false);
+          navigation.navigate("ReportStatus");
         },
       },
     ]);
