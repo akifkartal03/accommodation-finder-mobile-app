@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, FlatList } from "react-native";
-import { getAll } from "../../database/services/dormitory_service.js";
+import { getAll, getDorms } from "../../database/services/dormitory_service.js";
 import { useStore } from "../../redux/store/Provider";
 import { setUSer } from "../../redux/actions/LoginAction";
 import AllDormsList from "../list_screens/AllDorms.jsx";
@@ -8,7 +8,7 @@ import Spinner from "react-native-loading-spinner-overlay";
 
 const GetPrivateDorms = ({ navigation }) => {
   const [{ user }, dispatch] = useStore("");
-  const onDataChange = (elements) => {
+  /*const onDataChange = (elements) => {
     let dorms = [];
     const start = new Date();
     const t = start.getTime();
@@ -29,8 +29,18 @@ const GetPrivateDorms = ({ navigation }) => {
   useEffect(() => {
     const unsubscribe = getAll().onSnapshot(onDataChange);
     return () => unsubscribe();
+  }, []);*/
+  useEffect(() => {
+    getDorms()
+      .then((docRef) => {
+        user.nav = navigation;
+        user.dorms = docRef;
+        dispatch(setUSer(user));
+      })
+      .catch((error) => {
+        alert(error);
+      });
   }, []);
-
   return user.dorms.length ? (
     <AllDormsList navigation={navigation} />
   ) : (

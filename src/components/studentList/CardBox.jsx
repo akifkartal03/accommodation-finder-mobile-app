@@ -1,13 +1,48 @@
 import React from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
 import { Card, Button } from "react-native-elements";
 import { useStore } from "../../redux/store/Provider";
+import { setUSer } from "../../redux/actions/LoginAction";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import { getHomeMate } from "../../database/services/user_service";
+import { updateUser } from "../../database/services/user_service";
 
 const CardBox = (props) => {
   const [{ user }, dispatch] = useStore();
   const onDetailPress = () => {
     props.nav.navigate("StaticProfile", props.dorm);
+  };
+  const removeUser = () => {
+    user.info.isLookForHouseMate = 0;
+    dispatch(setUSer(user));
+    updateUser(user.info.id, user.info)
+      .then((docRef) => {
+        console.log(docRef);
+        getHomeMate()
+          .then((docRef) => {
+            props.set(docRef);
+          })
+          .catch((error) => {
+            alert(error);
+          });
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
+
+    Alert.alert("Başarılı", "Ev arkadaşı arayanlar listesinden çıkarıldınız.", [
+      {
+        text: "Tamam",
+        onPress: () => {},
+      },
+    ]);
   };
   return (
     <View style={styles.container}>
@@ -57,18 +92,43 @@ const CardBox = (props) => {
               : props.dorm.gender}
           </Text>
         </View>
-        <Button
-          buttonStyle={{
-            borderRadius: 0,
-            marginLeft: 0,
-            marginRight: 0,
-            marginBottom: 2,
-            marginTop: 15,
-            backgroundColor: "#c9153c",
-          }}
-          onPress={onDetailPress}
-          title="Detaylı Bilgi"
-        />
+        {props.dorm.id == user.info.id ? (
+          <View style={styles.parent2}>
+            <View style={styles.delete2}>
+              <Button
+                buttonStyle={{
+                  borderRadius: 0,
+                  marginLeft: 0,
+                  marginRight: 0,
+                  marginBottom: 2,
+                  marginTop: 15,
+                  backgroundColor: "#c9153c",
+                  width: 150,
+                }}
+                onPress={onDetailPress}
+                title="Detaylı Bilgi"
+              />
+            </View>
+            <View style={styles.delete}>
+              <TouchableOpacity style={styles.delete} onPress={removeUser}>
+                <Icon name={"trash-alt"} size={20} color="red" />
+              </TouchableOpacity>
+            </View>
+          </View>
+        ) : (
+          <Button
+            buttonStyle={{
+              borderRadius: 0,
+              marginLeft: 0,
+              marginRight: 0,
+              marginBottom: 2,
+              marginTop: 15,
+              backgroundColor: "#c9153c",
+            }}
+            onPress={onDetailPress}
+            title="Detaylı Bilgi"
+          />
+        )}
       </Card>
     </View>
   );
@@ -106,7 +166,11 @@ const styles = StyleSheet.create({
   parent2: {
     flex: 1,
     flexDirection: "row",
-    justifyContent: "space-between",
+  },
+  parent3: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-around",
   },
   avat: {
     justifyContent: "flex-start",
@@ -123,6 +187,19 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
     margin: 10,
     marginTop: 15,
+  },
+  delete: {
+    flexDirection: "row",
+    alignSelf: "flex-end",
+    justifyContent: "flex-end",
+    marginBottom: 5,
+    marginRight: 5,
+  },
+  delete2: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
   },
   commentz: {
     flexDirection: "row",

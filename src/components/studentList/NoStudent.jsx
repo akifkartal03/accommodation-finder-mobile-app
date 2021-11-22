@@ -14,7 +14,7 @@ const NoStudent = (props) => {
       <View style={styles.container2}>
         <Icon name="frown-o" size={75} color="#01367a" style={styles.icon} />
         <Text style={styles.text}>Burada kimse görünmüyor</Text>
-        <Add msg={"Beni Ekle"} />
+        <Add msg={"Beni Ekle"} set={props.set} />
       </View>
     </View>
   );

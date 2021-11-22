@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, FlatList, Alert } from "react-native";
+import { useIsFocused } from "@react-navigation/native";
 import MainPageHeader from "../../components/header/mainPageHeader.jsx";
 import Firebase from "../../database/firebase_config.js";
 import { useStore } from "../../redux/store/Provider";
@@ -13,6 +14,7 @@ import Add from "../../components/studentList/Add.jsx";
 const Students = ({ navigation }) => {
   const [{ user }, dispatch] = useStore("");
   const [users, setUsers] = useState(null);
+  const isFocused = useIsFocused();
   useEffect(() => {
     getHomeMate()
       .then((docRef) => {
@@ -21,7 +23,7 @@ const Students = ({ navigation }) => {
       .catch((error) => {
         alert(error);
       });
-  }, []);
+  }, [isFocused]);
   /*useEffect(() => {
     const unsubscribe = getUsers((docRef) => {
       if (docRef) {
@@ -44,13 +46,13 @@ const Students = ({ navigation }) => {
             <FlatList
               data={users}
               renderItem={({ item }) => (
-                <CardBox dorm={item} nav={navigation} />
+                <CardBox dorm={item} nav={navigation} set={setUsers} />
               )}
             />
-            <Add msg={"Benide Ekle"} />
+            <Add msg={"Benide Ekle"} set={setUsers} />
           </View>
         ) : (
-          <NoStudent nav={navigation} />
+          <NoStudent nav={navigation} set={setUsers} />
         )
       ) : (
         <View style={styles.container2}>
