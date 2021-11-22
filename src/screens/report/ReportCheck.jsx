@@ -1,27 +1,7 @@
-import React, { Component, useState, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Image,
-  ScrollView,
-  FlatList,
-  TextInput,
-  ActivityIndicator,
-  Alert,
-} from "react-native";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, Text, View, Image, FlatList } from "react-native";
 import { useStore } from "../../redux/store/Provider";
 import MainPageHeader from "../../components/header/mainPageHeader";
-import Icon2 from "react-native-vector-icons/MaterialIcons";
-import Icon from "react-native-vector-icons/FontAwesome";
-import { updateDorm } from "../../database/services/dormitory_service";
-import { updateUser } from "../../database/services/user_service";
-import uuid from "react-native-uuid";
-import { setUSer } from "../../redux/actions/LoginAction";
-import { getUserByID } from "../../database/services/user_service";
-import { getUsers } from "../../database/services/user_service";
-import Spinner from "react-native-loading-spinner-overlay";
 import { getUserReports } from "../../database/services/report_service";
 import { useIsFocused } from "@react-navigation/native";
 
