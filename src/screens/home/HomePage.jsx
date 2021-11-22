@@ -1,25 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, FlatList } from "react-native";
 import MainPageHeader from "../../components/header/mainPageHeader.jsx";
-import ImageSlider from "react-native-image-slider";
-import ProfileInfo from "../../components/staticProfile/ProfileInfo.jsx";
-import Slider from "react-native-hook-image-slider";
-import { SliderBox } from "react-native-image-slider-box";
 
-const StaticProfile = ({ route, navigation }) => {
-  const user = route.params;
+const HomePage = ({ route, navigation }) => {
+  const dorm = route.params;
   const backPressed = () => {
     navigation.goBack();
   };
   //console.log(user.nav.canGoBack());
   return (
     <View style={styles.container}>
-      <MainPageHeader
-        headTitle="Kullanıcı Bilgileri"
-        nav={navigation}
-        size={23}
-      />
-      <ProfileInfo dr={user} nav={navigation} />
+      <MainPageHeader headTitle="Hoşgeldiniz" nav={navigation} size={23} />
     </View>
   );
 };
@@ -45,4 +36,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default StaticProfile;
+export default HomePage;

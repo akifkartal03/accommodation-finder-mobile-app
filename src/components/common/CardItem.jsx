@@ -24,7 +24,7 @@ const CardItem = (props) => {
             backgroundColor: "#c9153c",
           }}
           onPress={onDetailPress}
-          title="Detaylar"
+          title="Detaylı Bilgi"
         />
       </Card>
     </View>

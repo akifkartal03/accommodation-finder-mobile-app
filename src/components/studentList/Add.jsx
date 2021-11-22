@@ -10,24 +10,22 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import Icon2 from "react-native-vector-icons/FontAwesome5";
 import { Link } from "@react-navigation/native";
 import { Button } from "react-native-paper";
-const Btn = (props) => {
-  const backPressed = () => {};
+import { useStore } from "../../redux/store/Provider";
+import { setUSer } from "../../redux/actions/LoginAction";
+const Add = (props) => {
+  const [{ user }, dispatch] = useStore();
+  const updateUser = () => {};
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        onPress={() => {
-          props.nav.navigate("Comments", { id: props.dorm });
-        }}
-        style={styles.container}
-      >
+      <TouchableOpacity onPress={() => {}} style={styles.container}>
         <Icon
-          name="comments"
+          name="plus-circle"
           size={25}
-          color="#f6911b"
-          style={{ padding: 10 }}
+          color="green"
+          style={{ padding: 10, paddingRight: 8 }}
         />
-        <Text style={styles.text}>Yorumları Gör</Text>
+        <Text style={styles.text}>{props.msg}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -40,6 +38,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     margin: 5,
+    marginTop: 5,
   },
   text: {
     fontSize: 18,
@@ -54,4 +53,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Btn;
+export default Add;

@@ -47,7 +47,7 @@ const DormInfo = (props) => {
           <InfoList itm={item} dorm={props.dr} ind={index} />
         )}
       />
-      <Btn dorm={props.dr} />
+      <Btn dorm={props.dr} nav={props.nav} />
     </View>
   );
 };

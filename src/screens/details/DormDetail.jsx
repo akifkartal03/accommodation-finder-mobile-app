@@ -14,7 +14,7 @@ const DormDetails = ({ route, navigation }) => {
   //console.log(user.nav.canGoBack());
   return (
     <View style={styles.container}>
-      <MainPageHeader headTitle="Detaylar" nav={navigation} />
+      <MainPageHeader headTitle="Detaylar" nav={navigation} size={23} />
       <Text style={styles.text}>{dorm.Name}</Text>
       <View style={styles.container2}>
         <SliderBox

@@ -14,6 +14,10 @@ export function getUserByID(id) {
 export function updateUser(id, value) {
   return db.doc(id).update(value);
 }
+export async function getHomeMate() {
+  const snapshot = await db.where("isLookForHouseMate", "==", 1).get();
+  return snapshot.docs.map((doc) => doc.data());
+}
 export function deleteUser(id) {
   return db.doc(id).delete();
 }

@@ -101,7 +101,11 @@ const Profile = ({ navigation }) => {
   //console.log(comment);
   return (
     <View style={styles.container}>
-      <MainPageHeader headTitle={"Profil Bilgileri"} nav={navigation} />
+      <MainPageHeader
+        headTitle={"Profil Bilgileriniz"}
+        nav={navigation}
+        size={23}
+      />
       <View style={styles.container4}>
         <FlatList
           data={[

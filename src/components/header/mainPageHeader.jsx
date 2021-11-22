@@ -15,7 +15,11 @@ const MainPageHeader = (props) => {
             <Icon name="bars" size={30} color="white" />
           </TouchableOpacity>
         </View>
-        <Text style={styles.text}>{props.headTitle}</Text>
+        <Text
+          style={{ fontSize: props.size ? props.size : 20, ...styles.text }}
+        >
+          {props.headTitle}
+        </Text>
       </View>
     </View>
   );
@@ -29,7 +33,6 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#fff",
-    fontSize: 23,
     padding: 10,
     marginTop: 5,
     justifyContent: "center",

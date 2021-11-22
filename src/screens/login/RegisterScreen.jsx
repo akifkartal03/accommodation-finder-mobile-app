@@ -65,6 +65,7 @@ export default function RegisterScreen({ navigation }) {
         const stayedDorms = [];
         const avatar =
           "https://cdn-icons-png.flaticon.com/128/1177/1177568.png";
+        const isLookForHouseMate = 0;
         Firebase.firestore()
           .collection("users")
           .doc(user3.uid)
@@ -79,6 +80,7 @@ export default function RegisterScreen({ navigation }) {
             gender,
             stayedDorms,
             avatar,
+            isLookForHouseMate,
           });
         getUserByID(user3.uid)
           .then((docRef) => {

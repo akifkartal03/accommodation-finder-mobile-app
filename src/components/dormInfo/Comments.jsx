@@ -28,7 +28,7 @@ const Comments = ({ navigation, route }) => {
   const [comment, setComment] = useState("");
   const [data, setData] = useState(route.params.id.Comments);
   const [spinner, setSpinner] = useState(false);
-  const [tmp, setTmp] = useState([]);
+  const [users, setUsers] = useState([]);
   const dr = route.params.id;
   const image = "https://bootdey.com/img/Content/avatar/avatar7.png";
 
@@ -43,7 +43,7 @@ const Comments = ({ navigation, route }) => {
             })
             .reverse()
         );
-        setTmp(docRef);
+        setUsers(docRef);
       })
       .catch((error) => {
         alert(error);
@@ -171,7 +171,7 @@ const Comments = ({ navigation, route }) => {
     return day + " " + month + " " + year;
   };
   const getUser = (userid) => {
-    return tmp.find(({ id }) => id == userid);
+    return users.find(({ id }) => id == userid);
   };
   const isStayed = (information) => {
     return information.stayedDorms.find((element) => element == dr.id);
@@ -190,9 +190,9 @@ const Comments = ({ navigation, route }) => {
   const likePicker = (ind) => {
     return user.info.likedComments.includes(dr.Comments[ind]._id);
   };
-  return tmp.length ? (
+  return users.length ? (
     <View style={styles.common}>
-      <MainPageHeader headTitle={"Yorumlar"} nav={navigation} size={10} />
+      <MainPageHeader headTitle={"Yorumlar"} nav={navigation} size={23} />
       <Text style={styles.text}>{dr.Name}</Text>
 
       <View

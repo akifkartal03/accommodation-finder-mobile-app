@@ -45,7 +45,7 @@ const DormReport = ({ route, navigation }) => {
   };
   return (
     <View style={styles.container}>
-      <MainPageHeader headTitle="Hata Bildir" nav={navigation} />
+      <MainPageHeader headTitle="Hata Bildir" nav={navigation} size={23} />
       <Text style={styles.text}>{dorm.Name}</Text>
       <TextInput
         onChangeText={(text) => setComment(text)}
