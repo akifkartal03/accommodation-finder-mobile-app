@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, FlatList } from "react-native";
 import MainPageHeader from "../../components/header/mainPageHeader.jsx";
-import ImageSlider from "react-native-image-slider";
 import DormInfo from "../../components/dormInfo/DormInfo.jsx";
-import Slider from "react-native-hook-image-slider";
 import { SliderBox } from "react-native-image-slider-box";
 
 const DormDetails = ({ route, navigation }) => {

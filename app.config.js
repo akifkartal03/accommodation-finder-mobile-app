@@ -6,9 +6,9 @@ export default {
     slug: "GtuAccommodationFinder",
     version: "1.0.0",
     orientation: "portrait",
-    icon: "./assets/icon.png",
+    icon: "./assets/icon2.png",
     splash: {
-      image: "./assets/splash.png",
+      image: "./assets/icon2.png",
       resizeMode: "contain",
       backgroundColor: "#ffffff",
     },
@@ -21,7 +21,7 @@ export default {
     },
     android: {
       adaptiveIcon: {
-        foregroundImage: "./assets/adaptive-icon.png",
+        foregroundImage: "./assets/icon2.png",
         backgroundColor: "#FFFFFF",
       },
     },
