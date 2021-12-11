@@ -15,6 +15,7 @@ import Firebase from "../../database/firebase_config";
 import { getUserByID } from "../../database/services/user_service";
 import { useStore } from "../../redux/store/Provider";
 import { setUSer } from "../../redux/actions/LoginAction";
+import { getDorms } from "../../database/services/dormitory_service";
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState({ value: "", error: "" });
@@ -55,12 +56,20 @@ export default function LoginScreen({ navigation }) {
         getUserByID(user2.uid)
           .then((docRef) => {
             user.info = docRef.data();
-            dispatch(setUSer(user));
-            setLoad(false);
-            navigation.reset({
-              index: 0,
-              routes: [{ name: "DormData" }],
-            });
+            getDorms()
+              .then((docRef2) => {
+                user.nav = navigation;
+                user.dorms = docRef2;
+                dispatch(setUSer(user));
+                setLoad(false);
+                navigation.reset({
+                  index: 0,
+                  routes: [{ name: "Dashboard", params: { mykey: 1 } }],
+                });
+              })
+              .catch((error) => {
+                alert(error);
+              });
           })
           .catch((error) => {
             console.log(error);

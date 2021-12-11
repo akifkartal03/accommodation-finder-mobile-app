@@ -17,6 +17,7 @@ import {
   ResetPasswordScreen,
 } from "./src/screens/login";
 import DormList from "./src/screens/list_screens/AllDorms";
+import AllDorms from "./src/screens/list_screens/AllDorms";
 import DormData from "./src/screens/data_get/GetPrivateDorms";
 import DormDetails from "./src/screens/details/DormDetail";
 import MContext from "./src/components/sideMenu/MenuContext";
@@ -46,6 +47,7 @@ function MyHome() {
       <Stack.Screen name="DormDetails" component={DormDetails} />
       <Stack.Screen name="Menu" component={MyHome} />
       <Stack.Screen name="Context" component={MContext} />
+      <Stack.Screen name="AllDorms" component={AllDorms} />
       <Stack.Screen name="PublicDorms" component={PublicDormsList} />
       <Stack.Screen name="PrivateDorms" component={PrivateDormsList} />
       <Stack.Screen name="Comments" component={Comments} />

@@ -5,8 +5,9 @@ import CardItem from "../../components/common/CardItem.jsx";
 import Firebase from "../../database/firebase_config.js";
 import { useStore } from "../../redux/store/Provider";
 import Warn from "../../components/warning/Warning.jsx";
-const AllDormsList = ({ navigation }) => {
+const AllDormsList = ({ navigation, route }) => {
   const [{ user }, dispatch] = useStore("");
+
   const exitPressed = () => {
     Firebase.auth()
       .signOut()

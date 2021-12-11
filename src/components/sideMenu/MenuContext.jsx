@@ -40,7 +40,7 @@ const MContext = ({ navigation }) => {
       key: 1,
       handle: () => {
         navigation.dispatch(DrawerActions.closeDrawer());
-        navigation.navigate("Dashboard");
+        navigation.navigate("AllDorms");
       },
     },
     {

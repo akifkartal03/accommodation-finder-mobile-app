@@ -7,18 +7,6 @@ import Button from "../../components/login/Button";
 import Paragraph from "../../components/login/Paragraph";
 import Firebase from "../../database/firebase_config";
 export default function StartScreen({ navigation }) {
-  useEffect(() => {
-    const unsubscribe = Firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        navigation.reset({
-          index: 0,
-          routes: [{ name: "Dashboard" }],
-        });
-      }
-    });
-
-    return unsubscribe;
-  }, []);
   return (
     <Background>
       <Logo />

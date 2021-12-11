@@ -22,6 +22,7 @@ import { setUSer } from "../../redux/actions/LoginAction";
 import { getUserByID } from "../../database/services/user_service";
 import { getUsers } from "../../database/services/user_service";
 import Spinner from "react-native-loading-spinner-overlay";
+import { getResult } from "../../database/sentiment/sentiment_service";
 
 const Comments = ({ navigation, route }) => {
   const [{ user }, dispatch] = useStore();
@@ -29,16 +30,17 @@ const Comments = ({ navigation, route }) => {
   const [data, setData] = useState(route.params.id.Comments);
   const [spinner, setSpinner] = useState(false);
   const [users, setUsers] = useState([]);
+  const [res, setRes] = useState({ result: "positive" });
   const dr = route.params.id;
   const image = "https://bootdey.com/img/Content/avatar/avatar7.png";
 
   useEffect(() => {
     getUsers()
       .then((docRef) => {
-        //console.log(docRef);
+        //console.log(docRef);s
         setData(
           data
-            .sort(function(a, b) {
+            .sort(function (a, b) {
               return a.likeNumber - b.likeNumber;
             })
             .reverse()
@@ -51,24 +53,34 @@ const Comments = ({ navigation, route }) => {
   }, []);
 
   const sendPressed = () => {
+    setSpinner(true);
+    getResult(comment)
+      .then((response) => {
+        setRes(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
     dr.Comments.unshift({
       userInfo: user.info.id,
       comment: comment,
       date: new Date().toString(),
       likeNumber: 0,
-      type: 0,
+      type: res.result == "positive" ? 1 : 0,
       _id: uuid.v4(),
     });
     setData(dr.Comments);
-    setSpinner(true);
-
+    //setSpinner(true);
+    console.log(res);
     updateDorm(dr.id, dr)
       .then((docRef) => {
+        //setSpinner(false);
         console.log(docRef);
       })
       .catch((error) => {
         alert(error.message);
       });
+    setSpinner(false);
     Alert.alert("Başarılı", "Yorum Yapıldı.", [
       {
         text: "Tamam",
@@ -102,7 +114,7 @@ const Comments = ({ navigation, route }) => {
         .catch((error) => {
           alert(error.message);
         });
-
+      setSpinner(false);
       Alert.alert("Başarılı", "Yorumu Beğendin.", [
         {
           text: "Tamam",
@@ -137,6 +149,7 @@ const Comments = ({ navigation, route }) => {
         .catch((error) => {
           alert(error.message);
         });
+      setSpinner(false);
       Alert.alert("Başarılı", "Yorumu Beğenmekten Vazgeçtin.", [
         {
           text: "Tamam",
@@ -191,65 +204,84 @@ const Comments = ({ navigation, route }) => {
     return user.info.likedComments.includes(dr.Comments[ind]._id);
   };
   return users.length ? (
-    <View style={styles.common}>
-      <MainPageHeader headTitle={"Yorumlar"} nav={navigation} size={23} />
-      <Text style={styles.text}>{dr.Name}</Text>
+    !spinner ? (
+      <View style={styles.common}>
+        <MainPageHeader headTitle={"Yorumlar"} nav={navigation} size={23} />
+        <Text style={styles.text}>{dr.Name}</Text>
 
-      <View
-        style={{
-          borderBottomColor: "#c9153c",
-          borderBottomWidth: 1,
-        }}
-      />
-      <FlatList
-        style={styles.root}
-        data={data}
-        extraData={spinner}
-        ItemSeparatorComponent={() => {
-          return <View style={styles.separator} />;
-        }}
-        renderItem={(item) => {
-          const Notification = item.item;
-          const info = getUser(Notification.userInfo);
-          return (
-            <View style={styles.container}>
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate("StaticProfile", info);
-                }}
-              >
-                <Image
-                  style={styles.image}
-                  source={{
-                    uri: info.avatar ? info.avatar : image,
+        <View
+          style={{
+            borderBottomColor: "#c9153c",
+            borderBottomWidth: 1,
+          }}
+        />
+        <FlatList
+          style={styles.root}
+          data={data}
+          extraData={spinner}
+          ItemSeparatorComponent={() => {
+            return <View style={styles.separator} />;
+          }}
+          renderItem={(item) => {
+            const Notification = item.item;
+            const info = getUser(Notification.userInfo);
+            return (
+              <View style={styles.container}>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate("StaticProfile", info);
                   }}
-                />
-              </TouchableOpacity>
-              <View style={styles.content}>
-                <View style={styles.contentHeader}>
-                  <TouchableOpacity
-                    onPress={() => {
-                      navigation.navigate("StaticProfile", info);
+                >
+                  <Image
+                    style={styles.image}
+                    source={{
+                      uri: info.avatar ? info.avatar : image,
                     }}
-                  >
-                    <Text style={styles.name}>{info.nameVal}</Text>
-                  </TouchableOpacity>
-                  <Text style={styles.time}>
-                    {datePicker(new Date(Notification.date))}
-                  </Text>
-                </View>
-                <Text rkType="primary3 mediumLine">{Notification.comment}</Text>
-                {isStayed(info) ? (
+                  />
+                </TouchableOpacity>
+                <View style={styles.content}>
                   <View style={styles.contentHeader}>
-                    <View style={styles.commentz}>
-                      <Icon
-                        style={styles.star2}
-                        name="star"
-                        size={15}
-                        color="orange"
-                      />
-                      <Text style={styles.star}>Bu yurtta kalmış öğrenci</Text>
+                    <TouchableOpacity
+                      onPress={() => {
+                        navigation.navigate("StaticProfile", info);
+                      }}
+                    >
+                      <Text style={styles.name}>{info.nameVal}</Text>
+                    </TouchableOpacity>
+                    <Text style={styles.time}>
+                      {datePicker(new Date(Notification.date))}
+                    </Text>
+                  </View>
+                  <Text rkType="primary3 mediumLine">
+                    {Notification.comment}
+                  </Text>
+                  {isStayed(info) ? (
+                    <View style={styles.contentHeader}>
+                      <View style={styles.commentz}>
+                        <Icon
+                          style={styles.star2}
+                          name="star"
+                          size={15}
+                          color="orange"
+                        />
+                        <Text style={styles.star}>
+                          Bu yurtta kalmış öğrenci
+                        </Text>
+                      </View>
+                      <TouchableOpacity
+                        style={styles.like}
+                        onPress={() => likePressed(item.index)}
+                      >
+                        <Icon
+                          style={styles.like}
+                          name={likePicker(item.index) ? "heart" : "heart-o"}
+                          size={15}
+                          color="red"
+                        />
+                        <Text style={styles.tx}>{Notification.likeNumber}</Text>
+                      </TouchableOpacity>
                     </View>
+                  ) : (
                     <TouchableOpacity
                       style={styles.like}
                       onPress={() => likePressed(item.index)}
@@ -262,46 +294,41 @@ const Comments = ({ navigation, route }) => {
                       />
                       <Text style={styles.tx}>{Notification.likeNumber}</Text>
                     </TouchableOpacity>
-                  </View>
-                ) : (
-                  <TouchableOpacity
-                    style={styles.like}
-                    onPress={() => likePressed(item.index)}
-                  >
-                    <Icon
-                      style={styles.like}
-                      name={likePicker(item.index) ? "heart" : "heart-o"}
-                      size={15}
-                      color="red"
-                    />
-                    <Text style={styles.tx}>{Notification.likeNumber}</Text>
-                  </TouchableOpacity>
-                )}
+                  )}
+                </View>
               </View>
-            </View>
-          );
-        }}
-      />
-      <View style={styles.commentx}>
-        <TextInput
-          onChangeText={(text) => setComment(text)}
-          style={styles.textInput}
-          placeholder={"Yorum Yap"}
-          placeholderTextColor="#66737C"
-          maxHeight={50}
-          minHeight={50}
-          multiline={true}
+            );
+          }}
         />
-        <TouchableOpacity onPress={sendPressed}>
-          <Icon2
-            name="send"
-            size={25}
-            color="black"
-            style={{ margin: 15, marginTop: 20, marginLeft: 25 }}
+        <View style={styles.commentx}>
+          <TextInput
+            onChangeText={(text) => setComment(text)}
+            style={styles.textInput}
+            placeholder={"Yorum Yap"}
+            placeholderTextColor="#66737C"
+            maxHeight={50}
+            minHeight={50}
+            multiline={true}
           />
-        </TouchableOpacity>
+          <TouchableOpacity onPress={sendPressed}>
+            <Icon2
+              name="send"
+              size={25}
+              color="black"
+              style={{ margin: 15, marginTop: 20, marginLeft: 25 }}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    ) : (
+      <View style={styles.spin}>
+        <Spinner
+          visible={true}
+          textContent={"Yorum Değerlendiriliyor..."}
+          textStyle={styles.spinnerTextStyle}
+        />
+      </View>
+    )
   ) : (
     <View style={styles.spin}>
       <Spinner

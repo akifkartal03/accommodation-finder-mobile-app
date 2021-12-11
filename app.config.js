@@ -16,14 +16,12 @@ export default {
       fallbackToCacheTimeout: 0,
     },
     assetBundlePatterns: ["**/*"],
-    ios: {
-      supportsTablet: true,
-    },
     android: {
       adaptiveIcon: {
         foregroundImage: "./assets/icon2.png",
         backgroundColor: "#FFFFFF",
       },
+      package: "com.akif05.GtuKalacakYeriniBull",
     },
     web: {
       favicon: "./assets/favicon.png",
