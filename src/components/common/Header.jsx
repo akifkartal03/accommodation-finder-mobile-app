@@ -8,35 +8,37 @@ import { DrawerActions } from "@react-navigation/native";
 const Header = (props) => {
   return (
     <View style={styles.header}>
+      <View style={styles.icon}>
+        <TouchableOpacity
+          onPress={() => props.nav.dispatch(DrawerActions.openDrawer())}
+        >
+          <Icon name="bars" size={30} color="white" />
+        </TouchableOpacity>
+      </View>
       <View style={styles.parent2}>
-        <View style={styles.icon}>
-          <TouchableOpacity
-            onPress={() => props.nav.dispatch(DrawerActions.openDrawer())}
-          >
-            <Icon name="bars" size={30} color="white" />
-          </TouchableOpacity>
-        </View>
         <Text style={styles.text}>{props.headTitle}</Text>
-        <Button
-          style={styles.text2}
-          icon={
-            <Icon
-              style={{ marginTop: 11 }}
-              name={props.iconName}
-              size={22}
-              color="white"
-            />
-          }
-          title={props.buttonTitle}
-          type="clear"
-          titleStyle={{
-            color: "white",
-            marginLeft: 7,
-            fontSize: 18,
-            marginTop: 9,
-          }}
-          onPress={props.pressHandle}
-        />
+        <View style={styles.text4}>
+          <Button
+            style={styles.text2}
+            icon={
+              <Icon
+                style={{ marginTop: 11 }}
+                name={"bath"}
+                size={22}
+                color="white"
+              />
+            }
+            title={"Filter"}
+            type="clear"
+            titleStyle={{
+              color: "white",
+              marginLeft: 7,
+              fontSize: 18,
+              marginTop: 9,
+            }}
+            onPress={props.pressHandle}
+          />
+        </View>
       </View>
     </View>
   );
@@ -53,10 +55,23 @@ const styles = StyleSheet.create({
     fontSize: 23,
     padding: 10,
     marginTop: 5,
-    marginLeft: 30,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    position: "absolute",
+  },
+  text3: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  text4: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "flex-end",
   },
   text2: {
-    justifyContent: "flex-end",
     fontSize: 20,
     marginTop: 8,
   },
@@ -79,7 +94,7 @@ const styles = StyleSheet.create({
   parent2: {
     flex: 1,
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "center",
   },
   icon: {
     position: "absolute",

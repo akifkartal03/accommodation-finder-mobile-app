@@ -5,6 +5,7 @@ import { getStatusBarHeight } from "react-native-status-bar-height";
 import { useStore } from "../../redux/store/Provider";
 import Firebase from "../../database/firebase_config";
 import { DrawerActions } from "@react-navigation/native";
+import { getResult } from "../../database/sentiment/sentiment_service";
 
 import {
   DrawerContentScrollView,
@@ -32,6 +33,16 @@ const MContext = ({ navigation }) => {
       })
       .catch((error) => alert(error.message));
   };
+  /*const testAPI = () => {
+    getResult("bu yurt okula uzak.")
+      .then((response) => response.json())
+      .then((json) => {
+        console.log(json);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };*/
   const menuData = [
     {
       icon: "home",
@@ -110,6 +121,13 @@ const MContext = ({ navigation }) => {
       key: 8,
       handle: exitPressed,
     },
+    /*{
+      icon: "adjust",
+      name: "Api",
+      screenName: "5",
+      key: 11,
+      handle: testAPI,
+    },*/
   ];
   return (
     <View style={styles.container}>

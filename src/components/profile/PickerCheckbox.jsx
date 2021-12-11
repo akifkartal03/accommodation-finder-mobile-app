@@ -102,7 +102,8 @@ export default class PickerCheckbox extends React.Component {
         this.props.placeholderSelectedItems || PLACEHOLDER_ITEMS_SELECTED;
       let vCount = this.state.checkedItems.length;
       vPlaceHolder = vPlaceHolderSelectedItems.replace("$count", vCount);
-      vColorTextPlaceHolder = PLACEHOLDER_ITEMS_SELECTED_COLOR;
+      vColorTextPlaceHolder =
+        this.props.selectedTextColor || PLACEHOLDER_ITEMS_SELECTED_COLOR;
     }
 
     return (

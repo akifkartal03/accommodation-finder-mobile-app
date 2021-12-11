@@ -23,6 +23,8 @@ import { getUserByID } from "../../database/services/user_service";
 import { getUsers } from "../../database/services/user_service";
 import Spinner from "react-native-loading-spinner-overlay";
 import { getResult } from "../../database/sentiment/sentiment_service";
+import CommentsHeader from "../header/commentsHeader";
+import Header from "../common/Header";
 
 const Comments = ({ navigation, route }) => {
   const [{ user }, dispatch] = useStore();
@@ -33,6 +35,7 @@ const Comments = ({ navigation, route }) => {
   const [res, setRes] = useState({ result: "positive" });
   const dr = route.params.id;
   const image = "https://bootdey.com/img/Content/avatar/avatar7.png";
+  const [spinner2, setSpinner2] = useState(false);
 
   useEffect(() => {
     getUsers()
@@ -56,6 +59,7 @@ const Comments = ({ navigation, route }) => {
     setSpinner(true);
     getResult(comment)
       .then((response) => {
+        console.log(response.data);
         setRes(response.data);
       })
       .catch((e) => {
@@ -70,8 +74,9 @@ const Comments = ({ navigation, route }) => {
       _id: uuid.v4(),
     });
     setData(dr.Comments);
-    //setSpinner(true);
-    console.log(res);
+    setSpinner2(true);
+    //console.log(comment);
+    //console.log(res);
     updateDorm(dr.id, dr)
       .then((docRef) => {
         //setSpinner(false);
@@ -85,7 +90,7 @@ const Comments = ({ navigation, route }) => {
       {
         text: "Tamam",
         onPress: () => {
-          setSpinner(false);
+          setSpinner2(false);
         },
       },
     ]);
@@ -97,7 +102,7 @@ const Comments = ({ navigation, route }) => {
       user.info.likedComments.push(dr.Comments[ind]._id);
       dispatch(setUSer(user));
 
-      setSpinner(true);
+      setSpinner2(true);
 
       updateDorm(dr.id, dr)
         .then((docRef) => {
@@ -114,12 +119,11 @@ const Comments = ({ navigation, route }) => {
         .catch((error) => {
           alert(error.message);
         });
-      setSpinner(false);
       Alert.alert("Başarılı", "Yorumu Beğendin.", [
         {
           text: "Tamam",
           onPress: () => {
-            setSpinner(false);
+            setSpinner2(false);
           },
         },
       ]);
@@ -133,7 +137,7 @@ const Comments = ({ navigation, route }) => {
 
       dispatch(setUSer(user));
 
-      setSpinner(true);
+      setSpinner2(true);
 
       updateDorm(dr.id, dr)
         .then((docRef) => {
@@ -149,12 +153,11 @@ const Comments = ({ navigation, route }) => {
         .catch((error) => {
           alert(error.message);
         });
-      setSpinner(false);
       Alert.alert("Başarılı", "Yorumu Beğenmekten Vazgeçtin.", [
         {
           text: "Tamam",
           onPress: () => {
-            setSpinner(false);
+            setSpinner2(false);
           },
         },
       ]);
@@ -206,7 +209,7 @@ const Comments = ({ navigation, route }) => {
   return users.length ? (
     !spinner ? (
       <View style={styles.common}>
-        <MainPageHeader headTitle={"Yorumlar"} nav={navigation} size={23} />
+        <CommentsHeader headTitle={"Yorumlar"} nav={navigation} size={23} />
         <Text style={styles.text}>{dr.Name}</Text>
 
         <View
@@ -218,7 +221,7 @@ const Comments = ({ navigation, route }) => {
         <FlatList
           style={styles.root}
           data={data}
-          extraData={spinner}
+          extraData={spinner2}
           ItemSeparatorComponent={() => {
             return <View style={styles.separator} />;
           }}
@@ -227,18 +230,35 @@ const Comments = ({ navigation, route }) => {
             const info = getUser(Notification.userInfo);
             return (
               <View style={styles.container}>
-                <TouchableOpacity
-                  onPress={() => {
-                    navigation.navigate("StaticProfile", info);
-                  }}
-                >
-                  <Image
-                    style={styles.image}
-                    source={{
-                      uri: info.avatar ? info.avatar : image,
+                <View style={styles.container2}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      navigation.navigate("StaticProfile", info);
                     }}
-                  />
-                </TouchableOpacity>
+                  >
+                    <Image
+                      style={styles.image}
+                      source={{
+                        uri: info.avatar ? info.avatar : image,
+                      }}
+                    />
+                  </TouchableOpacity>
+                  {Notification.type ? (
+                    <Icon
+                      style={styles.sentiment}
+                      name="smile-o"
+                      size={20}
+                      color="green"
+                    />
+                  ) : (
+                    <Icon
+                      style={styles.sentiment}
+                      name="frown-o"
+                      size={20}
+                      color="red"
+                    />
+                  )}
+                </View>
                 <View style={styles.content}>
                   <View style={styles.contentHeader}>
                     <TouchableOpacity
@@ -445,6 +465,14 @@ const styles = StyleSheet.create({
   commentz: {
     flexDirection: "row",
     alignSelf: "flex-start",
+  },
+  container2: {
+    flexDirection: "column",
+    alignItems: "flex-start",
+  },
+  sentiment: {
+    paddingLeft: 15,
+    marginTop: 20,
   },
 });
 export default Comments;
