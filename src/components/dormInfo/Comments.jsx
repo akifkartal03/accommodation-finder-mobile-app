@@ -32,6 +32,7 @@ const Comments = ({ navigation, route }) => {
   const [data, setData] = useState(route.params.id.Comments);
   const [spinner, setSpinner] = useState(false);
   const [users, setUsers] = useState([]);
+  //const [filters, setFilters] = useState([]);
   const [res, setRes] = useState({ result: "positive" });
   const dr = route.params.id;
   const image = "https://bootdey.com/img/Content/avatar/avatar7.png";
@@ -189,6 +190,45 @@ const Comments = ({ navigation, route }) => {
   const getUser = (userid) => {
     return users.find(({ id }) => id == userid);
   };
+  const applyFilters = (filters) => {
+    //console.log(filters);
+    //setFilters(filters);
+    if (filters.length == 1) {
+      if (filters[0] == 1) {
+        setData(dr.Comments.filter((word) => word.type == 1));
+      } else if (filters[0] == 2) {
+        setData(dr.Comments.filter((word) => word.type == 0));
+      } else {
+        setData(
+          dr.Comments.filter(
+            (word) => isStayed(getUser(word.userInfo)) !== undefined
+          )
+        );
+      }
+    } else if (filters.length == 2) {
+      if (
+        (filters[0] == 1 && filters[1] == 3) ||
+        (filters[0] == 3 && filters[1] == 1)
+      ) {
+        setData(dr.Comments.filter((word) => word.type == 1));
+      } else if (
+        (filters[0] == 2 && filters[1] == 3) ||
+        (filters[0] == 3 && filters[1] == 2)
+      ) {
+        setData(dr.Comments.filter((word) => word.type == 0));
+      } else {
+        setData(
+          dr.Comments.filter(
+            (word) => isStayed(getUser(word.userInfo)) === undefined
+          )
+        );
+      }
+    } else if (filters.length == 3) {
+      setData(dr.Comments);
+    } else {
+      setData(dr.Comments);
+    }
+  };
   const isStayed = (information) => {
     return information.stayedDorms.find((element) => element == dr.id);
   };
@@ -209,7 +249,12 @@ const Comments = ({ navigation, route }) => {
   return users.length ? (
     !spinner ? (
       <View style={styles.common}>
-        <CommentsHeader headTitle={"Yorumlar"} nav={navigation} size={23} />
+        <CommentsHeader
+          headTitle={"Yorumlar"}
+          nav={navigation}
+          size={23}
+          func={applyFilters}
+        />
         <Text style={styles.text}>{dr.Name}</Text>
 
         <View

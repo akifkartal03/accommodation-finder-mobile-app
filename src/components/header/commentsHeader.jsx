@@ -8,17 +8,17 @@ import PickerCheckbox from "../profile/PickerCheckbox";
 
 const CommentsHeader = (props) => {
   const [name, setName] = useState("akif");
-  const d = { value: name, func: setName };
   const [sItems, setSItems] = useState([]);
   const [len, setLen] = useState(95);
   const [items, setItems] = useState([
     { Name: "Olumlu Yorumlar", id: "1" },
     { Name: "Olumsuz Yorumlar", id: "2" },
+    { Name: "Bu yurtta kalmış öğrenci", id: "3" },
   ]);
-  const countries = ["Egypt", "Canada", "Australia", "Ireland"];
   function handleConfirm(pItems) {
-    console.log(pItems);
+    //console.log(pItems);
     setLen(pItems.length ? 115 : 95);
+    props.func(pItems);
     //setSItems(pItems);
   }
   return (
