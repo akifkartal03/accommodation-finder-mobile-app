@@ -1,13 +1,11 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, LogBox } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { theme } from "./src/components/login/theme";
 import { Provider as PaperProvider } from "react-native-paper";
-import { LogBox } from "react-native";
-LogBox.ignoreAllLogs(true);
 import { StateProvider } from "./src/redux/store/Provider";
 import { initialState, reducer } from "./src/redux/reducers/LoginReducer";
 import {
@@ -29,8 +27,11 @@ import DormReport from "./src/screens/report/DormReport";
 import StaticProfile from "./src/screens/details/StaticProfile";
 import Students from "./src/screens/list_screens/Students";
 import ReportCheck from "./src/screens/report/ReportCheck";
+import ChatPage from "./src/screens/chat/ChatPage";
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
+LogBox.ignoreAllLogs(true);
+LogBox.ignoreLogs(["Setting a timer for a long period of time"]);
 function MyHome() {
   return (
     <Stack.Navigator
@@ -56,6 +57,7 @@ function MyHome() {
       <Stack.Screen name="StaticProfile" component={StaticProfile} />
       <Stack.Screen name="Students" component={Students} />
       <Stack.Screen name="ReportStatus" component={ReportCheck} />
+      <Stack.Screen name="ChatPage" component={ChatPage} />
       <Stack.Screen
         name="ResetPasswordScreen"
         component={ResetPasswordScreen}

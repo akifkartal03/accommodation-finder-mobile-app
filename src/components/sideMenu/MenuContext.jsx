@@ -121,13 +121,16 @@ const MContext = ({ navigation }) => {
       key: 8,
       handle: exitPressed,
     },
-    /*{
+    {
       icon: "adjust",
-      name: "Api",
+      name: "Chat",
       screenName: "5",
       key: 11,
-      handle: testAPI,
-    },*/
+      handle: () => {
+        navigation.dispatch(DrawerActions.closeDrawer());
+        navigation.navigate("ChatPage");
+      },
+    },
   ];
   return (
     <View style={styles.container}>
