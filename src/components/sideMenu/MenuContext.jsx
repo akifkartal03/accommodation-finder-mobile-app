@@ -128,7 +128,7 @@ const MContext = ({ navigation }) => {
       key: 11,
       handle: () => {
         navigation.dispatch(DrawerActions.closeDrawer());
-        navigation.navigate("ChatPage");
+        navigation.navigate("ChatList");
       },
     },
   ];

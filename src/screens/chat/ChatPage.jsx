@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from "react";
 import { View, Text } from "react-native";
 import { GiftedChat } from "react-native-gifted-chat";
 
-const ChatPage = () => {
+const ChatPage = ({ navigation, route }) => {
   const [messages, setMessages] = useState([]);
   useEffect(() => {
     setMessages([

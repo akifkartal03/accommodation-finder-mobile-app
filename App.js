@@ -28,6 +28,8 @@ import StaticProfile from "./src/screens/details/StaticProfile";
 import Students from "./src/screens/list_screens/Students";
 import ReportCheck from "./src/screens/report/ReportCheck";
 import ChatPage from "./src/screens/chat/ChatPage";
+import ChatList from "./src/screens/chat/ChatList";
+import ChatApi from "./src/screens/chat/ChatApi";
 const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
 LogBox.ignoreAllLogs(true);
@@ -58,6 +60,7 @@ function MyHome() {
       <Stack.Screen name="Students" component={Students} />
       <Stack.Screen name="ReportStatus" component={ReportCheck} />
       <Stack.Screen name="ChatPage" component={ChatPage} />
+      <Stack.Screen name="ChatList" component={ChatList} />
       <Stack.Screen
         name="ResetPasswordScreen"
         component={ResetPasswordScreen}
