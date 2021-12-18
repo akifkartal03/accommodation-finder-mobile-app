@@ -47,7 +47,7 @@ const ChatList = ({ navigation, route }) => {
         });
 
         setThreads(threads);
-        console.log(threads);
+        //console.log(threads);
         if (loading) {
           setLoading(false);
         }

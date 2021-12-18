@@ -56,16 +56,23 @@ const Comments = ({ navigation, route }) => {
       });
   }, []);
 
-  const sendPressed = () => {
+  const sendPressed = async () => {
     setSpinner(true);
-    getResult(comment)
-      .then((response) => {
-        console.log(response.data);
-        setRes(response.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    try {
+      const response = await getResult(comment);
+      let json = await response.json();
+      console.log(json);
+      setRes(json);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setSpinner(false);
+    }
+    /*if (!res) {
+      setRes({ result: "positive" });
+    }*/
+    console.log("res2");
+    console.log(res);
     dr.Comments.unshift({
       userInfo: user.info.id,
       comment: comment,
@@ -80,8 +87,8 @@ const Comments = ({ navigation, route }) => {
     //console.log(res);
     updateDorm(dr.id, dr)
       .then((docRef) => {
-        //setSpinner(false);
-        console.log(docRef);
+        setSpinner(false);
+        //console.log(docRef);
       })
       .catch((error) => {
         alert(error.message);
