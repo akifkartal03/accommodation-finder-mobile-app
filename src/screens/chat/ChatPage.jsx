@@ -7,6 +7,7 @@ import MainPageHeader from "../../components/header/mainPageHeader";
 import Icon2 from "react-native-vector-icons/MaterialIcons";
 import Spinner from "react-native-loading-spinner-overlay";
 import ChatPageHeader from "../../components/header/chatHeader";
+import "dayjs/locale/fr";
 
 const ChatPage = ({ navigation, route }) => {
   const [{ user }, dispatch] = useStore();
@@ -56,6 +57,7 @@ const ChatPage = ({ navigation, route }) => {
           name: user.info.nameVal,
           avatar: user.info.avatar,
         },
+        pending: true,
       });
     Firebase.firestore()
       .collection("chatRooms")
@@ -82,6 +84,9 @@ const ChatPage = ({ navigation, route }) => {
           avatar: user.info.avatar,
         }}
         placeholder="Mesaj Yaz..."
+        locale="tr"
+        dateFormat="DD/MM/YYYY"
+        timeFormat="HH:mm"
         renderSend={(props) => {
           return (
             <Send {...props}>
