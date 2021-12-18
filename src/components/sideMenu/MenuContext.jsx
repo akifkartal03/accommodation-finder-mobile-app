@@ -6,6 +6,7 @@ import { useStore } from "../../redux/store/Provider";
 import Firebase from "../../database/firebase_config";
 import { DrawerActions } from "@react-navigation/native";
 import { getResult } from "../../database/sentiment/sentiment_service";
+import { Badge } from "react-native-elements";
 
 import {
   DrawerContentScrollView,

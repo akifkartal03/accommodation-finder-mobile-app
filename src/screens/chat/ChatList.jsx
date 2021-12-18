@@ -11,6 +11,7 @@ import {
   ActivityIndicator,
   Alert,
 } from "react-native";
+import { Avatar, Badge, Icon, withBadge } from "react-native-elements";
 import { useStore } from "../../redux/store/Provider";
 import MainPageHeader from "../../components/header/mainPageHeader";
 import Spinner from "react-native-loading-spinner-overlay";
@@ -39,7 +40,10 @@ const ChatList = ({ navigation, route }) => {
       .where("__name__", "in", user.info.chatList)
       .onSnapshot((querySnapshot) => {
         const threads = querySnapshot.docs.map((documentSnapshot) => {
-          return documentSnapshot.data();
+          return {
+            _id: documentSnapshot.id,
+            ...documentSnapshot.data(),
+          };
         });
 
         setThreads(threads);
@@ -97,10 +101,20 @@ const ChatList = ({ navigation, route }) => {
                 }}
               >
                 <View style={styles.container2}>
-                  <Image
-                    style={styles.image}
+                  <Avatar
+                    rounded
                     source={{
                       uri: info.avatar ? info.avatar : image,
+                    }}
+                    size="medium"
+                  />
+                  <Badge
+                    status="success"
+                    value="1"
+                    containerStyle={{
+                      position: "absolute",
+                      top: -4,
+                      right: -4,
                     }}
                   />
                 </View>
@@ -109,7 +123,10 @@ const ChatList = ({ navigation, route }) => {
               <View style={styles.content}>
                 <TouchableOpacity
                   onPress={() => {
-                    navigation.navigate("ChatPage", info);
+                    navigation.navigate("ChatPage", {
+                      itemId: Notification._id,
+                      userInfo: info,
+                    });
                   }}
                 >
                   <View style={styles.contentHeader}>
