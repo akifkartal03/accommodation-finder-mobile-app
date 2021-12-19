@@ -106,6 +106,16 @@ const MContext = ({ navigation }) => {
       },
     },
     {
+      icon: "comment-dots",
+      name: "Mesajların",
+      screenName: "5",
+      key: 11,
+      handle: () => {
+        navigation.dispatch(DrawerActions.closeDrawer());
+        navigation.navigate("ChatList");
+      },
+    },
+    {
       icon: "arrow-circle-left",
       name: "Geri dön",
       screenName: "4",
@@ -115,22 +125,13 @@ const MContext = ({ navigation }) => {
         navigation.goBack();
       },
     },
+
     {
       icon: "sign-out-alt",
       name: "Çıkış yap",
       screenName: "5",
       key: 8,
       handle: exitPressed,
-    },
-    {
-      icon: "adjust",
-      name: "Chat",
-      screenName: "5",
-      key: 11,
-      handle: () => {
-        navigation.dispatch(DrawerActions.closeDrawer());
-        navigation.navigate("ChatList");
-      },
     },
   ];
   return (

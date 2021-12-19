@@ -27,6 +27,7 @@ const ChatList = ({ navigation, route }) => {
   const image = "https://bootdey.com/img/Content/avatar/avatar7.png";
   const [threads, setThreads] = useState([]);
   const [loading, setLoading] = useState(true);
+  //let threads2 = [];
 
   useEffect(() => {
     if (user.info.chatList.length > 0) {
@@ -41,21 +42,31 @@ const ChatList = ({ navigation, route }) => {
         .collection("chatRooms")
         .where("__name__", "in", user.info.chatList)
         .onSnapshot((querySnapshot) => {
-          const threads = querySnapshot.docs.map((documentSnapshot) => {
+          const threads2 = querySnapshot.docs.map((documentSnapshot) => {
             return {
               _id: documentSnapshot.id,
               userInfo:
                 user.info.id != documentSnapshot.data().userInfo1
                   ? documentSnapshot.data().userInfo1
                   : documentSnapshot.data().userInfo2,
+              pending:
+                user.info.id == documentSnapshot.data().userInfo1
+                  ? documentSnapshot.data().pending1
+                  : documentSnapshot.data().pending2,
               ...documentSnapshot.data(),
             };
           });
 
-          setThreads(threads);
-          console.log(threads);
+          //console.log(threads);
           if (loading) {
             setLoading(false);
+            setThreads(
+              threads2.sort(
+                (a, b) =>
+                  new Date(b.latest.createdAt).getTime() -
+                  new Date(a.latest.createdAt).getTime()
+              )
+            );
           }
         });
 
@@ -116,15 +127,23 @@ const ChatList = ({ navigation, route }) => {
                       }}
                       size="medium"
                     />
-                    <Badge
-                      status="success"
-                      value="1"
-                      containerStyle={{
-                        position: "absolute",
-                        top: -4,
-                        right: -4,
-                      }}
-                    />
+                    {Notification.pending > 0 ? (
+                      <Badge
+                        status="success"
+                        value={
+                          Notification.pending > 99
+                            ? "99+"
+                            : Notification.pending
+                        }
+                        containerStyle={{
+                          position: "absolute",
+                          top: -4,
+                          right: -4,
+                        }}
+                      />
+                    ) : (
+                      <></>
+                    )}
                   </View>
                 </TouchableOpacity>
 

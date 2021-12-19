@@ -15,6 +15,7 @@ const ChatPage = ({ navigation, route }) => {
   const { itemId, userInfo } = route.params;
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
+  let loading2 = true;
   //console.log(user.info);
   useEffect(() => {
     const unsubscribe = Firebase.firestore()
@@ -48,8 +49,31 @@ const ChatPage = ({ navigation, route }) => {
 
         setMessages(threads);
         //console.log(threads);
+
         if (loading) {
           setLoading(false);
+          if (loading2) {
+            loading2 = false;
+            getRoomByID(itemId)
+              .then((docRef) => {
+                let data = docRef.data();
+                Firebase.firestore()
+                  .collection("chatRooms")
+                  .doc(itemId)
+                  .set(
+                    {
+                      pending1:
+                        userInfo.id != data.userInfo1 ? 0 : data.pending1,
+                      pending2:
+                        userInfo.id != data.userInfo2 ? 0 : data.pending2,
+                    },
+                    { merge: true }
+                  );
+              })
+              .catch((error) => {
+                alert(error.message);
+              });
+          }
         }
       });
 
@@ -60,6 +84,7 @@ const ChatPage = ({ navigation, route }) => {
       GiftedChat.append(previousMessages, messages)
     );
     const text = messages[0].text;
+    loading2 = false;
     Firebase.firestore()
       .collection("chatRooms")
       .doc(itemId)
