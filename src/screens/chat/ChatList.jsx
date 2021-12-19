@@ -17,6 +17,7 @@ import MainPageHeader from "../../components/header/mainPageHeader";
 import Spinner from "react-native-loading-spinner-overlay";
 import Firebase from "../../database/firebase_config";
 import { getUsers } from "../../database/services/user_service";
+import NoChat from "../../components/chat_comp/NoChat";
 
 const ChatList = ({ navigation, route }) => {
   const [{ user }, dispatch] = useStore();
@@ -28,36 +29,38 @@ const ChatList = ({ navigation, route }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getUsers()
-      .then((docRef) => {
-        setUsers(docRef);
-      })
-      .catch((error) => {
-        alert(error);
-      });
-    const unsubscribe = Firebase.firestore()
-      .collection("chatRooms")
-      .where("__name__", "in", user.info.chatList)
-      .onSnapshot((querySnapshot) => {
-        const threads = querySnapshot.docs.map((documentSnapshot) => {
-          return {
-            _id: documentSnapshot.id,
-            userInfo:
-              user.info.id != documentSnapshot.data().userInfo1
-                ? documentSnapshot.data().userInfo1
-                : documentSnapshot.data().userInfo2,
-            ...documentSnapshot.data(),
-          };
+    if (user.info.chatList.length > 0) {
+      getUsers()
+        .then((docRef) => {
+          setUsers(docRef);
+        })
+        .catch((error) => {
+          alert(error);
+        });
+      const unsubscribe = Firebase.firestore()
+        .collection("chatRooms")
+        .where("__name__", "in", user.info.chatList)
+        .onSnapshot((querySnapshot) => {
+          const threads = querySnapshot.docs.map((documentSnapshot) => {
+            return {
+              _id: documentSnapshot.id,
+              userInfo:
+                user.info.id != documentSnapshot.data().userInfo1
+                  ? documentSnapshot.data().userInfo1
+                  : documentSnapshot.data().userInfo2,
+              ...documentSnapshot.data(),
+            };
+          });
+
+          setThreads(threads);
+          console.log(threads);
+          if (loading) {
+            setLoading(false);
+          }
         });
 
-        setThreads(threads);
-        console.log(threads);
-        if (loading) {
-          setLoading(false);
-        }
-      });
-
-    return () => unsubscribe();
+      return () => unsubscribe();
+    }
   }, []);
 
   const datePicker = (date) => {
@@ -85,78 +88,82 @@ const ChatList = ({ navigation, route }) => {
     return users.find(({ id }) => id == userid);
   };
 
-  return !loading ? (
-    <View style={styles.common}>
-      <MainPageHeader headTitle={"Mesajlar"} nav={navigation} size={23} />
-      <FlatList
-        style={styles.root}
-        data={threads}
-        ItemSeparatorComponent={() => {
-          return <View style={styles.separator} />;
-        }}
-        renderItem={(item) => {
-          const Notification = item.item;
-          const info = getUser(Notification.userInfo);
-          return (
-            <View style={styles.container}>
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate("StaticProfile", info);
-                }}
-              >
-                <View style={styles.container2}>
-                  <Avatar
-                    rounded
-                    source={{
-                      uri: info.avatar ? info.avatar : image,
-                    }}
-                    size="medium"
-                  />
-                  <Badge
-                    status="success"
-                    value="1"
-                    containerStyle={{
-                      position: "absolute",
-                      top: -4,
-                      right: -4,
-                    }}
-                  />
-                </View>
-              </TouchableOpacity>
-
-              <View style={styles.content}>
+  return user.info.chatList.length > 0 ? (
+    !loading ? (
+      <View style={styles.common}>
+        <MainPageHeader headTitle={"Mesajlar"} nav={navigation} size={23} />
+        <FlatList
+          style={styles.root}
+          data={threads}
+          ItemSeparatorComponent={() => {
+            return <View style={styles.separator} />;
+          }}
+          renderItem={(item) => {
+            const Notification = item.item;
+            const info = getUser(Notification.userInfo);
+            return (
+              <View style={styles.container}>
                 <TouchableOpacity
                   onPress={() => {
-                    navigation.navigate("ChatPage", {
-                      itemId: Notification._id,
-                      userInfo: info,
-                    });
+                    navigation.navigate("StaticProfile", info);
                   }}
                 >
-                  <View style={styles.contentHeader}>
-                    <Text style={styles.name}>{info.nameVal}</Text>
-                    <Text style={styles.time}>
-                      {datePicker(new Date(Notification.latest.createdAt))}
-                    </Text>
+                  <View style={styles.container2}>
+                    <Avatar
+                      rounded
+                      source={{
+                        uri: info.avatar ? info.avatar : image,
+                      }}
+                      size="medium"
+                    />
+                    <Badge
+                      status="success"
+                      value="1"
+                      containerStyle={{
+                        position: "absolute",
+                        top: -4,
+                        right: -4,
+                      }}
+                    />
                   </View>
-                  <Text rkType="primary3 mediumLine">
-                    {Notification.latest.text}
-                  </Text>
                 </TouchableOpacity>
+
+                <View style={styles.content}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      navigation.navigate("ChatPage", {
+                        itemId: Notification._id,
+                        userInfo: info,
+                      });
+                    }}
+                  >
+                    <View style={styles.contentHeader}>
+                      <Text style={styles.name}>{info.nameVal}</Text>
+                      <Text style={styles.time}>
+                        {datePicker(new Date(Notification.latest.createdAt))}
+                      </Text>
+                    </View>
+                    <Text rkType="primary3 mediumLine">
+                      {Notification.latest.text}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
               </View>
-            </View>
-          );
-        }}
-      />
-    </View>
+            );
+          }}
+        />
+      </View>
+    ) : (
+      <View style={styles.spin}>
+        <Spinner
+          visible={true}
+          textContent={"Yükleniyor..."}
+          textStyle={styles.spinnerTextStyle}
+        />
+      </View>
+    )
   ) : (
-    <View style={styles.spin}>
-      <Spinner
-        visible={true}
-        textContent={"Yükleniyor..."}
-        textStyle={styles.spinnerTextStyle}
-      />
-    </View>
+    <NoChat nav={navigation} />
   );
 };
 

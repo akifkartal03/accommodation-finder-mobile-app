@@ -64,6 +64,7 @@ export default function RegisterScreen({ navigation }) {
         const grade = "Belirtilmemiş";
         const gender = "Seçiniz";
         const stayedDorms = [];
+        const chatList = [];
         const avatar =
           "https://cdn-icons-png.flaticon.com/128/1177/1177568.png";
         const isLookForHouseMate = 0;
@@ -79,6 +80,7 @@ export default function RegisterScreen({ navigation }) {
           stayedDorms,
           avatar,
           isLookForHouseMate,
+          chatList,
         });
         getUserByID(user3.uid)
           .then((docRef) => {
