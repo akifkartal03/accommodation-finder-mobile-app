@@ -8,6 +8,7 @@ import Icon2 from "react-native-vector-icons/MaterialIcons";
 import Spinner from "react-native-loading-spinner-overlay";
 import ChatPageHeader from "../../components/header/chatHeader";
 import "dayjs/locale/fr";
+import { getRoomByID } from "../../database/services/chat_service";
 
 const ChatPage = ({ navigation, route }) => {
   const [{ user }, dispatch] = useStore();
@@ -23,6 +24,20 @@ const ChatPage = ({ navigation, route }) => {
       .orderBy("createdAt", "desc")
       .onSnapshot((querySnapshot) => {
         const threads = querySnapshot.docs.map((documentSnapshot) => {
+          /*if (documentSnapshot.data().pending) {
+            Firebase.firestore()
+              .collection("chatRooms")
+              .doc(itemId)
+              .collection("messages")
+              .doc(documentSnapshot.id)
+              .update({
+                _id: documentSnapshot.id,
+                text: documentSnapshot.data().text,
+                pending: false,
+                createdAt: documentSnapshot.data().createdAt,
+                user: documentSnapshot.data().user,
+              });
+          }*/
           return {
             _id: documentSnapshot.id,
             text: documentSnapshot.data().text,
@@ -57,20 +72,35 @@ const ChatPage = ({ navigation, route }) => {
           name: user.info.nameVal,
           avatar: user.info.avatar,
         },
-        pending: true,
       });
-    Firebase.firestore()
-      .collection("chatRooms")
-      .doc(itemId)
-      .set(
-        {
-          latest: {
-            text,
-            createdAt: new Date().toString(),
-          },
-        },
-        { merge: true }
-      );
+    //let data;
+    getRoomByID(itemId)
+      .then((docRef) => {
+        let data = docRef.data();
+        Firebase.firestore()
+          .collection("chatRooms")
+          .doc(itemId)
+          .set(
+            {
+              latest: {
+                text,
+                createdAt: new Date().toString(),
+              },
+              pending1:
+                userInfo.id == data.userInfo1
+                  ? data.pending1 + 1
+                  : data.pending1,
+              pending2:
+                userInfo.id == data.userInfo2
+                  ? data.pending2 + 1
+                  : data.pending2,
+            },
+            { merge: true }
+          );
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
   }, []);
   return !loading ? (
     <View style={styles.common}>

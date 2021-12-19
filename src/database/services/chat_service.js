@@ -1,8 +1,8 @@
 import Firebase from "../firebase_config";
 let db = Firebase.firestore().collection("chatRooms");
 
-export function getRoomByID(id) {
-  return db.doc(id).get();
+export async function getRoomByID(id) {
+  return await db.doc(id).get();
 }
 
 export async function getMessagesByID(id) {
