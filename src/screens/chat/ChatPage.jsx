@@ -47,10 +47,10 @@ const ChatPage = ({ navigation, route }) => {
           };
         });
 
-        setMessages(threads);
         //console.log(threads);
 
         if (loading) {
+          setMessages(threads);
           setLoading(false);
           if (loading2) {
             loading2 = false;

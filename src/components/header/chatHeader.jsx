@@ -9,7 +9,7 @@ const ChatPageHeader = (props) => {
     <View style={styles.header}>
       <View style={styles.parent2}>
         <View style={styles.icon}>
-          <TouchableOpacity onPress={() => props.nav.navigate("ChatList")}>
+          <TouchableOpacity onPress={() => props.nav.navigate("ChatList", {})}>
             <Icon name="chevron-circle-left" size={30} color="white" />
           </TouchableOpacity>
         </View>

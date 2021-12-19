@@ -18,6 +18,7 @@ import Spinner from "react-native-loading-spinner-overlay";
 import Firebase from "../../database/firebase_config";
 import { getUsers } from "../../database/services/user_service";
 import NoChat from "../../components/chat_comp/NoChat";
+import { useIsFocused } from "@react-navigation/native";
 
 const ChatList = ({ navigation, route }) => {
   const [{ user }, dispatch] = useStore();
@@ -27,6 +28,7 @@ const ChatList = ({ navigation, route }) => {
   const image = "https://bootdey.com/img/Content/avatar/avatar7.png";
   const [threads, setThreads] = useState([]);
   const [loading, setLoading] = useState(true);
+  const isFocused = useIsFocused();
   //let threads2 = [];
 
   useEffect(() => {
@@ -57,9 +59,7 @@ const ChatList = ({ navigation, route }) => {
             };
           });
 
-          //console.log(threads);
           if (loading) {
-            setLoading(false);
             setThreads(
               threads2.sort(
                 (a, b) =>
@@ -67,12 +67,14 @@ const ChatList = ({ navigation, route }) => {
                   new Date(a.latest.createdAt).getTime()
               )
             );
+            setLoading(false);
+            console.log(threads);
           }
         });
 
       return () => unsubscribe();
     }
-  }, []);
+  }, [isFocused]);
 
   const datePicker = (date) => {
     const monthNames = [

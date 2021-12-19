@@ -59,6 +59,8 @@ const SendBtn = (props) => {
             },
             userInfo1: user.info.id,
             userInfo2: props.other.id,
+            pending1: 0,
+            pending2: 0,
           })
           .then((docRef) => {
             docRef.collection("messages").add({
@@ -67,7 +69,7 @@ const SendBtn = (props) => {
               system: true,
               user: {
                 avatar:
-                  "https://cdn-icons-png.flaticon.com/64/1041/1041916.png",
+                  "https://cdn-icons-png.flaticon.com/32/1041/1041916.png",
                 _id: docRef.id,
               },
             });
@@ -118,6 +120,8 @@ const SendBtn = (props) => {
           },
           userInfo1: user.info.id,
           userInfo2: props.other.id,
+          pending1: 0,
+          pending2: 0,
         })
         .then((docRef) => {
           docRef.collection("messages").add({
@@ -125,7 +129,7 @@ const SendBtn = (props) => {
             createdAt: new Date().getTime(),
             system: true,
             user: {
-              avatar: "https://cdn-icons-png.flaticon.com/64/1041/1041916.png",
+              avatar: "https://cdn-icons-png.flaticon.com/32/1041/1041916.png",
               _id: docRef.id,
             },
           });
