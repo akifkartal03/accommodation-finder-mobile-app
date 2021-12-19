@@ -42,12 +42,16 @@ const ChatList = ({ navigation, route }) => {
         const threads = querySnapshot.docs.map((documentSnapshot) => {
           return {
             _id: documentSnapshot.id,
+            userInfo:
+              user.info.id != documentSnapshot.data().userInfo1
+                ? documentSnapshot.data().userInfo1
+                : documentSnapshot.data().userInfo2,
             ...documentSnapshot.data(),
           };
         });
 
         setThreads(threads);
-        //console.log(threads);
+        console.log(threads);
         if (loading) {
           setLoading(false);
         }

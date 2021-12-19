@@ -3,13 +3,16 @@ import { StyleSheet, Text, View, FlatList } from "react-native";
 import MainPageHeader from "../../components/header/mainPageHeader.jsx";
 import ProfileInfo from "../../components/staticProfile/ProfileInfo.jsx";
 import { SliderBox } from "react-native-image-slider-box";
+import { useStore } from "../../redux/store/Provider";
+import SendBtn from "../../components/chat_comp/SendBtn.jsx";
 
 const StaticProfile = ({ route, navigation }) => {
-  const user = route.params;
+  const [{ user }, dispatch] = useStore();
+  const user2 = route.params;
   const backPressed = () => {
     navigation.goBack();
   };
-  //console.log(user.nav.canGoBack());
+  //console.log(user);
   return (
     <View style={styles.container}>
       <MainPageHeader
@@ -17,7 +20,12 @@ const StaticProfile = ({ route, navigation }) => {
         nav={navigation}
         size={23}
       />
-      <ProfileInfo dr={user} nav={navigation} />
+      <ProfileInfo dr={user2} nav={navigation} />
+      {user.info.id != user2.id ? (
+        <SendBtn nav={navigation} other={user2} />
+      ) : (
+        <></>
+      )}
     </View>
   );
 };
