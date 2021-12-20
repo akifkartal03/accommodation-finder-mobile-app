@@ -28,11 +28,13 @@ const ChatList = ({ navigation, route }) => {
   const image = "https://bootdey.com/img/Content/avatar/avatar7.png";
   const [threads, setThreads] = useState([]);
   const [loading, setLoading] = useState(true);
-  const isFocused = useIsFocused();
+  const [loading2, setLoading2] = useState(false);
+  //const isFocused = useIsFocused();
   //let threads2 = [];
 
   useEffect(() => {
     if (user.info.chatList.length > 0) {
+      setLoading2(true);
       getUsers()
         .then((docRef) => {
           setUsers(docRef);
@@ -40,41 +42,40 @@ const ChatList = ({ navigation, route }) => {
         .catch((error) => {
           alert(error);
         });
+      const notUndefined = (anyValue) => typeof anyValue !== "undefined";
       const unsubscribe = Firebase.firestore()
         .collection("chatRooms")
-        .where("__name__", "in", user.info.chatList)
+        .orderBy("latest.createdAt", "asc")
         .onSnapshot((querySnapshot) => {
-          const threads2 = querySnapshot.docs.map((documentSnapshot) => {
-            return {
-              _id: documentSnapshot.id,
-              userInfo:
-                user.info.id != documentSnapshot.data().userInfo1
-                  ? documentSnapshot.data().userInfo1
-                  : documentSnapshot.data().userInfo2,
-              pending:
-                user.info.id == documentSnapshot.data().userInfo1
-                  ? documentSnapshot.data().pending1
-                  : documentSnapshot.data().pending2,
-              ...documentSnapshot.data(),
-            };
-          });
-
+          const threads2 = querySnapshot.docs
+            .map((documentSnapshot) => {
+              if (user.info.chatList.includes(documentSnapshot.id)) {
+                return {
+                  _id: documentSnapshot.id,
+                  userInfo:
+                    user.info.id != documentSnapshot.data().userInfo1
+                      ? documentSnapshot.data().userInfo1
+                      : documentSnapshot.data().userInfo2,
+                  pending:
+                    user.info.id == documentSnapshot.data().userInfo1
+                      ? documentSnapshot.data().pending1
+                      : documentSnapshot.data().pending2,
+                  ...documentSnapshot.data(),
+                };
+              }
+            })
+            .filter(notUndefined);
+          console.log(threads2);
           if (loading) {
-            setThreads(
-              threads2.sort(
-                (a, b) =>
-                  new Date(b.latest.createdAt).getTime() -
-                  new Date(a.latest.createdAt).getTime()
-              )
-            );
+            setThreads(threads2);
             setLoading(false);
             console.log(threads);
           }
         });
-
+      setLoading2(false);
       return () => unsubscribe();
     }
-  }, [isFocused]);
+  }, []);
 
   const datePicker = (date) => {
     const monthNames = [
@@ -108,6 +109,7 @@ const ChatList = ({ navigation, route }) => {
         <FlatList
           style={styles.root}
           data={threads}
+          extraData={loading2}
           ItemSeparatorComponent={() => {
             return <View style={styles.separator} />;
           }}
