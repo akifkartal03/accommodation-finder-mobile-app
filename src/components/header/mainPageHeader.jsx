@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   header: {
     height: 60,
     backgroundColor: "#01367a",
-    marginTop: getStatusBarHeight() + 5,
+    marginTop: getStatusBarHeight(),
   },
   text: {
     color: "#fff",

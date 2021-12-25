@@ -111,14 +111,8 @@ const ChatPage = ({ navigation, route }) => {
                 text,
                 createdAt: new Date().toString(),
               },
-              pending1:
-                userInfo.id == data.userInfo1
-                  ? data.pending1 + 1
-                  : data.pending1,
-              pending2:
-                userInfo.id == data.userInfo2
-                  ? data.pending2 + 1
-                  : data.pending2,
+              pending1: userInfo.id == data.userInfo1 ? data.pending1 + 1 : 0,
+              pending2: userInfo.id == data.userInfo2 ? data.pending2 + 1 : 0,
             },
             { merge: true }
           );
@@ -175,7 +169,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#F5FCFF",
   },
   spinnerTextStyle: {
-    color: "#FFF",
+    color: "green",
   },
 });
 

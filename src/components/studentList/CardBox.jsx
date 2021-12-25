@@ -53,7 +53,15 @@ const CardBox = (props) => {
             <Text style={styles.name}>{props.dorm.nameVal}</Text>
           </View>
         </View>
-        <Card.Divider />
+        <Card.Divider
+          style={{
+            marginBottom: 10,
+            marginTop: 5,
+            color: "green",
+            borderWidth: 1,
+          }}
+          color="green"
+        />
         <View style={styles.container2}>
           <Icon
             name="user-graduate"

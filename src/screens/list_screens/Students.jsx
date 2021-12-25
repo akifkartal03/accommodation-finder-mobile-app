@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   spinnerTextStyle: {
-    color: "black",
+    color: "green",
   },
 });
 

@@ -25,16 +25,16 @@ const SendBtn = (props) => {
       let temp = [];
       const unsubscribe = await Firebase.firestore()
         .collection("chatRooms")
-        .where("__name__", "in", user.info.chatList)
         .get();
 
       unsubscribe.docs.map((documentSnapshot) => {
         const element = documentSnapshot.data();
         if (
-          element.userInfo1 == props.other.id ||
-          element.userInfo2 == props.other.id
+          user.info.chatList.includes(documentSnapshot.id) &&
+          (element.userInfo1 == props.other.id ||
+            element.userInfo2 == props.other.id)
         ) {
-          console.log("hereee");
+          console.log("heree");
           temp.push({
             _id: documentSnapshot.id,
             ...documentSnapshot.data(),

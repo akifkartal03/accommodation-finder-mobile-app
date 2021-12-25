@@ -512,7 +512,7 @@ const styles = StyleSheet.create({
     marginRight: 17,
   },
   spinnerTextStyle: {
-    color: "#FFF",
+    color: "green",
   },
   commentz: {
     flexDirection: "row",

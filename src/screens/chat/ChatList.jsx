@@ -45,11 +45,11 @@ const ChatList = ({ navigation, route }) => {
       const notUndefined = (anyValue) => typeof anyValue !== "undefined";
       const unsubscribe = Firebase.firestore()
         .collection("chatRooms")
-        .orderBy("latest.createdAt", "asc")
         .onSnapshot((querySnapshot) => {
           const threads2 = querySnapshot.docs
             .map((documentSnapshot) => {
               if (user.info.chatList.includes(documentSnapshot.id)) {
+                //console.log(documentSnapshot.data().latest.createdAt);
                 return {
                   _id: documentSnapshot.id,
                   userInfo:
@@ -64,7 +64,12 @@ const ChatList = ({ navigation, route }) => {
                 };
               }
             })
-            .filter(notUndefined);
+            .filter(notUndefined)
+            .sort(
+              (a, b) =>
+                new Date(b.latest.createdAt).getTime() -
+                new Date(a.latest.createdAt).getTime()
+            );
           console.log(threads2);
           if (loading) {
             setThreads(threads2);
@@ -290,7 +295,7 @@ const styles = StyleSheet.create({
     marginRight: 17,
   },
   spinnerTextStyle: {
-    color: "#FFF",
+    color: "green",
   },
   commentz: {
     flexDirection: "row",

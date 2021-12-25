@@ -142,6 +142,7 @@ const MContext = ({ navigation }) => {
         email={userData.email}
       />
       <FlatList
+        style={{ marginBottom: 10 }}
         data={menuData}
         renderItem={({ item }) => (
           <DrawerItem

@@ -4,6 +4,7 @@ import { useStore } from "../../redux/store/Provider";
 import MainPageHeader from "../../components/header/mainPageHeader";
 import { getUserReports } from "../../database/services/report_service";
 import { useIsFocused } from "@react-navigation/native";
+import Spinner from "react-native-loading-spinner-overlay";
 
 const ReportCheck = ({ navigation, route }) => {
   const [{ user }, dispatch] = useStore();
@@ -15,13 +16,21 @@ const ReportCheck = ({ navigation, route }) => {
   const isFocused = useIsFocused();
 
   useEffect(() => {
+    setSpinner(true);
     getUserReports(user.info.id)
       .then((docRef) => {
-        setData(docRef);
+        setData(
+          docRef.sort(
+            (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+          )
+        );
+        setSpinner(false);
       })
       .catch((error) => {
+        setSpinner(false);
         alert(error);
       });
+    setSpinner(false);
   }, [isFocused]);
 
   const datePicker = (date) => {
@@ -45,7 +54,7 @@ const ReportCheck = ({ navigation, route }) => {
     const year = dateObj.getFullYear();
     return day + " " + month + " " + year;
   };
-  return (
+  return !spinner ? (
     <View style={styles.common}>
       <MainPageHeader
         headTitle={"Hata Bildirimlerin"}
@@ -112,6 +121,14 @@ const ReportCheck = ({ navigation, route }) => {
         }}
       />
     </View>
+  ) : (
+    <View style={styles.spin}>
+      <Spinner
+        visible={true}
+        textContent={"Yükleniyor..."}
+        textStyle={styles.spinnerTextStyle}
+      />
+    </View>
   );
 };
 
@@ -135,7 +152,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
   },
   content: {
-    marginLeft: 16,
+    marginLeft: 10,
     flex: 1,
   },
   contentHeader: {
@@ -236,7 +253,7 @@ const styles = StyleSheet.create({
     marginRight: 17,
   },
   spinnerTextStyle: {
-    color: "#FFF",
+    color: "green",
   },
   commentz: {
     flexDirection: "row",
