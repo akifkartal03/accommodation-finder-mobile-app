@@ -107,7 +107,7 @@ const MContext = ({ navigation }) => {
     },
     {
       icon: "comment-dots",
-      name: "Mesajların",
+      name: "Mesajlarım",
       screenName: "5",
       key: 11,
       handle: () => {
