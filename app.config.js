@@ -2,8 +2,8 @@ import "dotenv/config";
 
 export default {
   expo: {
-    name: "GtuAccommodationFinder",
-    slug: "GtuAccommodationFinder",
+    name: "GTU Accommodation Finder",
+    slug: "cse495GtuAccommodationFinder",
     version: "1.0.0",
     orientation: "portrait",
     icon: "./assets/icon2.png",
@@ -21,7 +21,8 @@ export default {
         foregroundImage: "./assets/icon2.png",
         backgroundColor: "#FFFFFF",
       },
-      package: "com.akif05.GtuKalacakYeriniBull",
+      package: "com.cse495.GTUAccommodationFinder",
+      versionCode: 1,
     },
     web: {
       favicon: "./assets/favicon.png",
