@@ -55,21 +55,21 @@ const Comments = ({ navigation, route }) => {
     try {
       const response = await getResult(comment);
       result = await response.json();
-      console.log("setress");
-      console.log(result);
+      //console.log("setress");
+      //console.log(result);
       setSpinner(false);
     } catch (error) {
       alert("Bir hata oluştu. Lütfen tekrar deneyin.");
     } finally {
-      console.log("spinnerrr");
+      //console.log("spinnerrr");
       setSpinner(false);
     }
     /*if (!res) {
       setRes({ result: "positive" });
     }*/
     if (!spinner) {
-      console.log("res2");
-      console.log(result);
+      //console.log("res2");
+      //console.log(result);
       dr.Comments.unshift({
         userInfo: user.info.id,
         comment: comment,
@@ -112,7 +112,7 @@ const Comments = ({ navigation, route }) => {
 
       updateDorm(dr.id, dr)
         .then((docRef) => {
-          console.log(docRef);
+          //console.log(docRef);
         })
         .catch((error) => {
           alert("Bir hata oluştu. Lütfen tekrar deneyin.");
@@ -120,7 +120,7 @@ const Comments = ({ navigation, route }) => {
 
       updateUser(user.info.id, user.info)
         .then((docRef) => {
-          console.log(docRef);
+          //console.log(docRef);
         })
         .catch((error) => {
           alert("Bir hata oluştu. Lütfen tekrar deneyin.");
@@ -147,14 +147,14 @@ const Comments = ({ navigation, route }) => {
 
       updateDorm(dr.id, dr)
         .then((docRef) => {
-          console.log(docRef);
+          //console.log(docRef);
         })
         .catch((error) => {
           alert("Bir hata oluştu. Lütfen tekrar deneyin.");
         });
       updateUser(user.info.id, user.info)
         .then((docRef) => {
-          console.log(docRef);
+          //console.log(docRef);
         })
         .catch((error) => {
           alert("Bir hata oluştu. Lütfen tekrar deneyin.");

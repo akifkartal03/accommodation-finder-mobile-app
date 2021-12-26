@@ -21,10 +21,11 @@ const DormReport = ({ route, navigation }) => {
     };
     addReport(data)
       .then((docRef) => {
-        console.log(docRef);
+        //console.log(docRef);
       })
       .catch((error) => {
         alert("Bir hata oluştu. Lütfen tekrar deneyin.");
+        setLoad(false);
       });
     Alert.alert("Başarılı", "Mesajınız Bizlere Gönderildi.", [
       {

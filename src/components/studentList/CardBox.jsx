@@ -24,7 +24,7 @@ const CardBox = (props) => {
     dispatch(setUSer(user));
     updateUser(user.info.id, user.info)
       .then((docRef) => {
-        console.log(docRef);
+        //console.log(docRef);
         getHomeMate()
           .then((docRef) => {
             props.set(docRef);

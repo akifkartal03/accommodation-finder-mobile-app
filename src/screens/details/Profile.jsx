@@ -70,7 +70,8 @@ const Profile = ({ navigation }) => {
     dispatch(setUSer(user));
     updateUser(info.id, info)
       .then((docRef) => {
-        console.log(docRef);
+        //console.log(docRef);
+        setLoad(false);
       })
       .catch((error) => {
         alert("Bir hata oluştu. Lütfen tekrar deneyin.");
@@ -196,7 +197,7 @@ const Profile = ({ navigation }) => {
               <View style={styles.btn3}>
                 <Button
                   icon={{
-                    uri: "https://cdn-icons.flaticon.com/png/128/2874/premium/2874091.png?token=exp=1637404880~hmac=46464d0aabf6874f3124926866d89d10",
+                    uri: "https://cdn-icons-png.flaticon.com/128/2983/2983818.png",
                   }}
                   mode="contained"
                   color="green"
@@ -276,6 +277,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     paddingTop: 60,
+    marginBottom: 10,
   },
 });
 

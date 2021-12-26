@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Button } from "react-native-paper";
 import Firebase from "../../database/firebase_config";
@@ -25,17 +25,17 @@ const SendBtn = (props) => {
           (element.userInfo1 == props.other.id ||
             element.userInfo2 == props.other.id)
         ) {
-          console.log("heree");
+          //console.log("heree");
           temp.push({
             _id: documentSnapshot.id,
             ...documentSnapshot.data(),
           });
         }
       });
-      console.log(temp);
+      //console.log(temp);
       if (temp.length > 0) {
         setLoading(false);
-        console.log("test");
+        //console.log("test");
         props.nav.navigate("ChatPage", {
           itemId: temp[0]._id,
           userInfo: props.other,
@@ -64,7 +64,7 @@ const SendBtn = (props) => {
                 _id: docRef.id,
               },
             });
-            console.log(docRef.id);
+            //console.log(docRef.id);
             const uid = docRef.id;
             let info = user.info;
             info.chatList.push(docRef.id);
@@ -72,7 +72,7 @@ const SendBtn = (props) => {
             dispatch(setUSer(user));
             updateUser(info.id, info)
               .then((docRef) => {
-                console.log(docRef);
+                //console.log(docRef);
               })
               .catch((error) => {
                 alert("Bir hata oluştu. Lütfen tekrar deneyin.");
@@ -83,7 +83,7 @@ const SendBtn = (props) => {
                 info2.chatList.push(uid);
                 updateUser(props.other.id, info2)
                   .then((docRef2) => {
-                    console.log(docRef2);
+                    //console.log(docRef2);
                   })
                   .catch((error) => {
                     alert("Bir hata oluştu. Lütfen tekrar deneyin.");
@@ -124,7 +124,7 @@ const SendBtn = (props) => {
               _id: docRef.id,
             },
           });
-          console.log(docRef.id);
+          //console.log(docRef.id);
           const uid = docRef.id;
           let info = user.info;
           info.chatList.push(docRef.id);
@@ -132,7 +132,7 @@ const SendBtn = (props) => {
           dispatch(setUSer(user));
           updateUser(info.id, info)
             .then((docRef) => {
-              console.log(docRef);
+              //console.log(docRef);
             })
             .catch((error) => {
               alert("Bir hata oluştu. Lütfen tekrar deneyin.");
@@ -143,14 +143,14 @@ const SendBtn = (props) => {
               info2.chatList.push(uid);
               updateUser(props.other.id, info2)
                 .then((docRef2) => {
-                  console.log(docRef2);
+                  //console.log(docRef2);
                 })
                 .catch((error) => {
                   alert("Bir hata oluştu. Lütfen tekrar deneyin.");
                 });
             })
             .catch((error) => {
-              console.log(error);
+              //console.log(error);
               setLoad(false);
             });
           setLoading(false);

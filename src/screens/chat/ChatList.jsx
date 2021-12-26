@@ -64,11 +64,11 @@ const ChatList = ({ navigation, route }) => {
                 new Date(b.latest.createdAt).getTime() -
                 new Date(a.latest.createdAt).getTime()
             );
-          console.log(threads2);
+          //console.log(threads2);
           if (loading) {
             setThreads(threads2);
             setLoading(false);
-            console.log(threads);
+            //console.log(threads);
           }
         });
       setLoading2(false);
