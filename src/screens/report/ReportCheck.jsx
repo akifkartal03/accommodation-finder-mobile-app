@@ -28,7 +28,7 @@ const ReportCheck = ({ navigation, route }) => {
       })
       .catch((error) => {
         setSpinner(false);
-        alert(error);
+        alert("Bir hata oluştu. Lütfen tekrar deneyin.");
       });
     setSpinner(false);
   }, [isFocused]);

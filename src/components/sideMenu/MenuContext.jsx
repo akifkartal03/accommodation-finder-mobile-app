@@ -32,7 +32,7 @@ const MContext = ({ navigation }) => {
           routes: [{ name: "StartScreen" }],
         });
       })
-      .catch((error) => alert(error.message));
+      .catch((error) => alert("Bir hata oluştu. Lütfen tekrar deneyin."));
   };
   /*const testAPI = () => {
     getResult("bu yurt okula uzak.")

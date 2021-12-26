@@ -30,11 +30,11 @@ const CardBox = (props) => {
             props.set(docRef);
           })
           .catch((error) => {
-            alert(error);
+            alert("Bir hata oluştu. Lütfen tekrar deneyin.");
           });
       })
       .catch((error) => {
-        alert(error.message);
+        alert("Bir hata oluştu. Lütfen tekrar deneyin.");
       });
 
     Alert.alert("Başarılı", "Ev arkadaşı arayanlar listesinden çıkarıldınız.", [

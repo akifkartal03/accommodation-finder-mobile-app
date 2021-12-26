@@ -68,17 +68,17 @@ export default function LoginScreen({ navigation }) {
                 });
               })
               .catch((error) => {
-                alert(error);
+                alert("Bir hata oluştu. Lütfen tekrar deneyin.");
               });
           })
           .catch((error) => {
-            console.log(error);
+            alert("Bir hata oluştu. Lütfen tekrar deneyin.");
             setLoad(false);
           });
       })
       .catch((error) => {
         setLoad(false);
-        alert(error.message);
+        alert("e-mail yada şifre hatalı.");
       });
   };
 

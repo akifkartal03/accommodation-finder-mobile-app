@@ -32,7 +32,7 @@ const DormReport = ({ route, navigation }) => {
         console.log(docRef);
       })
       .catch((error) => {
-        alert(error.message);
+        alert("Bir hata oluştu. Lütfen tekrar deneyin.");
       });
     Alert.alert("Başarılı", "Mesajınız Bizlere Gönderildi.", [
       {

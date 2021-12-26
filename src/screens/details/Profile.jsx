@@ -75,7 +75,7 @@ const Profile = ({ navigation }) => {
         console.log(docRef);
       })
       .catch((error) => {
-        alert(error.message);
+        alert("Bir hata oluştu. Lütfen tekrar deneyin.");
       });
     Alert.alert("Başarılı", "Bilgileriniz Güncellendi.", [
       {
@@ -198,8 +198,7 @@ const Profile = ({ navigation }) => {
               <View style={styles.btn3}>
                 <Button
                   icon={{
-                    uri:
-                      "https://cdn-icons.flaticon.com/png/128/2874/premium/2874091.png?token=exp=1637404880~hmac=46464d0aabf6874f3124926866d89d10",
+                    uri: "https://cdn-icons.flaticon.com/png/128/2874/premium/2874091.png?token=exp=1637404880~hmac=46464d0aabf6874f3124926866d89d10",
                   }}
                   mode="contained"
                   color="green"

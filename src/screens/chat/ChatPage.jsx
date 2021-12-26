@@ -71,7 +71,7 @@ const ChatPage = ({ navigation, route }) => {
                   );
               })
               .catch((error) => {
-                alert(error.message);
+                alert("Bir hata oluştu. Lütfen tekrar deneyin.");
               });
           }
         }
@@ -118,7 +118,7 @@ const ChatPage = ({ navigation, route }) => {
           );
       })
       .catch((error) => {
-        alert(error.message);
+        alert("Bir hata oluştu. Lütfen tekrar deneyin.");
       });
   }, []);
   return !loading ? (

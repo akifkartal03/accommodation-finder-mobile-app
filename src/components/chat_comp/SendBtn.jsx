@@ -84,7 +84,7 @@ const SendBtn = (props) => {
                 console.log(docRef);
               })
               .catch((error) => {
-                alert(error.message);
+                alert("Bir hata oluştu. Lütfen tekrar deneyin.");
               });
             getUserByID(props.other.id)
               .then((docRef) => {
@@ -95,11 +95,11 @@ const SendBtn = (props) => {
                     console.log(docRef2);
                   })
                   .catch((error) => {
-                    alert(error);
+                    alert("Bir hata oluştu. Lütfen tekrar deneyin.");
                   });
               })
               .catch((error) => {
-                console.log(error);
+                alert("Bir hata oluştu. Lütfen tekrar deneyin.");
                 setLoad(false);
               });
             setLoading(false);
@@ -144,7 +144,7 @@ const SendBtn = (props) => {
               console.log(docRef);
             })
             .catch((error) => {
-              alert(error.message);
+              alert("Bir hata oluştu. Lütfen tekrar deneyin.");
             });
           getUserByID(props.other.id)
             .then((docRef) => {
@@ -155,7 +155,7 @@ const SendBtn = (props) => {
                   console.log(docRef2);
                 })
                 .catch((error) => {
-                  alert(error);
+                  alert("Bir hata oluştu. Lütfen tekrar deneyin.");
                 });
             })
             .catch((error) => {

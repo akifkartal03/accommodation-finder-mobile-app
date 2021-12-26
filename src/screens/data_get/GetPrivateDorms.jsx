@@ -40,7 +40,7 @@ const GetPrivateDorms = ({ navigation }) => {
         setLoad(true);
       })
       .catch((error) => {
-        alert(error);
+        alert("Bir hata oluştu. Lütfen tekrar deneyin.");
       });
   }, []);
   return user.dorms.length && load ? (

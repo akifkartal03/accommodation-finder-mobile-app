@@ -50,7 +50,7 @@ const Comments = ({ navigation, route }) => {
         setUsers(docRef);
       })
       .catch((error) => {
-        alert(error);
+        alert("Bir hata oluştu. Lütfen tekrar deneyin.");
       });
   }, []);
 
@@ -64,7 +64,7 @@ const Comments = ({ navigation, route }) => {
       console.log(result);
       setSpinner(false);
     } catch (error) {
-      console.error(error);
+      alert("Bir hata oluştu. Lütfen tekrar deneyin.");
     } finally {
       console.log("spinnerrr");
       setSpinner(false);
@@ -93,7 +93,7 @@ const Comments = ({ navigation, route }) => {
           //console.log(docRef);
         })
         .catch((error) => {
-          alert(error.message);
+          alert("Bir hata oluştu. Lütfen tekrar deneyin.");
         });
       setSpinner(false);
       Alert.alert("Başarılı", "Yorum Yapıldı.", [
@@ -120,7 +120,7 @@ const Comments = ({ navigation, route }) => {
           console.log(docRef);
         })
         .catch((error) => {
-          alert(error.message);
+          alert("Bir hata oluştu. Lütfen tekrar deneyin.");
         });
 
       updateUser(user.info.id, user.info)
@@ -128,7 +128,7 @@ const Comments = ({ navigation, route }) => {
           console.log(docRef);
         })
         .catch((error) => {
-          alert(error.message);
+          alert("Bir hata oluştu. Lütfen tekrar deneyin.");
         });
       Alert.alert("Başarılı", "Yorumu Beğendin.", [
         {
@@ -155,14 +155,14 @@ const Comments = ({ navigation, route }) => {
           console.log(docRef);
         })
         .catch((error) => {
-          alert(error.message);
+          alert("Bir hata oluştu. Lütfen tekrar deneyin.");
         });
       updateUser(user.info.id, user.info)
         .then((docRef) => {
           console.log(docRef);
         })
         .catch((error) => {
-          alert(error.message);
+          alert("Bir hata oluştu. Lütfen tekrar deneyin.");
         });
       Alert.alert("Başarılı", "Yorumu Beğenmekten Vazgeçtin.", [
         {

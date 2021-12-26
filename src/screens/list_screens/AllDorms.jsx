@@ -17,7 +17,7 @@ const AllDormsList = ({ navigation, route }) => {
           routes: [{ name: "LoginScreen" }],
         });
       })
-      .catch((error) => alert(error.message));
+      .catch((error) => alert("Bir hata oluştu. Lütfen tekrar deneyin."));
   };
   return (
     <View style={styles.container}>

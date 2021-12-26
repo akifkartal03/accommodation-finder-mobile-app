@@ -21,7 +21,7 @@ const Students = ({ navigation }) => {
         setUsers(docRef);
       })
       .catch((error) => {
-        alert(error);
+        alert("Bir hata oluştu. Lütfen tekrar deneyin.");
       });
   }, [isFocused]);
   /*useEffect(() => {

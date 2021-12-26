@@ -40,7 +40,7 @@ const ChatList = ({ navigation, route }) => {
           setUsers(docRef);
         })
         .catch((error) => {
-          alert(error);
+          alert("Bir hata oluştu. Lütfen tekrar deneyin.");
         });
       const notUndefined = (anyValue) => typeof anyValue !== "undefined";
       const unsubscribe = Firebase.firestore()
