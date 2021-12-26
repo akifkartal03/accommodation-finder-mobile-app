@@ -32,8 +32,6 @@ const Comments = ({ navigation, route }) => {
   const [data, setData] = useState(route.params.id.Comments);
   const [spinner, setSpinner] = useState(false);
   const [users, setUsers] = useState([]);
-  //const [filters, setFilters] = useState([]);
-  const [res, setRes] = useState({ result: "positive" });
   const dr = route.params.id;
   const image = "https://bootdey.com/img/Content/avatar/avatar7.png";
   const [spinner2, setSpinner2] = useState(false);
@@ -58,50 +56,55 @@ const Comments = ({ navigation, route }) => {
 
   const sendPressed = async () => {
     setSpinner(true);
+    let result = {};
     try {
       const response = await getResult(comment);
-      let json = await response.json();
-      console.log(json);
-      setRes(json);
+      result = await response.json();
+      console.log("setress");
+      console.log(result);
+      setSpinner(false);
     } catch (error) {
       console.error(error);
     } finally {
+      console.log("spinnerrr");
       setSpinner(false);
     }
     /*if (!res) {
       setRes({ result: "positive" });
     }*/
-    console.log("res2");
-    console.log(res);
-    dr.Comments.unshift({
-      userInfo: user.info.id,
-      comment: comment,
-      date: new Date().toString(),
-      likeNumber: 0,
-      type: res.result == "positive" ? 1 : 0,
-      _id: uuid.v4(),
-    });
-    setData(dr.Comments);
-    setSpinner2(true);
-    //console.log(comment);
-    //console.log(res);
-    updateDorm(dr.id, dr)
-      .then((docRef) => {
-        setSpinner(false);
-        //console.log(docRef);
-      })
-      .catch((error) => {
-        alert(error.message);
+    if (!spinner) {
+      console.log("res2");
+      console.log(result);
+      dr.Comments.unshift({
+        userInfo: user.info.id,
+        comment: comment,
+        date: new Date().toString(),
+        likeNumber: 0,
+        type: result.result == "positive" ? 1 : 0,
+        _id: uuid.v4(),
       });
-    setSpinner(false);
-    Alert.alert("Başarılı", "Yorum Yapıldı.", [
-      {
-        text: "Tamam",
-        onPress: () => {
-          setSpinner2(false);
+      setData(dr.Comments);
+      setSpinner2(true);
+      //console.log(comment);
+      //console.log(res);
+      updateDorm(dr.id, dr)
+        .then((docRef) => {
+          setSpinner(false);
+          //console.log(docRef);
+        })
+        .catch((error) => {
+          alert(error.message);
+        });
+      setSpinner(false);
+      Alert.alert("Başarılı", "Yorum Yapıldı.", [
+        {
+          text: "Tamam",
+          onPress: () => {
+            setSpinner2(false);
+          },
         },
-      },
-    ]);
+      ]);
+    }
   };
   const likePressed = (ind) => {
     if (!user.info.likedComments.includes(dr.Comments[ind]._id)) {

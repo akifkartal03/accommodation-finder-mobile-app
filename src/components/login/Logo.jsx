@@ -1,5 +1,6 @@
 import React from "react";
 import { Image, StyleSheet } from "react-native";
+import { getStatusBarHeight } from "react-native-status-bar-height";
 
 export default function Logo() {
   return (
@@ -15,6 +16,6 @@ const styles = StyleSheet.create({
     width: 150,
     height: 180,
     marginBottom: 5,
-    marginTop: 0,
+    marginTop: getStatusBarHeight() + 5,
   },
 });
