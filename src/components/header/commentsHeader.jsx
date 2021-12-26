@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Picker } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { getStatusBarHeight } from "react-native-status-bar-height";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { DrawerActions } from "@react-navigation/native";

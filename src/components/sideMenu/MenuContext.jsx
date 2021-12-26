@@ -5,7 +5,6 @@ import { getStatusBarHeight } from "react-native-status-bar-height";
 import { useStore } from "../../redux/store/Provider";
 import Firebase from "../../database/firebase_config";
 import { DrawerActions } from "@react-navigation/native";
-
 import { DrawerItem } from "@react-navigation/drawer";
 import ProfileComponent from "./Profile";
 const MContext = ({ navigation }) => {

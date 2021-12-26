@@ -55,7 +55,7 @@ const DormReport = ({ route, navigation }) => {
         <Button
           icon={() => (
             <Image
-              source={require("../../../assets/images/save5.png")}
+              source={{ uri: "https://i.ibb.co/C82vCrp/save5.png" }}
               style={{ width: 25, height: 25, tintColor: "white" }}
             />
           )}

@@ -5,7 +5,7 @@ import { getStatusBarHeight } from "react-native-status-bar-height";
 export default function Logo() {
   return (
     <Image
-      source={require("../../../assets/images/gtu.png")}
+      source={{ uri: "https://i.ibb.co/xSxRNFd/gtu.png" }}
       style={styles.image}
     />
   );

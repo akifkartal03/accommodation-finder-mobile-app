@@ -8,7 +8,7 @@ export default function BackButton({ goBack }) {
       <TouchableOpacity onPress={goBack}>
         <Image
           style={styles.image}
-          source={require("../../../assets/images/arrow_back.png")}
+          source={{ uri: "https://i.ibb.co/CH6kmRS/arrow-back.png" }}
         />
       </TouchableOpacity>
     </View>

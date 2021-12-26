@@ -1,6 +1,5 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-
 import { Button } from "react-native-paper";
 import Firebase from "../../database/firebase_config";
 import { useStore } from "../../redux/store/Provider";

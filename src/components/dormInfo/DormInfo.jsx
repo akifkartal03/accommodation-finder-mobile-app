@@ -14,7 +14,7 @@ const DormInfo = (props) => {
         <View style={styles.btn3}>
           <Button
             style={styles.btn2}
-            icon={require("../../../assets/images/warning.png")}
+            icon={{ uri: "https://i.ibb.co/hX64S5C/warning.png" }}
             mode="contained"
             color="#c9153c"
             labelStyle={{

@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, Picker } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
-import { useStore } from "../../redux/store/Provider";
 
 const Combobox1 = (props) => {
-  const [{ user }, dispatch] = useStore();
   const [items, setItems] = useState([
     { id: 0, label: "Kadın", val: 0 },
     { id: 1, label: "Erkek", val: 1 },

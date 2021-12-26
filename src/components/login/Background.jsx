@@ -9,7 +9,7 @@ import { theme } from "./theme";
 export default function Background({ children }) {
   return (
     <ImageBackground
-      source={require("../../../assets/images/dot2x.png")}
+      source={{ uri: "https://i.ibb.co/6WbwgLK/dot2x.png" }}
       resizeMode="repeat"
       style={styles.background}
     >
