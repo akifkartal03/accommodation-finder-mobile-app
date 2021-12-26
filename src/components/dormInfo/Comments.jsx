@@ -1,30 +1,25 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
   View,
   TouchableOpacity,
   Image,
-  ScrollView,
   FlatList,
   TextInput,
-  ActivityIndicator,
   Alert,
 } from "react-native";
 import { useStore } from "../../redux/store/Provider";
-import MainPageHeader from "../header/mainPageHeader";
 import Icon2 from "react-native-vector-icons/MaterialIcons";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { updateDorm } from "../../database/services/dormitory_service";
 import { updateUser } from "../../database/services/user_service";
 import uuid from "react-native-uuid";
 import { setUSer } from "../../redux/actions/LoginAction";
-import { getUserByID } from "../../database/services/user_service";
 import { getUsers } from "../../database/services/user_service";
 import Spinner from "react-native-loading-spinner-overlay";
 import { getResult } from "../../database/sentiment/sentiment_service";
 import CommentsHeader from "../header/commentsHeader";
-import Header from "../common/Header";
 
 const Comments = ({ navigation, route }) => {
   const [{ user }, dispatch] = useStore();

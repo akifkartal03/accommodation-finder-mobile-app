@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React from "react";
 import { StyleSheet, View, Modal, TouchableHighlight } from "react-native";
 
 export default class ModalOVerlay extends React.PureComponent {

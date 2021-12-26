@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import React from "react";
+import { StyleSheet, View, FlatList } from "react-native";
 import InfoDetails from "./InfoDetails";
 
 const ProfileInfo = (props) => {

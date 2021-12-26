@@ -1,12 +1,5 @@
-import React, { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity,
-  Image,
-} from "react-native";
+import React from "react";
+import { StyleSheet, Text, View, TextInput } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 
 const OtherInfo = (props) => {

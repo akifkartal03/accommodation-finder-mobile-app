@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, FlatList } from "react-native";
-import { getAll, getDorms } from "../../database/services/dormitory_service.js";
+import { getDorms } from "../../database/services/dormitory_service.js";
 import { useStore } from "../../redux/store/Provider";
 import { setUSer } from "../../redux/actions/LoginAction";
 import AllDormsList from "../list_screens/AllDorms.jsx";

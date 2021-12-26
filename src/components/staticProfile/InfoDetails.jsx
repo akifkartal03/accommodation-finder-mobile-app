@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, FlatList, Image } from "react-native";
+import React from "react";
+import { StyleSheet, Text, View, Image } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { useStore } from "../../redux/store/Provider";
 

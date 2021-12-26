@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import React from "react";
+import { StyleSheet, View, FlatList } from "react-native";
 import MainPageHeader from "../../components/header/mainPageHeader.jsx";
 import CardItem from "../../components/common/CardItem.jsx";
 import { useStore } from "../../redux/store/Provider";

@@ -1,13 +1,5 @@
-import React, { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-  TextInput,
-  Alert,
-  Image,
-} from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, Text, View, TextInput, Alert, Image } from "react-native";
 import MainPageHeader from "../../components/header/mainPageHeader.jsx";
 import { Button } from "react-native-paper";
 import { useStore } from "../../redux/store/Provider";

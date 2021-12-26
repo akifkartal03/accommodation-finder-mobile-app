@@ -1,18 +1,8 @@
-import React, { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity,
-  Image,
-} from "react-native";
+import React from "react";
+import { StyleSheet, View } from "react-native";
 import OtherInfo from "./OtherInfo";
-import { useStore } from "../../redux/store/Provider";
-import { setUSer } from "../../redux/actions/LoginAction";
 
 const ProfilInfoList = (props) => {
-  const [{ user }, dispatch] = useStore();
   return (
     <View style={styles.container}>
       {props.index == 1 ? (

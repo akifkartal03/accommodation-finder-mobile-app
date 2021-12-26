@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import React from "react";
+import { StyleSheet, View } from "react-native";
 import MainPageHeader from "../../components/header/mainPageHeader.jsx";
 import ProfileInfo from "../../components/staticProfile/ProfileInfo.jsx";
-import { SliderBox } from "react-native-image-slider-box";
 import { useStore } from "../../redux/store/Provider";
 import SendBtn from "../../components/chat_comp/SendBtn.jsx";
 

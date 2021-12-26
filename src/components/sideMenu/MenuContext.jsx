@@ -1,18 +1,12 @@
 import React from "react";
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import { StyleSheet, View, FlatList } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { getStatusBarHeight } from "react-native-status-bar-height";
 import { useStore } from "../../redux/store/Provider";
 import Firebase from "../../database/firebase_config";
 import { DrawerActions } from "@react-navigation/native";
-import { getResult } from "../../database/sentiment/sentiment_service";
-import { Badge } from "react-native-elements";
 
-import {
-  DrawerContentScrollView,
-  DrawerItemList,
-  DrawerItem,
-} from "@react-navigation/drawer";
+import { DrawerItem } from "@react-navigation/drawer";
 import ProfileComponent from "./Profile";
 const MContext = ({ navigation }) => {
   const [{ user }, dispatch] = useStore();

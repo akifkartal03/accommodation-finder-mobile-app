@@ -1,12 +1,5 @@
-import React, { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-  TouchableOpacity,
-  Image,
-} from "react-native";
+import React from "react";
+import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 const Avatars = (props) => {

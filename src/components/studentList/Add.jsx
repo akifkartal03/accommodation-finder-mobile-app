@@ -1,16 +1,6 @@
-import React, { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-  TouchableOpacity,
-  Alert,
-} from "react-native";
+import React from "react";
+import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
-import Icon2 from "react-native-vector-icons/FontAwesome5";
-import { Link } from "@react-navigation/native";
-import { Button } from "react-native-paper";
 import { useStore } from "../../redux/store/Provider";
 import { setUSer } from "../../redux/actions/LoginAction";
 import { updateUser } from "../../database/services/user_service";

@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, TouchableOpacity, Picker } from "react-native";
 import { getStatusBarHeight } from "react-native-status-bar-height";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { DrawerActions } from "@react-navigation/native";
-import Combobox1 from "../profile/Combobox1";
 import PickerCheckbox from "../profile/PickerCheckbox";
 
 const CommentsHeader = (props) => {

@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, FlatList } from "react-native";
-import { menuData } from "../../database/menuData";
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
 
 const CommentList = (props) => {
   const backPressed = () => {};

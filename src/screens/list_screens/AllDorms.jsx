@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, FlatList, Alert } from "react-native";
+import React from "react";
+import { StyleSheet, View, FlatList } from "react-native";
 import MainPageHeader from "../../components/header/mainPageHeader.jsx";
 import CardItem from "../../components/common/CardItem.jsx";
 import Firebase from "../../database/firebase_config.js";
 import { useStore } from "../../redux/store/Provider";
 import Warn from "../../components/warning/Warning.jsx";
-const AllDormsList = ({ navigation, route }) => {
+const AllDormsList = ({ navigation }) => {
   const [{ user }, dispatch] = useStore("");
 
   const exitPressed = () => {

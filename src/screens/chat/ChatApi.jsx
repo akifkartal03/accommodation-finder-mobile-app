@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { getRoomByID } from "../../database/services/chat_service";
-import { getMessagesByID } from "../../database/services/chat_service";
 import { useStore } from "../../redux/store/Provider";
 import Firebase from "../../database/firebase_config";
 import Spinner from "react-native-loading-spinner-overlay";

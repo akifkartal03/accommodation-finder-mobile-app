@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
 import MainPageHeader from "../../components/header/mainPageHeader.jsx";
 import DormInfo from "../../components/dormInfo/DormInfo.jsx";
 import { SliderBox } from "react-native-image-slider-box";

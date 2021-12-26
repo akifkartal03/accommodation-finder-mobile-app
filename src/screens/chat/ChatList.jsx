@@ -4,21 +4,15 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Image,
-  ScrollView,
   FlatList,
-  TextInput,
-  ActivityIndicator,
-  Alert,
 } from "react-native";
-import { Avatar, Badge, Icon, withBadge } from "react-native-elements";
+import { Avatar, Badge } from "react-native-elements";
 import { useStore } from "../../redux/store/Provider";
 import MainPageHeader from "../../components/header/mainPageHeader";
 import Spinner from "react-native-loading-spinner-overlay";
 import Firebase from "../../database/firebase_config";
 import { getUsers } from "../../database/services/user_service";
 import NoChat from "../../components/chat_comp/NoChat";
-import { useIsFocused } from "@react-navigation/native";
 
 const ChatList = ({ navigation, route }) => {
   const [{ user }, dispatch] = useStore();

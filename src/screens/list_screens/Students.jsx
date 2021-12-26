@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, FlatList, Alert } from "react-native";
+import { StyleSheet, View, FlatList } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 import MainPageHeader from "../../components/header/mainPageHeader.jsx";
-import Firebase from "../../database/firebase_config.js";
 import { useStore } from "../../redux/store/Provider";
-import { getUsers } from "../../database/services/user_service.js";
 import { getHomeMate } from "../../database/services/user_service.js";
 import Spinner from "react-native-loading-spinner-overlay";
 import CardBox from "../../components/studentList/CardBox.jsx";

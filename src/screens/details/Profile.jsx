@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -8,10 +8,8 @@ import {
   Image,
   Alert,
 } from "react-native";
-import { CheckBox } from "react-native-elements";
 import MainPageHeader from "../../components/header/mainPageHeader.jsx";
 import Icon from "react-native-vector-icons/FontAwesome";
-import OtherInfo from "../../components/profile/OtherInfo.jsx";
 import ProfilInfoList from "../../components/profile/ProfilInfoList.jsx";
 import Combobox1 from "../../components/profile/Combobox1.jsx";
 import Combobox2 from "../../components/profile/Combobox2.jsx";

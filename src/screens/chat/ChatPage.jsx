@@ -1,9 +1,8 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { GiftedChat, Send } from "react-native-gifted-chat";
 import Firebase from "../../database/firebase_config";
 import { useStore } from "../../redux/store/Provider";
-import MainPageHeader from "../../components/header/mainPageHeader";
 import Icon2 from "react-native-vector-icons/MaterialIcons";
 import Spinner from "react-native-loading-spinner-overlay";
 import ChatPageHeader from "../../components/header/chatHeader";

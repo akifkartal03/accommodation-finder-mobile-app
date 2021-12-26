@@ -1,6 +1,5 @@
-import React, { Component } from "react";
-import { View, TouchableOpacity, Text, ListView, Image } from "react-native";
-import Icon from "react-native-vector-icons/MaterialIcons";
+import React from "react";
+import { View, Text, Image } from "react-native";
 
 const ProfileComponent = ({ profileUrl, username, email }) => (
   <View style={{ flexDirection: "row", padding: 10, marginBottom: 20 }}>

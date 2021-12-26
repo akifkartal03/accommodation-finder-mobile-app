@@ -1,16 +1,7 @@
-import React, { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  TouchableOpacity,
-  Image,
-  Picker,
-} from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, Text, View, Picker } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { useStore } from "../../redux/store/Provider";
-import { setUSer } from "../../redux/actions/LoginAction";
 
 const Combobox1 = (props) => {
   const [{ user }, dispatch] = useStore();

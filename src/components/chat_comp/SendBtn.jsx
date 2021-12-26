@@ -1,14 +1,6 @@
-import React, { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-  TouchableOpacity,
-} from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
-import Icon2 from "react-native-vector-icons/FontAwesome5";
-import { Link } from "@react-navigation/native";
+import React from "react";
+import { StyleSheet, View } from "react-native";
+
 import { Button } from "react-native-paper";
 import Firebase from "../../database/firebase_config";
 import { useStore } from "../../redux/store/Provider";

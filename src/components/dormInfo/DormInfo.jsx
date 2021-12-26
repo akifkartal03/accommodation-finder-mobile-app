@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { StyleSheet, Text, View, FlatList } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
 import InfoList from "./InfoList";
-import Comments from "./Comments";
-import { Link } from "@react-navigation/native";
 import Btn from "./Btn";
 import { Button } from "react-native-paper";
 
