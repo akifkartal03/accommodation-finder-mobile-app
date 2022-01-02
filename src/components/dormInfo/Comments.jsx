@@ -27,6 +27,8 @@ const Comments = ({ navigation, route }) => {
   const [data, setData] = useState(route.params.id.Comments);
   const [spinner, setSpinner] = useState(false);
   const [users, setUsers] = useState([]);
+  const [pos, setPos] = useState(0);
+  const [neg, setNeg] = useState(0);
   const dr = route.params.id;
   const image = "https://bootdey.com/img/Content/avatar/avatar7.png";
   const [spinner2, setSpinner2] = useState(false);
@@ -42,6 +44,8 @@ const Comments = ({ navigation, route }) => {
             })
             .reverse()
         );
+        setPos(dr.Comments.filter((word) => word.type == 1).length);
+        setNeg(dr.Comments.filter((word) => word.type == 0).length);
         setUsers(docRef);
       })
       .catch((error) => {
@@ -79,6 +83,8 @@ const Comments = ({ navigation, route }) => {
         _id: uuid.v4(),
       });
       setData(dr.Comments);
+      setPos(dr.Comments.filter((word) => word.type == 1).length);
+      setNeg(dr.Comments.filter((word) => word.type == 0).length);
       setSpinner2(true);
       //console.log(comment);
       //console.log(res);
@@ -260,7 +266,56 @@ const Comments = ({ navigation, route }) => {
           size={23}
           func={applyFilters}
         />
-        <Text style={styles.text}>{dr.Name}</Text>
+        <View style={{ flexDirection: "row" }}>
+          <View style={{ flex: 1 }}>
+            <Text style={styles.text}>{dr.Name}</Text>
+          </View>
+          <View style={{ flex: 1 }}>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Icon
+                style={{
+                  marginTop: 10,
+                  marginRight: 5,
+                  alignItems: "flex-end",
+                  justifyContent: "flex-end",
+                  textAlign: "right",
+                  flex: 1,
+                }}
+                name="smile-o"
+                size={15}
+                color="green"
+              />
+              <Text style={styles.statictis}>Olumlu Yorum: {pos}</Text>
+            </View>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Icon
+                style={{
+                  marginRight: 5,
+                  alignItems: "flex-end",
+                  justifyContent: "flex-end",
+                  textAlign: "right",
+                  flex: 1,
+                }}
+                name="frown-o"
+                size={15}
+                color="red"
+              />
+              <Text style={styles.statictis2}>Olumsuz Yorum: {neg}</Text>
+            </View>
+          </View>
+        </View>
 
         <View
           style={{
@@ -462,6 +517,23 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
     fontWeight: "bold",
+    justifyContent: "flex-start",
+  },
+  statictis: {
+    fontSize: 15,
+    textAlign: "right",
+    marginTop: 10,
+    marginRight: 15,
+    marginBottom: 2,
+    justifyContent: "flex-end",
+  },
+  statictis2: {
+    fontSize: 15,
+    textAlign: "right",
+    marginTop: 8,
+    marginRight: 15,
+    marginBottom: 10,
+    justifyContent: "flex-end",
   },
   common: {
     flex: 1,
