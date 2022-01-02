@@ -68,9 +68,11 @@ const Profile = ({ navigation }) => {
     info.avatar = img;
     user.info = info;
     dispatch(setUSer(user));
+    var t0 = performance.now();
     updateUser(info.id, info)
       .then((docRef) => {
-        //console.log(docRef);
+        var t1 = performance.now();
+        console.log("Update Student Profile Time: " + (t1 - t0) + " ms.");
         setLoad(false);
       })
       .catch((error) => {

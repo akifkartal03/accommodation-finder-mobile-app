@@ -57,15 +57,15 @@ const Comments = ({ navigation, route }) => {
     setSpinner(true);
     let result = {};
     try {
+      var t0 = performance.now();
       const response = await getResult(comment);
       result = await response.json();
-      //console.log("setress");
-      //console.log(result);
       setSpinner(false);
     } catch (error) {
       alert("Bir hata oluştu. Lütfen tekrar deneyin.");
     } finally {
-      //console.log("spinnerrr");
+      var t1 = performance.now();
+      console.log("Sentiment Analysis Response Time: " + (t1 - t0) + " ms.");
       setSpinner(false);
     }
     /*if (!res) {

@@ -34,6 +34,7 @@ const Drawer = createDrawerNavigator();
 const Stack = createNativeStackNavigator();
 LogBox.ignoreAllLogs(true);
 LogBox.ignoreLogs(["Setting a timer for a long period of time"]);
+LogBox.ignoreLogs(["AsyncStorage has been extracted from react-native"]);
 function MyHome() {
   return (
     <Stack.Navigator
