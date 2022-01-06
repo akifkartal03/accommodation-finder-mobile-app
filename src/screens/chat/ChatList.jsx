@@ -13,6 +13,7 @@ import Spinner from "react-native-loading-spinner-overlay";
 import Firebase from "../../database/firebase_config";
 import { getUsers } from "../../database/services/user_service";
 import NoChat from "../../components/chat_comp/NoChat";
+import { useIsFocused } from "@react-navigation/native";
 
 const ChatList = ({ navigation, route }) => {
   const [{ user }, dispatch] = useStore();
@@ -22,59 +23,62 @@ const ChatList = ({ navigation, route }) => {
   const image = "https://bootdey.com/img/Content/avatar/avatar7.png";
   const [threads, setThreads] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [loading2, setLoading2] = useState(false);
-  //const isFocused = useIsFocused();
+  const [loading2, setLoading2] = useState(true);
+  const [user2, setUser2] = useState(user.info);
+  const isFocused = useIsFocused();
   //let threads2 = [];
 
   useEffect(() => {
-    if (user.info.chatList.length > 0) {
-      setLoading2(true);
-      getUsers()
-        .then((docRef) => {
-          setUsers(docRef);
-        })
-        .catch((error) => {
-          alert("Bir hata oluştu. Lütfen tekrar deneyin.");
-        });
-      const notUndefined = (anyValue) => typeof anyValue !== "undefined";
-      const unsubscribe = Firebase.firestore()
-        .collection("chatRooms")
-        .onSnapshot((querySnapshot) => {
-          const threads2 = querySnapshot.docs
-            .map((documentSnapshot) => {
-              if (user.info.chatList.includes(documentSnapshot.id)) {
-                //console.log(documentSnapshot.data().latest.createdAt);
-                return {
-                  _id: documentSnapshot.id,
-                  userInfo:
-                    user.info.id != documentSnapshot.data().userInfo1
-                      ? documentSnapshot.data().userInfo1
-                      : documentSnapshot.data().userInfo2,
-                  pending:
-                    user.info.id == documentSnapshot.data().userInfo1
-                      ? documentSnapshot.data().pending1
-                      : documentSnapshot.data().pending2,
-                  ...documentSnapshot.data(),
-                };
-              }
-            })
-            .filter(notUndefined)
-            .sort(
-              (a, b) =>
-                new Date(b.latest.createdAt).getTime() -
-                new Date(a.latest.createdAt).getTime()
-            );
-          //console.log(threads2);
-          if (loading) {
+    setLoading2(true);
+    getUsers()
+      .then((docRef) => {
+        setUsers(docRef);
+        const notUndefined = (anyValue) => typeof anyValue !== "undefined";
+        //console.log(user.info.id);
+        const info2 = docRef.find(({ id }) => id == user.info.id);
+        setUser2(info2);
+        console.log(info2);
+        const unsubscribe = Firebase.firestore()
+          .collection("chatRooms")
+          .onSnapshot((querySnapshot) => {
+            const threads2 = querySnapshot.docs
+              .map((documentSnapshot) => {
+                if (info2.chatList.includes(documentSnapshot.id)) {
+                  //console.log(documentSnapshot.data().latest.createdAt);
+                  return {
+                    _id: documentSnapshot.id,
+                    userInfo:
+                      user.info.id != documentSnapshot.data().userInfo1
+                        ? documentSnapshot.data().userInfo1
+                        : documentSnapshot.data().userInfo2,
+                    pending:
+                      user.info.id == documentSnapshot.data().userInfo1
+                        ? documentSnapshot.data().pending1
+                        : documentSnapshot.data().pending2,
+                    ...documentSnapshot.data(),
+                  };
+                }
+              })
+              .filter(notUndefined)
+              .sort(
+                (a, b) =>
+                  new Date(b.latest.createdAt).getTime() -
+                  new Date(a.latest.createdAt).getTime()
+              );
+            //console.log(threads2);
             setThreads(threads2);
-            setLoading(false);
-            //console.log(threads);
-          }
-        });
-      setLoading2(false);
-      return () => unsubscribe();
-    }
-  }, []);
+            if (loading) {
+              setLoading(false);
+              //console.log(threads);
+            }
+          });
+        setLoading2(false);
+        return () => unsubscribe();
+      })
+      .catch((error) => {
+        alert("Bir hata oluştu. Lütfen tekrar deneyin.");
+      });
+  }, [isFocused]);
 
   const datePicker = (date) => {
     const monthNames = [
@@ -101,7 +105,7 @@ const ChatList = ({ navigation, route }) => {
     return users.find(({ id }) => id == userid);
   };
 
-  return user.info.chatList.length > 0 ? (
+  return user2.chatList.length > 0 ? (
     !loading ? (
       <View style={styles.common}>
         <MainPageHeader headTitle={"Mesajlar"} nav={navigation} size={23} />
