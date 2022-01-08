@@ -5,10 +5,12 @@ import {
   View,
   TouchableOpacity,
   FlatList,
+  RefreshControl,
 } from "react-native";
 import { Avatar, Badge } from "react-native-elements";
 import { useStore } from "../../redux/store/Provider";
 import MainPageHeader from "../../components/header/mainPageHeader";
+import ChatListHeader from "../../components/header/chatListHeader";
 import Spinner from "react-native-loading-spinner-overlay";
 import Firebase from "../../database/firebase_config";
 import { getUsers } from "../../database/services/user_service";
@@ -29,6 +31,7 @@ const ChatList = ({ navigation, route }) => {
   //let threads2 = [];
 
   useEffect(() => {
+    console.log("useeee");
     setLoading2(true);
     getUsers()
       .then((docRef) => {
@@ -104,11 +107,68 @@ const ChatList = ({ navigation, route }) => {
   const getUser = (userid) => {
     return users.find(({ id }) => id == userid);
   };
+  const getMessages = () => {
+    setLoading2(true);
+    console.log("sdadsad");
+    getUsers()
+      .then((docRef) => {
+        setUsers(docRef);
+        const notUndefined = (anyValue) => typeof anyValue !== "undefined";
+        //console.log(user.info.id);
+        const info2 = docRef.find(({ id }) => id == user.info.id);
+        setUser2(info2);
+        console.log(info2);
+        const unsubscribe = Firebase.firestore()
+          .collection("chatRooms")
+          .onSnapshot((querySnapshot) => {
+            const threads2 = querySnapshot.docs
+              .map((documentSnapshot) => {
+                if (info2.chatList.includes(documentSnapshot.id)) {
+                  //console.log(documentSnapshot.data().latest.createdAt);
+                  return {
+                    _id: documentSnapshot.id,
+                    userInfo:
+                      user.info.id != documentSnapshot.data().userInfo1
+                        ? documentSnapshot.data().userInfo1
+                        : documentSnapshot.data().userInfo2,
+                    pending:
+                      user.info.id == documentSnapshot.data().userInfo1
+                        ? documentSnapshot.data().pending1
+                        : documentSnapshot.data().pending2,
+                    ...documentSnapshot.data(),
+                  };
+                }
+              })
+              .filter(notUndefined)
+              .sort(
+                (a, b) =>
+                  new Date(b.latest.createdAt).getTime() -
+                  new Date(a.latest.createdAt).getTime()
+              );
+            //console.log(threads2);
+            setThreads(threads2);
+            if (loading) {
+              setLoading(false);
+              //console.log(threads);
+            }
+          });
+        setLoading2(false);
+        return () => unsubscribe();
+      })
+      .catch((error) => {
+        alert("Bir hata oluştu. Lütfen tekrar deneyin.");
+      });
+  };
 
   return user2.chatList.length > 0 ? (
     !loading ? (
       <View style={styles.common}>
-        <MainPageHeader headTitle={"Mesajlar"} nav={navigation} size={23} />
+        <ChatListHeader
+          headTitle={"Mesajlar"}
+          nav={navigation}
+          size={23}
+          handleRefresh={getMessages}
+        />
         <FlatList
           style={styles.root}
           data={threads}
@@ -116,6 +176,9 @@ const ChatList = ({ navigation, route }) => {
           ItemSeparatorComponent={() => {
             return <View style={styles.separator} />;
           }}
+          refreshControl={
+            <RefreshControl refreshing={loading2} onRefresh={getMessages} />
+          }
           renderItem={(item) => {
             const Notification = item.item;
             const info = getUser(Notification.userInfo);
@@ -189,7 +252,7 @@ const ChatList = ({ navigation, route }) => {
       </View>
     )
   ) : (
-    <NoChat nav={navigation} />
+    <NoChat nav={navigation} handleRefresh={getMessages} />
   );
 };
 

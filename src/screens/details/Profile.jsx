@@ -47,8 +47,8 @@ const Profile = ({ navigation }) => {
   }
   const savePressed = () => {
     setLoad(true);
-    if (isNaN(age)) {
-      Alert.alert("Hata", "Lütfen uygun bir yaş değeri giriniz.", [
+    if (isNaN(age) || age < 0) {
+      Alert.alert("Uyarı", "Lütfen uygun bir yaş değeri giriniz.", [
         {
           text: "Tamam",
           onPress: () => {

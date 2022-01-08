@@ -106,7 +106,9 @@ export default function RegisterScreen({ navigation }) {
           });
       })
       .catch((error) => {
-        alert("Bir hata oluştu. Lütfen tekrar deneyin.");
+        alert(
+          "Bu email adresi kullanımda. Başka bir email adresi ile tekrar deneyin."
+        );
         setLoad(false);
       });
   };
