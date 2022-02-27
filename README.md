@@ -15,3 +15,11 @@
 
 ### Demo Video
 - You can see the mobile application in this [video](https://www.youtube.com/watch?v=fz5PNSFN-Wk).
+
+### Tools and Technologies
+
+- In order to make this project following tools and technologies have been used.
+
+<p align="center">
+  <img width="700" height="400" src="https://i.ibb.co/ZSptFC3/tech2.png">
+</p>
