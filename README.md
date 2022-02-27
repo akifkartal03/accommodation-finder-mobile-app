@@ -8,7 +8,7 @@
 
 ### Brief Description
 
-- In this mobile application, GTU students can find a place such as public or private dormitory, house for rent around the university to stay.
+- In this mobile application, GTU students can find a place such as public or private dormitory around the university to stay and chat with other students to find a housemate.
 
 ### All Documents
 - You can check Final Presentation and Final Report pdf file to get more information.
