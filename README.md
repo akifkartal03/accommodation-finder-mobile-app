@@ -3,14 +3,14 @@
 ## Accommodation Finder Mobile Application for GTU Students
 
 <p align="center">
-  <img width="350" height="400" src="https://i.ibb.co/kS3ywk7/resim.png">
+  <img width="350" height="350" src="https://i.ibb.co/kS3ywk7/resim.png">
 </p>
 
 ### Brief Description
 
 In this mobile application, GTU students can find a place such as public or private dormitory, house for rent around the university to stay.
 
-### ALl Documents
+### All Documents
 - You can check Final Presentation and Final Report pdf file to get more information.
 
 ### Demo Video
