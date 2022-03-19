@@ -9,6 +9,7 @@
 ### Brief Description
 
 - In this mobile application, GTU students can find a place such as public or private dormitory around the university to stay and chat with other students to find a housemate.
+- In this project, I also tried to determine whether a dormitory comment is positive or negative. In order to do this, I have used some Natural Language Processing methods in my sentiment analysis module.
 
 ### All Documents
 - You can check Final Presentation and Final Report pdf file to get more information.
@@ -22,4 +23,12 @@
 
 <p align="center">
   <img width="700" height="400" src="https://i.ibb.co/ZSptFC3/tech2.png">
+</p>
+
+### Project Architecture
+
+- In order to make this project following architecture have been created.
+
+<p align="center">
+  <img width="700" height="400" src="https://i.ibb.co/mFHSkBQ/backend3.jpg">
 </p>
