@@ -1,4 +1,4 @@
-# CSE495 Graduation Project
+# CSE495 Graduation Project 1
 
 ## Accommodation Finder Mobile Application for GTU Students
 
